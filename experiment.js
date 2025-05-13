@@ -3,12 +3,19 @@ import * as neo from "./neo.js";
 import * as sigge from "./sigge.js";
 
 let usersInput = prompt("Write something!");
+
 if (usersInput === "neo") {
-    neo.hello();
+  neo.hello();
+} else if (usersInput === "neo food") {
+  neo.food();
 } else if (usersInput === "klara") {
-    klara.hello();
+  klara.hello();
+} else if (usersInput === "klara food") {
+  klara.food();
 } else if (usersInput === "sigge") {
-    sigge.hello();
+  sigge.hello();
+} else if (usersInput === "sigge food") {
+  sigge.food();
 } else {
-    console.log(usersInput)
+  console.log(usersInput);
 }
