@@ -1,0 +1,8 @@
+{
+    "users": [
+        { "id": 1, "username": "test1", "password": "test1", "score": 0}
+    ],
+    "quiz": [
+        
+    ]
+}

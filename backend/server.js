@@ -1,6 +1,8 @@
 import { serveFile, serveDir } from "jsr:@std/http";
 
-function handler(){
+async function handler(request){
+    const url = new URL(request.url);
+    const database = Deno.readTextFileSync("database.json");
     const headersCORS = new Headers();
 
     headersCORS.set("Access-Control-Allow-Origin", "*");
@@ -10,4 +12,13 @@ function handler(){
 
     if(request.method === "OPTIONS") { return new Response(null, {status: 204, headers: headersCORS}) };
 
+
+    if(request.method === "POST"){
+        if(url.pathname === "/login"){
+            for(let user of database.users){
+
+            }
+        }
+    }
 }
+Deno.serve(handler);
