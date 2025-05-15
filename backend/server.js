@@ -1,4 +1,4 @@
-import { serveFile, serveDir } from "jsr:@std/http";
+import { serveFile } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
