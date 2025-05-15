@@ -1,4 +1,4 @@
-import { serveFile, serveDir } from "jsr:@std/http";
+import { serveFile } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
@@ -15,9 +15,19 @@ async function handler(request){
 
     if(request.method === "GET"){
         if(url.pathname === "/"){
-            // servar hemsidan
             return await serveFile(request, "frontend/public/index.html");
-            return new Response(null, { status: 200, headers: headersCORS})
+        }
+        if(url.pathname === "/create"){
+            return await serveFile(request, "frontend/public/createGame.html");
+        }
+        if(url.pathname === "/play"){
+            return await serveFile(request, "frontend/public/play.html");
+        }
+        if(url.pathname === "/script.js"){
+            return await serveFile(request, "frontend/public/script.js");
+        }
+        if(url.pathname === "/style.css"){
+            return await serveFile(request, "frontend/public/style.css");
         }
     }
     if(request.method === "POST"){
