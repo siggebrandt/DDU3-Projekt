@@ -14,6 +14,7 @@ async function handler(request){
     if(request.method === "OPTIONS") { return new Response(null, { status: 204, headers: headersCORS} )};
 
     if(request.method === "GET"){
+        /* Webbsidor */
         if(url.pathname === "/"){
             return await serveFile(request, "frontend/public/index.html");
         }
@@ -32,7 +33,16 @@ async function handler(request){
         if(url.pathname === "/style.css"){
             return await serveFile(request, "frontend/public/style.css");
         }
+        
+        /* User */
+        if (url.pathname === "/user") {
+            return new Response(JSON.stringify("")) // array av alla användare
+        }
+        const userRount = new URLPattern({ pathname: "/user/:id" });
 
+        
+
+        /* Quiz */
         if (url.pathname == "/quiz/create") {
             const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
             let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
