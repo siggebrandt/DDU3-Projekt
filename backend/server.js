@@ -11,7 +11,7 @@ async function handler(request){
     headersCORS.set("Access-Control-Allow-Headers", "Content-Type");
     headersCORS.set("Content-Type", "application/json" );
 
-    if(request.method === "OPTIONS") { return new Response(null, {status: 204, headers: headersCORS}) };
+    if(request.method === "OPTIONS") { return new Response(null, { status: 204, headers: headersCORS} )};
 
     if(request.method === "GET"){
         if(url.pathname === "/"){
@@ -54,7 +54,7 @@ async function handler(request){
         if(url.pathname === "/login"){
             for(let user of data.users){
                 if(user.username === body.username && user.password === body.password){
-                    return new Response(JSON.stringify(user), { status: 200, headers: headersCORS})
+                    return new Response(JSON.stringify(user), { status: 200, headers: headersCORS })
                 } else {
                     return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
                 }
