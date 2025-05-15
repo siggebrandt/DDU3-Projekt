@@ -16,5 +16,14 @@
       <h2 id="createGameButton">Starta spel</h2>
     </div>
     <script src="script.js"></script>
+    <script>
+      const websiteURL = window.location.origin;
+      document.getElementById("createGameButton").addEventListener("click", function() { 
+        window.location.href = `${websiteURL}/create`
+      });
+      document.getElementById("joinGameButton").addEventListener("click", function() { 
+        window.location.href = `${websiteURL}/join`
+      });
+    </script>
   </body>
 </html>
