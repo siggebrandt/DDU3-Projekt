@@ -44,16 +44,6 @@ async function handler(request){
         }
     }
 
-    if (request.method === "POST") {
-        if (url.pathname === "/quiz/create") {
-            if (request.headers.get("content-type") !== "application/json") {
-                return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), {status: 406, headers: headersCORS});
-            }
-
-            
-        }
-    }
-
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
 
 }
