@@ -33,14 +33,26 @@ async function handler(request){
             return await serveFile(request, "frontend/public/style.css");
         }
     }
-    if(request.method === "POST"){
-        
-    }
+    
 
-    if (request.method === "GET") {
+    if (request.method === "POST") {
+        const body = await request.json();
+        if (request.headers.get("content-type") !== "application/json") {
+            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), {status: 406, headers: headersCORS});
+        }
+        if(url.pathname === "/login"){
+            for(let user of data.users){
+                if(user.username === body.username && user.password === body.password){
+                    return new Response(JSON.stringify(user), { status: 200, headers: headersCORS})
+                } else {
+                    return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
+                }
+            }
+
+        }
         if (url.pathname === "/quiz") {
-            headersCORS.set("content-type", "application/json");
-            return new Response(JSON.stringify(database), {headers: headersCORS});
+            
+
         }
     }
 
