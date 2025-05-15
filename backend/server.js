@@ -32,13 +32,24 @@ async function handler(request){
         if(url.pathname === "/style.css"){
             return await serveFile(request, "frontend/public/style.css");
         }
+
+        if (url.pathname == "/quiz/create") {
+            const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
+            let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
+            quizQuestions = await quizQuestions.json();
+            if (quizQuestions.response_code === 0) {
+                console.log(quizQuestions)
+                return new Response(JSON.stringify(quizQuestions, null, 2), { status: 200, headers: headersCORS })
+            } else {
+                return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
+            }
+        }
     }
-    
 
     if (request.method === "POST") {
         const body = await request.json();
         if (request.headers.get("content-type") !== "application/json") {
-            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), {status: 406, headers: headersCORS});
+            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
         }
         if(url.pathname === "/login"){
             for(let user of data.users){
@@ -48,11 +59,6 @@ async function handler(request){
                     return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
                 }
             }
-
-        }
-        if (url.pathname === "/quiz") {
-            
-
         }
     }
 
