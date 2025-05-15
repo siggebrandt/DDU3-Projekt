@@ -4,10 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
-        
+        <div id="test1">
+            <h2>Test 1</h2>
+            <p><b>GET</b> request to endpoint /quiz</p>
+            <p>Expected Response status: <b>200 OK</b></p>
+            <p>Expected Response body: <b>Array of quiz objects</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test2">
+            <h2>Test 2</h2>
+            <p><b>POST</b> request to endpoint /quiz/create</p>
+            <p>Request body: <b>JSON-formatted object with question objects from Trivia API</b></p>
+            <p>Expected Response status: <b>201 Created</b></p>
+            <p>Expected Response body: <b>Quiz object containing quiz-token</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test3">
+            <h2>Test 3</h2>
+            <p><b>POST</b> request to endpoint /quiz/create</p>
+            <p>Request body: <b>null (Trivia API response code is not 0)</b></p>
+            <p>Expected Response status: <b>400 Bad Request</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test4">
+            <h2>Test 4</h2>
+            <p><b>POST</b> request to endpoint /quiz/join</p>
+            <p>Request body: <b>JSON-formatted object containing username and quiz-token</b></p>
+            <p>Expected Response status: <b>200 OK</b></p>
+            <p>Expected Response body: <b>Quiz-object</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test5">
+            <h2>Test 5</h2>
+            <p><b>POST</b> request to endpoint /quiz/join</p>
+            <p>Request body: <b>JSON-formatted object missing username and/or quiz-token</b></p>
+            <p>Expected Response status: <b>400 Bad Request</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test6">
+            <h2>Test 6</h2>
+            <p><b>POST</b> request to endpoint /quiz/join</p>
+            <p>Request body: <b>JSON-formatted object, where quiz-token does not exist in database</b></p>
+            <p>Expected Response status: <b>404 Not Found</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test7">
+            <h2>Test 7</h2>
+            <p><b>POST</b> request to endpoint /quiz/join</p>
+            <p>Request body: <b>JSON-formatted object, where quiz-token does exist in database, but quiz is already started or finished</b></p>
+            <p>Expected Response status: <b>409 Conflict</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test8">
+            <h2>Test 8</h2>
+            <p><b>GET</b> request to endpoint /quiz/result?token="token"</p>
+            <p>Expected Response status: <b>200 OK</b></p>
+            <p>Expected Response body: <b>Quiz results object/array</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test9">
+            <h2>Test 9</h2>
+            <p><b>GET</b> request to endpoint /quiz/result?token="token" where token does not exist in database</p>
+            <p>Expected Response status: <b>404 Not Found</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
+        <div id="test10">
+            <h2>Test 10</h2>
+            <p><b>GET</b> request to endpoint /quiz/result?token="token" where token does exist in database, but quiz is not finished.</p>
+            <p>Expected Response status: <b>409 Conflict</b></p>
+            <p>Expected Response body: <b>JSON-formatted string</b></p>
+            <p class="status">Status...</p>
+        </div>
     </main>
+    <script src="test.js"></script>
 </body>
 </html>
