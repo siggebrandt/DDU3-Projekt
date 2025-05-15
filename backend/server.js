@@ -18,6 +18,12 @@ async function handler(request){
         if(url.pathname === "/"){
             return await serveFile(request, "frontend/public/index.html");
         }
+        if(url.pathname === "/create"){
+            return await serveFile(request, "frontend/public/createGame.html");
+        }
+        if(url.pathname === "/join"){
+            return await serveFile(request, "frontend/public/joinGame.html");
+        }
         if(url.pathname === "/play"){
             return await serveFile(request, "frontend/public/play.html");
         }
@@ -30,9 +36,41 @@ async function handler(request){
         
         /* User */
         if (url.pathname === "/user") {
-            return new Response(JSON.stringify(data.users), {headers: headersCORS}); // array av alla användare
+            return new Response(JSON.stringify("")) // array av alla användare
         }
-        const userRount = new URLPattern({ pathname: "/user/:id" });
+
+        const userRoute = new URLPattern({ pathname: "/user/:id" });
+        const userMatch = userRoute.exec(request.url);
+        if (userMatch) {
+            const userID = userMatch.pathname.groups.id;
+            // loopa igenom alla användare, och hitta användaren med ID:et
+            /** const entry = arrayOfUsers.find(
+                (entry) => entry.name.toLowerCase() == userID.toLowerCase()
+                );
+             * if (entry) {
+                return new Response(JSON.stringify(entry));
+                } else {
+                 return new Response(null, { status: 404, headers: headersCORS });
+                });
+             *  } */
+        }
+
+        /* User Settings */
+        const userSettingsRoute = new URLPattern({ pathname: "/settings/:id" });
+        const userSettingsMatch = userSettingsRoute.exec(request.url);
+        if (userSettingsMatch) {
+            const userID = userSettingsMatch.pathname.groups.id;
+            // loopa igenom alla användare, och hitta användaren med ID:et
+            /** const entry = arrayOfUsers.find(
+                (entry) => entry.name.toLowerCase() == userID.toLowerCase()
+                );
+             * if (entry) {
+                return new Response(JSON.stringify(entry.settings));
+                } else {
+                 return new Response(null, { status: 404, headers: headersCORS });
+                });
+             *  } */
+        }
 
         
 
@@ -87,12 +125,10 @@ async function handler(request){
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(user), { status: 201, headers: headersCORS})
-            }    
+            }
         }
     }
 
-<<<<<<< Updated upstream
-=======
     if (request.method === "PATCH") {
         const body = await request.json();
         if (request.headers.get("content-type") !== "application/json") {
@@ -113,7 +149,6 @@ async function handler(request){
             //
         }
     }
->>>>>>> Stashed changes
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
 
 }
