@@ -1,0 +1,27 @@
+body{
+    margin: 100px 150px;
+}
+/* start sidan */
+#logo{
+    display: flex;
+    justify-content: center;
+}
+#logo h1{
+    width: fit-content;
+    background-color: rgb(243, 246, 159);
+    padding: 30px;
+    border-radius: 5px;
+
+}
+#getStarted{
+    display: flex;
+    justify-content: space-between;
+}
+#getStarted h2{
+    padding: 100px 0;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(181, 215, 181);
+    width: 400px;
+    font-size: 36px;
+}

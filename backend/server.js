@@ -21,16 +21,7 @@ async function handler(request){
         }
     }
     if(request.method === "POST"){
-        if(url.pathname === "/login"){
-            const body = await request.json();
-            for(let user of data.users){
-                if(user.username === body.username && user.password === body.password){
-                    return new Response(JSON.stringify(user), { status: 200, headers: headersCORS})
-                } else {
-                    return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
-                }
-            }
-        }
+        
     }
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
 
