@@ -17,10 +17,27 @@ async function handler(request){
         if(url.pathname === "/"){
             return new Response(null, { status: 200, headers: headersCORS})
         }
+<<<<<<< Updated upstream
     }
     if(request.method === "POST"){
         if(url.pathname === "/login"){
             const body = await request.json();
+=======
+        if (url.pathname === "/quiz") {
+            headersCORS.set("content-type", "application/json");
+            return new Response(JSON.stringify(database), {headers: headersCORS});
+        }
+    }
+
+    
+
+    if (request.method === "POST") {
+        const body = await request.json();
+        if (request.headers.get("content-type") !== "application/json") {
+            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), {status: 406, headers: headersCORS});
+        }
+        if(url.pathname === "/login"){
+>>>>>>> Stashed changes
             for(let user of data.users){
                 if(user.username === body.username && user.password === body.password){
                     return new Response(JSON.stringify(user), { status: 200, headers: headersCORS})
@@ -28,6 +45,12 @@ async function handler(request){
                     return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
                 }
             }
+<<<<<<< Updated upstream
+=======
+        }
+        if (url.pathname === "/quiz") {
+            
+>>>>>>> Stashed changes
         }
     }
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
