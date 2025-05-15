@@ -16,7 +16,7 @@ async function handler(request){
     if(request.method === "GET"){
         if(url.pathname === "/"){
             // servar hemsidan
-            return await serveFile(request, "../frontend/public/index.html");
+            return await serveFile(request, "frontend/public/index.html");
             return new Response(null, { status: 200, headers: headersCORS})
         }
     }
