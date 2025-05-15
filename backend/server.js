@@ -2,7 +2,7 @@ import { serveFile } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("backend/database.json");
+    const database = Deno.readTextFileSync("database.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
