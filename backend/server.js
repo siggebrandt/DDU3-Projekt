@@ -59,10 +59,9 @@ async function handler(request){
             for(let user of data.users){
                 if(user.username === body.username && user.password === body.password){
                     return new Response(JSON.stringify(user), { status: 200, headers: headersCORS })
-                } else {
-                    return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
                 }
             }
+            return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
         }
         if(url.pathname === "/register"){
             if(body.username && body.password){
@@ -85,7 +84,7 @@ async function handler(request){
                     score: 0
                 }
                 data.users.push(user);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(user), { status: 201, headers: headersCORS})
             }    
         }
