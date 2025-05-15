@@ -2,7 +2,7 @@ import { serveFile, serveDir } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("database.json");
+    const database = Deno.readTextFileSync("backend/database.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
@@ -16,7 +16,7 @@ async function handler(request){
     if(request.method === "GET"){
         if(url.pathname === "/"){
             // servar hemsidan
-            return await serveFile(request, "frontend/public/index.html");
+            return await serveFile(request, "../frontend/public/index.html");
             return new Response(null, { status: 200, headers: headersCORS})
         }
     }
