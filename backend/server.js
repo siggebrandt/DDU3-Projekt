@@ -91,6 +91,29 @@ async function handler(request){
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    if (request.method === "PATCH") {
+        const body = await request.json();
+        if (request.headers.get("content-type") !== "application/json") {
+            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
+        }
+        //* User Settings */
+        if (url.pathname === "/settings/changePassword") {
+            //
+        }
+    }
+
+    if (request.method === "DELETE") {
+        const body = await request.json();
+        if (request.headers.get("content-type") !== "application/json") {
+            return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
+        }
+        if (url.pathname === "/settings/deleteAccount") {
+            //
+        }
+    }
+>>>>>>> Stashed changes
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
 
 }
