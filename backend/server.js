@@ -50,6 +50,31 @@ async function handler(request){
             }
 
         }
+        if(url.pathname === "/register"){
+            if(body.username && body.password){
+                if(data.users.some(user => user.username === body.username)){
+                    return new Response(JSON.stringify("Conflict, username already exists"), { status: 409, headers: headersCORS })
+                }
+                const username = body.username;
+                const password  = body.password;
+                let highestId = -1;
+                for(let { id } of data.users){
+                    if (id > highestId){
+                        highestId = id;
+                    }
+                }
+                const userId = highestId + 1;
+                const user = {
+                    id: userId,
+                    username: username,
+                    password: password,
+                    score: 0
+                }
+                data.users.push(user);
+                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                return new Response(JSON.stringify(user), { status: 201, headers: headersCORS})
+            }    
+        }
         if (url.pathname === "/quiz") {
             
 
