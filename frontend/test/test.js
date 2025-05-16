@@ -25,7 +25,7 @@ async function test1() {
 }
 
 async function test2() {
-    
+    let resp = await fetch("http://localhost:8000/user/0");
 }
 
 async function test4() {
