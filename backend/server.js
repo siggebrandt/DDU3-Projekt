@@ -75,6 +75,10 @@ async function handler(request){
         
 
         /* Quiz */
+        if (url.pathname === "/quiz") {
+            return new Response(JSON.stringify(data.quiz), {headers: headersCORS});
+        }
+
         if (url.pathname == "/quiz/create") {
             const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
             let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
@@ -97,10 +101,9 @@ async function handler(request){
             for(let user of data.users){
                 if(user.username === body.username && user.password === body.password){
                     return new Response(JSON.stringify(user), { status: 200, headers: headersCORS })
-                } else {
-                    return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
                 }
             }
+            return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
         }
         if(url.pathname === "/register"){
             if(body.username && body.password){
