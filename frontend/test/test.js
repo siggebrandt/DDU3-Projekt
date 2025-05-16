@@ -46,11 +46,11 @@ async function test2() {
 async function test3() {
     let resp = await fetch("http://localhost:8000/user/427164712421");
     if (resp.status === 404) {
-        document.querySelector("#test2").classList.add("success");
-        document.querySelector("#test2 .status").textContent = "Success!";
+        document.querySelector("#test3").classList.add("success");
+        document.querySelector("#test3 .status").textContent = "Success!";
     } else {
-        document.querySelector("#test2").classList.add("fail");
-        document.querySelector("#test2 .status").textContent = "Failed!";
+        document.querySelector("#test3").classList.add("fail");
+        document.querySelector("#test3 .status").textContent = "Failed!";
     }
 }
 
