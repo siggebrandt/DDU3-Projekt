@@ -47,7 +47,7 @@ async function handler(request){
             if (user) {
                 return new Response(JSON.stringify(user), {headers: headersCORS});
             } else {
-                return new Response(JSON.stringify("Not Found, No user with that ID was found"), {status: 410, headers: headersCORS});
+                return new Response(JSON.stringify("Not Found, No user with that ID was found"), {status: 404, headers: headersCORS});
             }
             // loopa igenom alla användare, och hitta användaren med ID:et
             /** const entry = arrayOfUsers.find(
