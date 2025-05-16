@@ -1,5 +1,6 @@
 async function tester() {
     await test1();
+    await test2();
     let credentials = await test4();
     await test6(credentials);
     await test7(credentials);
@@ -26,6 +27,19 @@ async function test1() {
 
 async function test2() {
     let resp = await fetch("http://localhost:8000/user/0");
+    if (resp.status === 200) {
+        let reso = await resp.json();
+        if (reso.id === 0) {
+            document.querySelector("#test2").classList.add("success");
+            document.querySelector("#test2 .status").textContent = "Success!";
+        } else {
+            document.querySelector("#test2").classList.add("fail");
+            document.querySelector("#test2 .status").textContent = "Failed!";
+        }
+    } else {
+        document.querySelector("#test2").classList.add("fail");
+        document.querySelector("#test2 .status").textContent = "Failed!";
+    }
 }
 
 async function test4() {
