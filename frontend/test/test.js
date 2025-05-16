@@ -4,6 +4,7 @@ async function tester() {
     await test6(credentials);
     await test7(credentials);
     await test9();
+    await test21();
     await test24();
     await test25();
 }
@@ -96,6 +97,23 @@ async function test9() {
     } else {
         document.querySelector("#test9").classList.add("fail");
         document.querySelector("#test9 .status").textContent = "Failed!";
+    }
+}
+
+async function test21() {
+    let resp = await fetch("http://localhost:8000/quiz");
+    if (resp.status === 200) {
+        let reso = await resp.json();
+        if (typeof reso === "object") {
+            document.querySelector("#test21").classList.add("success");
+            document.querySelector("#test21 .status").textContent = "Success!";
+        } else {
+            document.querySelector("#test21").classList.add("fail");
+            document.querySelector("#test21 .status").textContent = "Failed!";
+        }
+    } else {
+        document.querySelector("#test21").classList.add("fail");
+        document.querySelector("#test21 .status").textContent = "Failed!";
     }
 }
 
