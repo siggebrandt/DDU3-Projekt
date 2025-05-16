@@ -42,7 +42,7 @@ async function handler(request){
         const userRoute = new URLPattern({ pathname: "/user/:id" });
         const userMatch = userRoute.exec(request.url);
         if (userMatch) {
-            const userID = ParseInt(userMatch.pathname.groups.id);
+            const userID = parseInt(userMatch.pathname.groups.id);
             let user = data.users.find((user) => user.id === userID);
             if (user) {
                 return new Response(JSON.stringify(user), {headers: headersCORS});
