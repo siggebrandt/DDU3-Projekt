@@ -36,7 +36,7 @@ async function handler(request){
         
         /* User */
         if (url.pathname === "/user") {
-            return new Response(JSON.stringify("")) // array av alla användare
+            return new Response(JSON.stringify(data.users), {headers: headersCORS}); // array av alla användare
         }
 
         const userRoute = new URLPattern({ pathname: "/user/:id" });
