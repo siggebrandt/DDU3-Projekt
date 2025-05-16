@@ -24,6 +24,10 @@ async function test1() {
     }
 }
 
+async function test2() {
+    
+}
+
 async function test4() {
     let num = Math.floor(Math.random() * 1000000);
     let req = new Request("http://localhost:8000/register", {
