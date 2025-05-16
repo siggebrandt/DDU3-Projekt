@@ -2,7 +2,7 @@ import { serveFile } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("backend/database.json");
+    const database = Deno.readTextFileSync("database.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
@@ -43,6 +43,12 @@ async function handler(request){
         const userMatch = userRoute.exec(request.url);
         if (userMatch) {
             const userID = userMatch.pathname.groups.id;
+            let user = data.users.find((user) => user.id === userID);
+            if (user) {
+                return new Response(JSON.stringify(user), {headers: headersCORS});
+            } else {
+                return new Response(JSON.stringify("Not Found, No user with that ID was found"), {status: 410, headers: headersCORS});
+            }
             // loopa igenom alla användare, och hitta användaren med ID:et
             /** const entry = arrayOfUsers.find(
                 (entry) => entry.name.toLowerCase() == userID.toLowerCase()
