@@ -6,6 +6,8 @@ async function tester() {
     await test6(credentials);
     await test7(credentials);
     await test9();
+    await test11();
+    await test12();
     await test21();
     await test24();
     await test25();
@@ -131,7 +133,33 @@ async function test9() {
 }
 
 async function test11() {
-    let req = new Request("http://localhost/following/0");
+    let req = new Request("http://localhost:8000/following/0");
+    let resp = await fetch(req);
+    if (resp.status === 200) {
+        let reso = await resp.json();
+        if (Array.isArray(reso)) {
+            document.querySelector("#test11").classList.add("success");
+            document.querySelector("#test11 .status").textContent = "Success!";
+        } else {
+            document.querySelector("#test11").classList.add("fail");
+            document.querySelector("#test11 .status").textContent = "Failed!";
+        }
+    } else {
+        document.querySelector("#test11").classList.add("fail");
+        document.querySelector("#test11 .status").textContent = "Failed!";
+    }
+}
+
+async function test12() {
+    let req = new Request("http://localhost:8000/following/2894124687125");
+    let resp = await fetch(req);
+    if (resp.status === 404) {
+        document.querySelector("#test12").classList.add("success");
+        document.querySelector("#test12 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test12").classList.add("fail");
+        document.querySelector("#test12 .status").textContent = "Failed!";
+    }
 }
 
 async function test21() {
