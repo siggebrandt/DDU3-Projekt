@@ -88,8 +88,8 @@ async function handler(request){
             if (quizQuestions.response_code === 0) {
                 let obj = {
                     questions: quizQuestions.results,
-                    category: "Sports",
-                    difficulty: "Hard",
+                    category: quizQuestions.results[0].category,
+                    difficulty: body.difficulty,
                     playedBy: [],
                     id: id
                 }
