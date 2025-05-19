@@ -1,8 +1,60 @@
+/* --- Färg Variabler --- */
+:root {
+    /* colors */
+    /* --colorA: #050505;
+    --colorB: #121212;
+    --colorC: #353535;
+    --colorD: #666666;
+    --colorE: #7f7f7f;
+    --colorF: #999999;
+    --colorG: #e5e5e5;
+    --colorH: #f4f4f4;
+    --colorI: #087fe7; */
+    /* box shadow */
+    /* --boxShadowA: rgba(0, 0, 0, 0.1);
+    --boxShadowB: rgba(0, 0, 0, 0.2); */
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", system-ui;
+    border: 0;
+}
 body{
+    background-color: #f9fdf4;
+}
+main {
     margin: 100px 150px;
 }
-/* start sidan */
+/* -- Universal Classes -- */
+.flexContainer {
+    display: flex;
+}
+.flexItem {
+    flex: 1 1 0;
+}
+.flexSpaceBetween {
+    justify-content: space-between;
+}
+.flexJustifyCenter {
+    justify-content: center;
+}
+.flexDirectionColumn {
+    flex-direction: column;
+}
+.flexAlignCenter {
+    align-items: center;
+}
+
+/* -- Nav -- */
+header {
+    
+}
+
+
+/* -- Home Page -- */
 #logo{
     display: flex;
     justify-content: center;
