@@ -22,12 +22,12 @@ async function handler(request){
         if(url.pathname === "/"){
             return await serveFile(request, "frontend/public/index.html");
         }
-        if(url.pathname === "/create"){
+        /* if(url.pathname === "/create"){
             return await serveFile(request, "frontend/public/createGame.html");
         }
         if(url.pathname === "/join"){
             return await serveFile(request, "frontend/public/joinGame.html");
-        }
+        } */
         if(url.pathname === "/play"){
             return await serveFile(request, "frontend/public/play.html");
         }
