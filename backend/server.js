@@ -80,17 +80,27 @@ async function handler(request){
             return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
         }
         if(url.pathname === "/login"){
-            for(let user of data.users){
-                if(user.username === body.username && user.password === body.password){
-                    return new Response(JSON.stringify(user), { status: 200, headers: headersCORS })
-                }
+            if (!body.username || !body.password) {
+                return new Response(JSON.stringify("Bad Request, Attributes missing"), {status: 400, headers: headersCORS});
             }
-            return new Response(JSON.stringify("Not found, username and password do not match!"), { status: 404, headers: headersCORS })
+            let user = data.users.find((user) => user.username === body.username);
+            if (user) {
+                if (user.password === body.password) {
+                    return new Response(JSON.stringify(user), {headers: headersCORS});
+                } else {
+                    return new Response(JSON.stringify("Incorrect password"), {status: 401, headers: headersCORS});
+                }
+            } else {
+                return new Response(JSON.stringify("User Not found"), { status: 404, headers: headersCORS });
+            }
         }
         if(url.pathname === "/register"){
             if(body.username && body.password){
                 if(data.users.some(user => user.username === body.username)){
                     return new Response(JSON.stringify("Conflict, username already exists"), { status: 409, headers: headersCORS })
+                }
+                if (!body.username || !body.password) {
+                    return new Response(JSON.stringify("Bad Request, Attributes missing", {status: 400, headers: headersCORS}));
                 }
                 const username = body.username;
                 const password  = body.password;
