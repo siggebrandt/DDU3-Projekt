@@ -3,26 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>QuizSite</title>
   </head>
   <body>
-    <div id="logo">
-      <!-- img? logga kanske -->
-      <h1>Välkommen</h1>
-    </div>
-    <div id="getStarted">
-      <h2 id="joinGameButton">Gå med i spel</h2>
-      <h2 id="createGameButton">Starta spel</h2>
-    </div>
+    <nav class="flexContainer">
+      <div id="logo" class="flexItem">
+        <h1>QuizSite</h1> <!--logo img?-->
+      </div>
+      <div class="flexItem"></div>
+      <div id="navLinks" class="flexContainer flexItem">
+        <!-- detta byts ut med JS sedan beroende på om användaren är inloggad eller inte :D -->
+        <button id="loginButton" class="navButton">Login</button>
+        <button id="registerButton" class="navButton">Register</button>
+      </div>
+    </nav>
+    <main>
+      <h2>Välkommen! Välj ett quiz nedan;</h2>
+      <div id="quizes">
+        <div class="quizBox">General Knowledge</div>
+        <div class="quizBox">Movies</div>
+        <div class="quizBox">Music</div>
+      </div>
+      <!-- <div id="getStarted">
+        <h2 id="joinGameButton">Gå med i spel</h2>
+        <h2 id="createGameButton">Starta spel</h2>
+      </div> -->
+    </main>
     <script src="script.js"></script>
-    <script>
-      document.getElementById("createGameButton").addEventListener("click", function() { 
-        window.location.href = `${websiteURL}/create`
-      });
-      document.getElementById("joinGameButton").addEventListener("click", function() { 
-        window.location.href = `${websiteURL}/join`
-      });
-    </script>
   </body>
 </html>
