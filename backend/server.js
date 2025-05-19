@@ -2,7 +2,7 @@ import { serveFile } from "jsr:@std/http";
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("backend/database.json");
+    const database = Deno.readTextFileSync("database.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
@@ -89,9 +89,24 @@ async function handler(request){
             const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
             let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
             quizQuestions = await quizQuestions.json();
+            let sortedDb = data.quiz.sort((a, b) => b.id - a.id);
+            let id;
+            if (sortedDb.length === 0) {
+                id = 1;
+            } else {
+                id = sortedDb[0].id + 1
+            }
             if (quizQuestions.response_code === 0) {
-                console.log(quizQuestions)
-                return new Response(JSON.stringify(quizQuestions, null, 2), { status: 200, headers: headersCORS })
+                let obj = {
+                    questions: quizQuestions.results,
+                    category: "Sports",
+                    difficulty: "Hard",
+                    playedBy: [],
+                    id: id
+                }
+                data.quiz.push(obj);
+                Deno.writeTextFileSync("database.json", JSON.stringify(data));
+                return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
             } else {
                 return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
             }
