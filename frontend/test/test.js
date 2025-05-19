@@ -3,9 +3,12 @@ async function tester() {
     await test2();
     await test3();
     let credentials = await test4();
+    await test5();
     await test6(credentials);
     await test7(credentials);
+    await test8();
     await test9();
+    await test10(credentials);
     await test11();
     await test12();
     await test21();
@@ -79,6 +82,23 @@ async function test4() {
     }
 }
 
+async function test5() {
+    let req = new Request("http://localhost:8000/register", {
+        method: "POST",
+        body: JSON.stringify({username: "test"}),
+        headers: {"content-type": "application/json"}
+    });
+
+    let resp = await fetch(req);
+    if (resp.status === 400) {
+        document.querySelector("#test5").classList.add("success");
+        document.querySelector("#test5 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test5").classList.add("fail");
+        document.querySelector("#test5 .status").textContent = "Failed!";
+    }
+}
+
 async function test6(credentials) {
     let req = new Request("http://localhost:8000/register", {
         method: "POST",
@@ -116,6 +136,22 @@ async function test7(credentials) {
     }
 }
 
+async function test8() {
+    let req = new Request("http://localhost:8000/login", {
+        method: "POST",
+        body: JSON.stringify({username: "test"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 400) {
+        document.querySelector("#test8").classList.add("success");
+        document.querySelector("#test8 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test8").classList.add("fail");
+        document.querySelector("#test8 .status").textContent = "Failed!";
+    }
+}
+
 async function test9() {
     let req = new Request("http://localhost:8000/login", {
         method: "POST",
@@ -129,6 +165,22 @@ async function test9() {
     } else {
         document.querySelector("#test9").classList.add("fail");
         document.querySelector("#test9 .status").textContent = "Failed!";
+    }
+}
+
+async function test10(credentials) {
+    let req = new Request("http://localhost:8000/login", {
+        method: "POST",
+        body: JSON.stringify({username: credentials.username, password: "wrong"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 401) {
+        document.querySelector("#test10").classList.add("success");
+        document.querySelector("#test10 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test10").classList.add("fail");
+        document.querySelector("#test10 .status").textContent = "Failed!";
     }
 }
 

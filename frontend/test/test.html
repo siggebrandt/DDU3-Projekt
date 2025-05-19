@@ -33,7 +33,7 @@
             <h2>Test 4</h2>
             <p><b>POST</b> request to endpoint /register</p>
             <p>Request body: Object with user credentials</p>
-            <p>{email: string, username: string, password: string}</p>
+            <p>{username: string, password: string}</p>
             <p>Expected Response status: <b>200 OK</b></p>
             <p>Expected Response body: <b>User object with credentials + ID</b></p>
             <p class="status">Status...</p>
@@ -42,7 +42,7 @@
             <h2>Test 5</h2>
             <p><b>POST</b> request to endpoint /register</p>
             <p>Request body: Object with missing user credentials</p>
-            <p>{username: string, password: string}</p>
+            <p>{username: string}</p>
             <p>Expected Response status: <b>400 Bad Request</b></p>
             <p>Expected Response body: <b>JSON-formatted string</b></p>
             <p class="status">Status...</p>
@@ -51,7 +51,7 @@
             <h2>Test 6</h2>
             <p><b>POST</b> request to endpoint /register</p>
             <p>Request body: Object with user credentials where username or email already exists in the database</p>
-            <p>{email: string, username: string, password: string}</p>
+            <p>{username: string, password: string}</p>
             <p>Expected Response status: <b>409 Conflict</b></p>
             <p>Expected Response body: <b>JSON-formatted string</b></p>
             <p class="status">Status...</p>
@@ -86,7 +86,7 @@
         <div id="test10">
             <h2>Test 10</h2>
             <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object where username exists, but password doesnt match</p>
+            <p>Request body: Object where username exists, but password don't match</p>
             <p>{username: string, password: string}</p>
             <p>Expected Response status: <b>401 Unauthorized</b></p>
             <p>Expected Response body: <b>JSON-formatted string</b></p>
