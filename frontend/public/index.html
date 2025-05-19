@@ -3,26 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <div id="logo">
       <!-- img? logga kanske -->
-      <h1>Välkommen</h1>
+      <h1>Välkommen to Quizsite!</h1>
+      <h2>Pick a Quiz below:</h2>
+    </div>
+    <div id="quizes">
+      <div class="quizBox">General Knowledge</div>
+      <div class="quizBox">General Knowledge</div>
+      <div class="quizBox">General Knowledge</div>
     </div>
     <div id="getStarted">
       <h2 id="joinGameButton">Gå med i spel</h2>
       <h2 id="createGameButton">Starta spel</h2>
     </div>
     <script src="script.js"></script>
-    <script>
-      document.getElementById("createGameButton").addEventListener("click", function() { 
-        window.location.href = `${websiteURL}/create`
-      });
-      document.getElementById("joinGameButton").addEventListener("click", function() { 
-        window.location.href = `${websiteURL}/join`
-      });
-    </script>
   </body>
 </html>
