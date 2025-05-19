@@ -6,7 +6,7 @@ function findUser(arrayOfUsers, userID) {
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("database.json");
+    const database = Deno.readTextFileSync("backend/database.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
@@ -133,7 +133,7 @@ async function handler(request){
                     id: id
                 }
                 data.quiz.push(obj);
-                Deno.writeTextFileSync("database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
             } else {
                 return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
