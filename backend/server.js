@@ -109,7 +109,7 @@ async function handler(request){
                     following: []
                 }
                 data.users.push(user);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(user), { status: 201, headers: headersCORS })
             }
         }
@@ -134,7 +134,7 @@ async function handler(request){
                     id: id
                 }
                 data.quiz.push(obj);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
             } else {
                 return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
