@@ -59,7 +59,7 @@ async function handler(request){
         const userFollowingRoute = new URLPattern({ pathname: "/following/:id" });
         const userFollowingMatch = userFollowingRoute.exec(request.url);
         if (userFollowingMatch) {
-            const userID = userFollowingMatch.pathname.groups.id;
+            const userID = parseInt(userFollowingMatch.pathname.groups.id);
             let user = findUser(data.users, userID);
             if (user) {
                 return new Response(JSON.stringify(user.following), { headers: headersCORS });

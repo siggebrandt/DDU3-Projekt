@@ -24,9 +24,11 @@
 }
 body{
     background-color: #f9fdf4;
+    max-height: 100vh;
+    overflow: hidden;
 }
 main {
-    margin: 100px 150px;
+    margin: 65px 150px;
 }
 /* -- Universal Classes -- */
 .flexContainer {
@@ -50,6 +52,7 @@ main {
 
 /* -- Nav -- */
 nav {
+    max-height: 120px;
     padding: 15px 150px;
     background-color: #CFE1B9;
 }
@@ -63,6 +66,7 @@ nav {
     height: 50px;
     border-radius: 7px;
     background-color: #97A97C;
+    color: white;
 }
 
 header {
@@ -80,7 +84,7 @@ header {
     background-color: #718355 /*rgb(243, 246, 159)*/;
     padding: 30px;
     border-radius: 5px;
-
+color: white;
 }
 #getStarted{
     display: flex;
