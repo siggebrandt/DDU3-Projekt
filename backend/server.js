@@ -15,7 +15,7 @@ async function handler(request){
     headersCORS.set("Access-Control-Allow-Headers", "Content-Type");
     headersCORS.set("Content-Type", "application/json" );
 
-    if(request.method === "OPTIONS") { return new Response(null, { status: 204, headers: headersCORS} )};
+    if(request.method === "OPTIONS") { return new Response(null, { status: 204, headers: headersCORS })};
 
     if(request.method === "GET"){
         /* Webbsidor */
@@ -39,7 +39,7 @@ async function handler(request){
         }
         
         /* User */
-        if (url.pathname === "/user") {
+        if (url.pathname === "/users") {
             return new Response(JSON.stringify(data.users), { headers: headersCORS }); // array av alla användare
         }
 
@@ -61,17 +61,21 @@ async function handler(request){
         if (userSettingsMatch) {
             const userID = userSettingsMatch.pathname.groups.id;
             let user = findUser(data.users, userID);
+            if (user) {
+                return new Response(JSON.stringify(user.settings), { headers: headersCORS });
+            } else {
+                return new Response(JSON.stringify("Not Found, No user with that ID was found"), { status: 404, headers: headersCORS });
+            }
         }
-
-        
 
         /* Quiz */
         if (url.pathname === "/quiz") {
-            return new Response(JSON.stringify(data.quiz), {headers: headersCORS});
+            return new Response(JSON.stringify(data.quiz), { headers: headersCORS });
         }
 
         if (url.pathname == "/quiz/create") {
             const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
+            // Kategorier:  general knowledge: 9, filmer: 11, mygologi: 20, kändisar: 26, animals: 27, musik: 12
             let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
             quizQuestions = await quizQuestions.json();
             if (quizQuestions.response_code === 0) {
@@ -118,7 +122,7 @@ async function handler(request){
                 }
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
-                return new Response(JSON.stringify(user), { status: 201, headers: headersCORS})
+                return new Response(JSON.stringify(user), { status: 201, headers: headersCORS })
             }
         }
     }
