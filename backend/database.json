@@ -1,1 +1,133 @@
-{"users":[],"quiz":[{"questions":[{"type":"multiple","difficulty":"hard","category":"Sports","question":"Which of these European cities was the first to host the modern Summer Olympic Games three times?","correct_answer":"London","incorrect_answers":["Paris","Athens","Rome"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"In Canadian football, scoring a rouge is worth how many points?","correct_answer":"1","incorrect_answers":["2","3","4"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"Which of these Russian cities did NOT contain a stadium that was used in the 2018 FIFA World Cup?","correct_answer":"Vladivostok","incorrect_answers":["Rostov-on-Don","Yekaterinburg","Kaliningrad"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"With which doubles partner did John McEnroe have most success?","correct_answer":"Peter Fleming","incorrect_answers":["Mark Woodforde","Michael Stich","Mary Carillo"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"Which English football team is nicknamed &#039;The Tigers&#039;?","correct_answer":"Hull City","incorrect_answers":["Cardiff City","Bristol City","Manchester City"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"Who won the 1998 Daytona 500?","correct_answer":"Dale Earnhardt","incorrect_answers":["John Anderson","Jeff Gordon","Michael Walltrip"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"Which year was the third Super Bowl held?","correct_answer":"1969","incorrect_answers":["1968","1971","1970"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"At which race was the 2018 F1 Drivers Championship won?","correct_answer":"Mexico","incorrect_answers":["United States","Belgium","Abu Dhabi"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"Which female player won the gold medal of table tennis singles in 2016 Olympics Games?","correct_answer":"DING Ning (China)","incorrect_answers":["LI Xiaoxia (China)","Ai FUKUHARA (Japan)","Song KIM (North Korea)"]},{"type":"multiple","difficulty":"hard","category":"Sports","question":"How many times did Martina Navratilova win the Wimbledon Singles Championship?","correct_answer":"Nine","incorrect_answers":["Ten","Seven","Eight"]}],"category":"Sports","difficulty":"Hard","playedBy":[],"id":1}]}
+{
+    "quiz": [
+        {
+            "category": "Sports",
+            "difficulty": "Hard",
+            "id": 1,
+            "playedBy": [],
+            "questions": [
+                {
+                    "category": "Sports",
+                    "correct_answer": "London",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "Paris",
+                        "Athens",
+                        "Rome"
+                    ],
+                    "question": "Which of these European cities was the first to host the modern Summer Olympic Games three times?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "1",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "2",
+                        "3",
+                        "4"
+                    ],
+                    "question": "In Canadian football, scoring a rouge is worth how many points?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Vladivostok",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "Rostov-on-Don",
+                        "Yekaterinburg",
+                        "Kaliningrad"
+                    ],
+                    "question": "Which of these Russian cities did NOT contain a stadium that was used in the 2018 FIFA World Cup?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Peter Fleming",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "Mark Woodforde",
+                        "Michael Stich",
+                        "Mary Carillo"
+                    ],
+                    "question": "With which doubles partner did John McEnroe have most success?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Hull City",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "Cardiff City",
+                        "Bristol City",
+                        "Manchester City"
+                    ],
+                    "question": "Which English football team is nicknamed &#039;The Tigers&#039;?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Dale Earnhardt",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "John Anderson",
+                        "Jeff Gordon",
+                        "Michael Walltrip"
+                    ],
+                    "question": "Who won the 1998 Daytona 500?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "1969",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "1968",
+                        "1971",
+                        "1970"
+                    ],
+                    "question": "Which year was the third Super Bowl held?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Mexico",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "United States",
+                        "Belgium",
+                        "Abu Dhabi"
+                    ],
+                    "question": "At which race was the 2018 F1 Drivers Championship won?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "DING Ning (China)",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "LI Xiaoxia (China)",
+                        "Ai FUKUHARA (Japan)",
+                        "Song KIM (North Korea)"
+                    ],
+                    "question": "Which female player won the gold medal of table tennis singles in 2016 Olympics Games?",
+                    "type": "multiple"
+                },
+                {
+                    "category": "Sports",
+                    "correct_answer": "Nine",
+                    "difficulty": "hard",
+                    "incorrect_answers": [
+                        "Ten",
+                        "Seven",
+                        "Eight"
+                    ],
+                    "question": "How many times did Martina Navratilova win the Wimbledon Singles Championship?",
+                    "type": "multiple"
+                }
+            ]
+        }
+    ],
+    "users": []
+}
