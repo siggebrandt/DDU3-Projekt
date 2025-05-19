@@ -12,7 +12,7 @@ async function tester() {
 }
 
 async function test1() {
-    let resp = await fetch("http://localhost:8000/user");
+    let resp = await fetch("http://localhost:8000/users");
     if (resp.ok) {
         let reso = await resp.json();
         if (typeof reso === "object") {
@@ -128,6 +128,10 @@ async function test9() {
         document.querySelector("#test9").classList.add("fail");
         document.querySelector("#test9 .status").textContent = "Failed!";
     }
+}
+
+async function test11() {
+    let req = new Request("http://localhost/following/0");
 }
 
 async function test21() {
