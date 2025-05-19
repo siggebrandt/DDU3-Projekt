@@ -56,13 +56,13 @@ async function handler(request){
         }
 
         /* User Settings */
-        const userSettingsRoute = new URLPattern({ pathname: "/settings/:id" });
-        const userSettingsMatch = userSettingsRoute.exec(request.url);
-        if (userSettingsMatch) {
-            const userID = userSettingsMatch.pathname.groups.id;
+        const userFollowingRoute = new URLPattern({ pathname: "/following/:id" });
+        const userFollowingMatch = userFollowingRoute.exec(request.url);
+        if (userFollowingMatch) {
+            const userID = userFollowingMatch.pathname.groups.id;
             let user = findUser(data.users, userID);
             if (user) {
-                return new Response(JSON.stringify(user.settings), { headers: headersCORS });
+                return new Response(JSON.stringify(user.following), { headers: headersCORS });
             } else {
                 return new Response(JSON.stringify("Not Found, No user with that ID was found"), { status: 404, headers: headersCORS });
             }
@@ -105,7 +105,8 @@ async function handler(request){
                     id: userId,
                     username: username,
                     password: password,
-                    score: 0
+                    score: 0,
+                    following: []
                 }
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
