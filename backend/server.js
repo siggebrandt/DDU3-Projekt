@@ -72,34 +72,6 @@ async function handler(request){
         if (url.pathname === "/quiz") {
             return new Response(JSON.stringify(data.quiz), { headers: headersCORS });
         }
-
-        if (url.pathname == "/quiz/create") {
-            const body = await request.json(); // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
-            // Kategorier:  general knowledge: 9, filmer: 11, mygologi: 20, kändisar: 26, animals: 27, musik: 12
-            let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
-            quizQuestions = await quizQuestions.json();
-            let sortedDb = data.quiz.sort((a, b) => b.id - a.id);
-            let id;
-            if (sortedDb.length === 0) {
-                id = 1;
-            } else {
-                id = sortedDb[0].id + 1
-            }
-            if (quizQuestions.response_code === 0) {
-                let obj = {
-                    questions: quizQuestions.results,
-                    category: quizQuestions.results[0].category,
-                    difficulty: body.difficulty,
-                    playedBy: [],
-                    id: id
-                }
-                data.quiz.push(obj);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
-                return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
-            } else {
-                return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
-            }
-        }
     }
 
     if (request.method === "POST") {
@@ -138,6 +110,33 @@ async function handler(request){
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
                 return new Response(JSON.stringify(user), { status: 201, headers: headersCORS })
+            }
+        }
+
+        if (url.pathname == "/quiz/create") { // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
+            // Kategorier:  general knowledge: 9, filmer: 11, mygologi: 20, kändisar: 26, animals: 27, musik: 12
+            let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
+            quizQuestions = await quizQuestions.json();
+            let sortedDb = data.quiz.sort((a, b) => b.id - a.id);
+            let id;
+            if (sortedDb.length === 0) {
+                id = 1;
+            } else {
+                id = sortedDb[0].id + 1
+            }
+            if (quizQuestions.response_code === 0) {
+                let obj = {
+                    questions: quizQuestions.results,
+                    category: quizQuestions.results[0].category,
+                    difficulty: body.difficulty,
+                    playedBy: [],
+                    id: id
+                }
+                data.quiz.push(obj);
+                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
+            } else {
+                return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
             }
         }
     }
