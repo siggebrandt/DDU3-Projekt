@@ -1,5 +1,9 @@
 import { serveFile } from "jsr:@std/http";
 
+function findUser(arrayOfUsers, userID) {
+    return arrayOfUsers.find((user) => user.id === userID)
+}
+
 async function handler(request){
     const url = new URL(request.url);
     const database = Deno.readTextFileSync("backend/database.json");
@@ -36,29 +40,19 @@ async function handler(request){
         
         /* User */
         if (url.pathname === "/user") {
-            return new Response(JSON.stringify(data.users), {headers: headersCORS}); // array av alla användare
+            return new Response(JSON.stringify(data.users), { headers: headersCORS }); // array av alla användare
         }
 
         const userRoute = new URLPattern({ pathname: "/user/:id" });
         const userMatch = userRoute.exec(request.url);
         if (userMatch) {
             const userID = parseInt(userMatch.pathname.groups.id);
-            let user = data.users.find((user) => user.id === userID);
+            const user = findUser(data.users, userID);
             if (user) {
-                return new Response(JSON.stringify(user), {headers: headersCORS});
+                return new Response(JSON.stringify(user), { headers: headersCORS });
             } else {
-                return new Response(JSON.stringify("Not Found, No user with that ID was found"), {status: 404, headers: headersCORS});
+                return new Response(JSON.stringify("Not Found, No user with that ID was found"), { status: 404, headers: headersCORS });
             }
-            // loopa igenom alla användare, och hitta användaren med ID:et
-            /** const entry = arrayOfUsers.find(
-                (entry) => entry.name.toLowerCase() == userID.toLowerCase()
-                );
-             * if (entry) {
-                return new Response(JSON.stringify(entry));
-                } else {
-                 return new Response(null, { status: 404, headers: headersCORS });
-                });
-             *  } */
         }
 
         /* User Settings */
@@ -66,16 +60,7 @@ async function handler(request){
         const userSettingsMatch = userSettingsRoute.exec(request.url);
         if (userSettingsMatch) {
             const userID = userSettingsMatch.pathname.groups.id;
-            // loopa igenom alla användare, och hitta användaren med ID:et
-            /** const entry = arrayOfUsers.find(
-                (entry) => entry.name.toLowerCase() == userID.toLowerCase()
-                );
-             * if (entry) {
-                return new Response(JSON.stringify(entry.settings));
-                } else {
-                 return new Response(null, { status: 404, headers: headersCORS });
-                });
-             *  } */
+            let user = findUser(data.users, userID);
         }
 
         
