@@ -13,10 +13,11 @@ async function tester() {
     await test10(credentials);
     await test11();
     await test12();
-    await test13(credentials);
+    let newCredentials = await test13(credentials);
     await test14();
     await test15(credentials);
     await test16();
+    await test17(newCredentials);
     await test21();
     await test22();
     await test23();
@@ -248,6 +249,7 @@ async function test13(credentials) {
         if (reso.password === newPwd) {
             document.querySelector("#test13").classList.add("success");
             document.querySelector("#test13 .status").textContent = "Success!";
+            return reso;
         } else {
             document.querySelector("#test13").classList.add("fail");
             document.querySelector("#test13 .status").textContent = "Failed!";
@@ -303,6 +305,22 @@ async function test16() {
     } else {
         document.querySelector("#test16").classList.add("fail");
         document.querySelector("#test16 .status").textContent = "Failed!";
+    }
+}
+
+async function test17(credentials) {
+    let req = new Request("http://localhost:8000/settings/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: credentials.username, password: credentials.password}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 200) {
+        document.querySelector("#test17").classList.add("success");
+        document.querySelector("#test17 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test17").classList.add("fail");
+        document.querySelector("#test17 .status").textContent = "Failed!";
     }
 }
 
