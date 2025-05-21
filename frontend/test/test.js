@@ -1,4 +1,6 @@
 async function tester() {
+    let servStatus = await serverStatus();
+    if (!servStatus) {return}
     await test1();
     await test2();
     await test3();
@@ -12,8 +14,22 @@ async function tester() {
     await test11();
     await test12();
     await test21();
+    await test22();
     await test24();
     await test25();
+}
+
+async function serverStatus() {
+    try {
+        let resp = await fetch("http://localhost:8000/test");
+        if (resp.status === 400) {
+            document.querySelector("#server-status").style.display = "none";
+            return true;
+        }
+    } catch (e) {
+        document.querySelector("#server-status").textContent = "Network error, server unreachable";
+        return false;
+    }
 }
 
 async function test1() {
@@ -231,10 +247,31 @@ async function test21() {
     }
 }
 
+async function test22() {
+    let req = new Request("http://localhost:8000/quiz/create", {
+        method: "POST",
+        body: JSON.stringify({difficulty: "easy", category: 21}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 200) {
+        let reso = await resp.json();
+        if (reso.questions && reso.id) {
+            document.querySelector("#test22").classList.add("success");
+            document.querySelector("#test22 .status").textContent = "Success!";
+        } else {
+            document.querySelector("#test22").classList.add("fail");
+            document.querySelector("#test22 .status").textContent = "Failed!";
+        }
+    } else {
+        document.querySelector("#test22").classList.add("fail");
+        document.querySelector("#test22 .status").textContent = "Failed!";
+    }
+}
+
 async function test24() {
     let resp = await fetch("http://localhost:8000/wrongEndpoint");
     if (resp.status === 400) {
-        console.log("runs")
         document.querySelector("#test24").classList.add("success");
         document.querySelector("#test24 .status").textContent = "Success!";
     } else {
