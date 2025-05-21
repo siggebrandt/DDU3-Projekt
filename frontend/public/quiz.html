@@ -28,23 +28,9 @@
                 <option value="hard">Svår</option>
             </select></div>
             <button id="playQuizButton" class="flexItem">Play</button>
-            </div>
-        
+        </div>
+        <div id="quizLeaderboard"></div>
 </main>
-<script>
-    document.getElementById("playQuizButton").addEventListener("click", function() {
-        const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log(difficultyChosen)
-
-        fetch(`http://localhost:8000/quiz/create`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
-          })
-          .then(response => response.json())
-          .then(console.log);
-    })
-</script>
 <script src="script.js"></script>
 </body>
 </html>

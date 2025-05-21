@@ -1,4 +1,5 @@
 const websiteURL = window.location.origin; // använd dena variabel för websidans-URL, representerar localhost OCH serverlänken
+const pathname = window.location.pathname // t.ex. "/quiz"
 
 class CreateQuestion{
     constructor(data){
@@ -50,3 +51,17 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
     const element = document.getElementById("pexelsTest");
       element.style.backgroundImage = `url('${photo.src.landscape}')`;
 })
+if (pathname == "/quiz") {
+    document.getElementById("playQuizButton").addEventListener("click", function() {
+        const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
+        console.log(difficultyChosen)
+
+        fetch(`${websiteURL}/quiz/create`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
+          })
+          .then(response => response.json())
+          .then(console.log);
+    })
+}
