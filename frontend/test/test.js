@@ -13,6 +13,7 @@ async function tester() {
     await test10(credentials);
     await test11();
     await test12();
+    await test13(credentials);
     await test21();
     await test22();
     await test23();
@@ -228,6 +229,29 @@ async function test12() {
     } else {
         document.querySelector("#test12").classList.add("fail");
         document.querySelector("#test12 .status").textContent = "Failed!";
+    }
+}
+
+async function test13(credentials) {
+    let newPwd = "new123";
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: credentials.username, password: credentials.password, newPassword: newPwd}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 200) {
+        let reso = await resp.json();
+        if (reso.password === newPwd) {
+            document.querySelector("#test13").classList.add("success");
+            document.querySelector("#test13 .status").textContent = "Success!";
+        } else {
+            document.querySelector("#test13").classList.add("fail");
+            document.querySelector("#test13 .status").textContent = "Failed!";
+        }
+    } else {
+        document.querySelector("#test13").classList.add("fail");
+        document.querySelector("#test13 .status").textContent = "Failed!";
     }
 }
 

@@ -1,5 +1,5 @@
 import { serveFile } from "jsr:@std/http";
-import { jsx } from "react/jsx-runtime";
+//import { jsx } from "react/jsx-runtime";
 
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
@@ -157,6 +157,7 @@ async function handler(request){
     }
 
     if (request.method === "PATCH") {
+        console.log("runs")
         const body = await request.json();
         if (request.headers.get("content-type") !== "application/json") {
             return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
@@ -172,7 +173,7 @@ async function handler(request){
                 if (user.password === body.password) {
                     let index = data.users.findIndex((user) => user.username === body.username);
                     data.users[index].password = body.newPassword;
-                    Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                    Deno.writeTextFileSync("database.json", JSON.stringify(data));
                     return new Response(JSON.stringify(data.users[index]), {headers: headersCORS});
                 } else {
                     return new Response(JSON.stringify("Incorrect Password"), {status: 401, headers: headersCORS});
