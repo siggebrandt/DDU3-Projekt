@@ -1,1 +1,27 @@
-{"users":[],"quiz":[]}
+{
+    "users": [
+        {
+            "id": 0,
+            "username": "test",
+            "password": "test",
+            "score": {
+                "easy": 0.75,
+                "medium": 0.3,
+                "hard": 0.5
+            },
+            "following": []
+        },
+        {
+            "id": 0,
+            "username": "test2",
+            "password": "test",
+            "score": {
+                "easy": 1.0,
+                "medium": 0.7,
+                "hard": 0.3
+            },
+            "following": []
+        }
+    ],
+    "quiz": []
+}

@@ -104,3 +104,40 @@ color: white;
 #pexelsTest {
     height: 500px;
 }
+
+/* Leaderboard */
+
+#leaderboardMain{
+    background-color: #CFE1B9;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px; 
+    height: max-content;
+}
+#leaderboardMain h1 {
+    text-align: center;
+}
+.scoreCircle{
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    border: 1px solid rgb(132, 162, 131);
+}
+.user{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+}
+.userScores{
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+.userScores p {
+    background-color: #97A97C;
+    border-radius: 5px;
+    padding: 5px;
+}
