@@ -1,5 +1,5 @@
 import { serveFile } from "jsr:@std/http";
-import { jsx } from "react/jsx-runtime";
+import { jsx } from "https://esm.sh/react/jsx-runtime";
 
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
