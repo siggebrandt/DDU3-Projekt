@@ -1,4 +1,5 @@
 import { serveFile } from "jsr:@std/http";
+import { jsx } from "react/jsx-runtime";
 
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
@@ -162,7 +163,23 @@ async function handler(request){
         }
         //* User Settings */
         if (url.pathname === "/settings/changePassword") {
-            //
+            if (!body.username || !body.password || !body.newPassword) {
+                return new Response(JSON.stringify("Bad request, Attributes missing"), {status: 400, headers: headersCORS});
+            }
+
+            let user = data.users.find((user) => user.username === body.username);
+            if (user) {
+                if (user.password === body.password) {
+                    let index = data.users.findIndex((user) => user.username === body.username);
+                    data.users[index].password = body.newPassword;
+                    Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                    return new Response(JSON.stringify(data.users[index]), {headers: headersCORS});
+                } else {
+                    return new Response(JSON.stringify("Incorrect Password"), {status: 401, headers: headersCORS});
+                }
+            } else {
+                return new Response(JSON.stringify("Not Found, No user with that username was found"), {status: 404, headers: headersCORS});
+            }
         }
     }
 
