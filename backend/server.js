@@ -70,7 +70,7 @@ async function handler(request){
         }
 
         /* Quiz */
-        if (url.pathname === "/quiz") {
+        if (url.pathname === "/quiz/all") {
             return new Response(JSON.stringify(data.quiz), { headers: headersCORS });
         }
     }
