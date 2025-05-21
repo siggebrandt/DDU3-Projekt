@@ -24,10 +24,7 @@ async function handler(request){
         }
         if(url.pathname === "/quiz"){
             return await serveFile(request, "frontend/public/quiz.html");
-        }/*
-        if(url.pathname === "/join"){
-            return await serveFile(request, "frontend/public/joinGame.html");
-        } */
+        }
         if(url.pathname === "/play"){
             return await serveFile(request, "frontend/public/play.html");
         }
