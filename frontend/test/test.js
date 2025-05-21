@@ -14,6 +14,9 @@ async function tester() {
     await test11();
     await test12();
     await test13(credentials);
+    await test14();
+    await test15(credentials);
+    await test16();
     await test21();
     await test22();
     await test23();
@@ -252,6 +255,54 @@ async function test13(credentials) {
     } else {
         document.querySelector("#test13").classList.add("fail");
         document.querySelector("#test13 .status").textContent = "Failed!";
+    }
+}
+
+async function test14() {
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: "idontexist", password: "noo", newPassword: "new123"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 404) {
+        document.querySelector("#test14").classList.add("success");
+        document.querySelector("#test14 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test14").classList.add("fail");
+        document.querySelector("#test14 .status").textContent = "Failed!";
+    }
+}
+
+async function test15(credentials) {
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: credentials.username, password: "wrong", newPassword: "new123"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 401) {
+        document.querySelector("#test15").classList.add("success");
+        document.querySelector("#test15 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test15").classList.add("fail");
+        document.querySelector("#test15 .status").textContent = "Failed!";
+    }
+}
+
+async function test16() {
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: "bla", password: "bla"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 400) {
+        document.querySelector("#test16").classList.add("success");
+        document.querySelector("#test16 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test16").classList.add("fail");
+        document.querySelector("#test16 .status").textContent = "Failed!";
     }
 }
 
