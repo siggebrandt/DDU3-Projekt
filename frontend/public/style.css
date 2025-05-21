@@ -98,3 +98,9 @@ color: white;
     width: 400px;
     font-size: 36px;
 }
+#quizes .flexItem {
+    text-align: center;
+}
+#pexelsTest {
+    height: 500px;
+}

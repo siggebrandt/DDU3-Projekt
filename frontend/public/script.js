@@ -33,3 +33,22 @@ class CreateQuestion{
 const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
 let question1 = new CreateQuestion(testData)
 console.log(question1.question, question1.choices);
+
+
+/* Home Page Quiz Images */
+const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
+
+const quizCategories = ["music", "movie"]
+fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, {
+    headers: {
+      Authorization: pexelsAPIKey
+    }})
+.then(response => response.json())
+.then(data => {
+    const photo = data.photos[0];
+    
+    console.log("pexel", data)
+    const element = document.getElementById("pexelsTest");
+      element.style.backgroundImage = `url('${photo.src.landscape}')`;
+}
+)
