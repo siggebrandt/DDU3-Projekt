@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <style>
+        .quizAnswerButton, #quizQuestion { color: black }
+    </style>
 </head>
 <body>
     <nav class="flexContainer">
@@ -29,7 +32,10 @@
             </select></div>
             <button id="playQuizButton" class="flexItem">Play</button>
         </div>
-        <div id="quizLeaderboard"></div>
+        <div id="playQuiz">
+            <div id="quizQuestion"></div>
+            <div id="quizChoices"></div>
+        </div>
 </main>
 <script src="script.js"></script>
 </body>

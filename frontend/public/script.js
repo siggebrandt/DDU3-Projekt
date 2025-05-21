@@ -104,12 +104,42 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
     })
 
 async function startQuiz(questions) {
-    console.log(questions);
-    for(let i = 0; i < questions.length;)
-    {
-        let button = document.createElement("div");
-        button.classList("quizOption");
+    console.log("Quiz started:",questions);
+    let quizProgress = 0;
+    let correctAnswers = 0;
+
+    let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
+
+    console.log(currentQuestions);
+
+    console.log(currentQuestions.question);    
+    console.log(currentQuestions.choices);    
+
+
+    function showQuestion () {
+        const quizQuestion = document.getElementById("quizQuestion");
+        const quizChoices = document.getElementById("quizChoices");
+        quizChoices.innerHTML = "";
+
+        quizQuestion.innerHTML = currentQuestions.question;
+        currentQuestions.choices.forEach(choice => {
+            quizChoices.innerHTML += `
+            <div class="quizAnswerButton">${choice}</div>
+            `
+        })
+        /* quizChoices.innerHTML = `
+        <div id="answerOne" class="quizAnswerButton">one
+        </div>
+        <div id="answerTwo" class="quizAnswerButton">two
+        </div>
+        <div id="answerThree" class="quizAnswerButton">three
+        </div>
+        <div id="answerFour" class="quizAnswerButton">four
+        </div>
+        ` */
     }
+    showQuestion();
+    
 }
 async function leaderboard() {
     const response = await fetch("http://localhost:8000/users");
