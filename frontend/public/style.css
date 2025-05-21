@@ -148,6 +148,7 @@ color: white;
 /* -- Quiz Page -- */
 #quizPageHeader {
     gap: 25px;
+    margin-bottom: 10px;
 }
 #quizPageChooseDifficulty {
     background-color: #B5C99A;
@@ -166,7 +167,21 @@ color: white;
     padding: 5px 10px;
     margin-left: 5px;
     border-radius: 3px;
-  }
+}
+/* -- Play Quiz -- */
+#quizQuestion {
+    background-color: #97A97C;
+    margin: 0 45px 10px;
+    border-radius: 5px;
+}
+#quizChoices {
+    gap: 20px
+}
+.quizAnswerButton {
+    padding: 20px;
+    background-color: #E9F5DB;
+    border-radius: 4px;
+}
 
 /* Login and register */
 #loginMain, #registerMain{
