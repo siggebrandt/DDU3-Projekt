@@ -1,6 +1,6 @@
 import { serveFile } from "jsr:@std/http";
 //This server is a copy of the original server, but with changed paths to the db to instead use testdb.json
-//Intended for test site ONLY
+//Intended for test site use ONLY
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
 }
