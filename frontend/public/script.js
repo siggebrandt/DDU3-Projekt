@@ -46,9 +46,7 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
 .then(response => response.json())
 .then(data => {
     const photo = data.photos[0];
-    
     console.log("pexel", data)
     const element = document.getElementById("pexelsTest");
       element.style.backgroundImage = `url('${photo.src.landscape}')`;
-}
-)
+})
