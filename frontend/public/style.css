@@ -98,3 +98,6 @@ color: white;
     width: 400px;
     font-size: 36px;
 }
+#quizes .flexItem {
+    text-align: center;
+}
