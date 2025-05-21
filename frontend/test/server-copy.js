@@ -1,12 +1,13 @@
 import { serveFile } from "jsr:@std/http";
-
+//This server is a copy of the original server, but with changed paths to the db to instead use testdb.json
+//Intended for test site ONLY
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
 }
 
 async function handler(request){
     const url = new URL(request.url);
-    const database = Deno.readTextFileSync("backend/database.json");
+    const database = Deno.readTextFileSync("testdb.json");
     const data = JSON.parse(database);
     const headersCORS = new Headers();
 
@@ -24,7 +25,10 @@ async function handler(request){
         }
         if(url.pathname === "/quiz"){
             return await serveFile(request, "frontend/public/quiz.html");
-        }
+        }/*
+        if(url.pathname === "/join"){
+            return await serveFile(request, "frontend/public/joinGame.html");
+        } */
         if(url.pathname === "/play"){
             return await serveFile(request, "frontend/public/play.html");
         }
@@ -116,7 +120,7 @@ async function handler(request){
                     following: []
                 }
                 data.users.push(user);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
                 return new Response(JSON.stringify(user), { status: 201, headers: headersCORS })
             }
         }
@@ -144,7 +148,7 @@ async function handler(request){
                     id: id
                 }
                 data.quiz.push(obj);
-                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
                 return new Response(JSON.stringify(obj), { status: 200, headers: headersCORS })
             } else {
                 return new Response(JSON.stringify("oops, something went wrong"), { status: 400, headers: headersCORS })
@@ -168,7 +172,7 @@ async function handler(request){
                 if (user.password === body.password) {
                     let index = data.users.findIndex((user) => user.username === body.username);
                     data.users[index].password = body.newPassword;
-                    Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                    Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
                     return new Response(JSON.stringify(data.users[index]), {headers: headersCORS});
                 } else {
                     return new Response(JSON.stringify("Incorrect Password"), {status: 401, headers: headersCORS});
@@ -193,7 +197,7 @@ async function handler(request){
                 if (user.password === body.password) {
                     let index = data.users.findIndex((user) => user.username === body.username);
                     data.users.splice(index, 1);
-                    Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                    Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
                     return new Response(JSON.stringify("User successfully deleted"), {headers: headersCORS});
                 } else {
                     return new Response(JSON.stringify("Incorrect password"), {status: 401, headers: headersCORS});
