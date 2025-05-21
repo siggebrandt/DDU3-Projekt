@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to QuizSite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+    #loginMain{
+        background-color: #CFE1B9;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+    }
+    .input-row{
+        display: flex;
+        max-width: 300px;
+        margin: 10px 0;
+        align-items: center;
+    }
+    .input{
+        flex-grow: 1;
+        border: none;
+        border-bottom: 1px solid black;
+        padding: 5px;
+        background-color: transparent;
+        outline: none;
+    }
+    .button{
+        background-color: #718355;
+        width: fit-content;
+        text-align: center;
+        padding: 7px;
+        border: 1px solid #505c3e;
+        border-radius: 5px;
+        margin: 10px 0;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        font-size: 14px;
+    }
+    </style>
+    <main id="loginMain">
+        <h1>Log In</h1>
+        <div id="flexCenter">
+            <div class="input-row">
+                <label for="username">Username:</label>
+                <input type="text" id="username" class="input">
+            </div>
+            <div class="input-row">
+                <label for="password">Password:</label>
+                <input type="password" id="password" class="input">
+            </div>
+        </div>
+        <button class="button" id="loginButton">LOGIN</button>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
