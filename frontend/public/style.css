@@ -21,6 +21,7 @@
     box-sizing: border-box;
     font-family: "Nunito", system-ui;
     border: 0;
+    color: white;
 }
 body{
     background-color: #f9fdf4;
@@ -48,6 +49,9 @@ main {
 }
 .flexAlignCenter {
     align-items: center;
+}
+.textAlignCenter {
+    text-align: center;
 }
 
 /* -- Nav -- */
@@ -104,3 +108,26 @@ color: white;
 #pexelsTest {
     height: 500px;
 }
+
+/* -- Quiz Page -- */
+#quizPageHeader {
+    gap: 25px;
+}
+#quizPageChooseDifficulty {
+    background-color: #B5C99A;
+    padding: 25px;
+    border-radius: 10px;
+}
+#playQuizButton {
+    background-color: #718355;
+    flex-basis: 150px;
+    flex-grow: 0;
+    border-radius: 7px;
+}
+#chooseDifficultyDropdown {
+    background-color: #CFE1B9;
+    color: black;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 3px;
+  }
