@@ -1,3 +1,5 @@
+//import { jsx } from "react/jsx-runtime";
+
 async function tester() {
     let servStatus = await serverStatus();
     if (!servStatus) {return}
@@ -20,6 +22,7 @@ async function tester() {
     await test17(newCredentials);
     await test18();
     await test19();
+    await test20();
     await test21();
     await test22();
     await test23();
@@ -358,8 +361,24 @@ async function test19() {
     }
 }
 
+async function test20() {
+    let req = new Request("http://localhost:8000/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: "weeee"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 400) {
+        document.querySelector("#test20").classList.add("success");
+        document.querySelector("#test20 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test20").classList.add("success");
+        document.querySelector("#test20 .status").textContent = "Success!";
+    }
+}
+
 async function test21() {
-    let resp = await fetch("http://localhost:8000/quiz");
+    let resp = await fetch("http://localhost:8000/quiz/all");
     if (resp.status === 200) {
         let reso = await resp.json();
         if (typeof reso === "object") {
