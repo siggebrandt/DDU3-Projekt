@@ -94,11 +94,11 @@ async function startQuiz(questions) {
 
     function showQuestion () {
         let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
+        let haveAnswered = false; 
 
-    console.log(currentQuestions);
-
-console.log(currentQuestions.question);    
-console.log(currentQuestions.choices);   
+        console.log(currentQuestions);
+        console.log(currentQuestions.question);    
+        console.log(currentQuestions.choices);   
 
         const quizQuestion = document.getElementById("quizQuestion");
         const quizChoices = document.getElementById("quizChoices");
@@ -115,6 +115,8 @@ console.log(currentQuestions.choices);
             quizChoices.appendChild(choiceButton);
 
             choiceButton.addEventListener("click", function() {
+                if (!haveAnswered) {
+                    haveAnswered = true;
                 document.getElementById("quizResponse").innerHTML = currentQuestions.isCorrect(choice);
                 document.getElementById("quizResponse").style.backgroundColor = "red"
                 if (currentQuestions.isCorrect(choice)) {
@@ -128,6 +130,7 @@ console.log(currentQuestions.choices);
                         console.log("progress:", quizProgress)
                     }
                 }, 2500);
+            }
             })
         })
     }
@@ -136,6 +139,5 @@ console.log(currentQuestions.choices);
 }
 </script>
 <!--<script src="script.js"></script>-->
-
 </body>
 </html>

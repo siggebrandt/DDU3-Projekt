@@ -175,13 +175,18 @@ color: white;
     border-radius: 5px;
 }
 #quizChoices {
-    gap: 20px
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 0 80px;
 }
 .quizAnswerButton {
     padding: 20px;
     background-color: #E9F5DB;
     border-radius: 4px;
 }
+.flexItem.quizAnswerButton {
+    flex-basis: 33%;
+  }
 
 /* Login and register */
 #loginMain, #registerMain{
