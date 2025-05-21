@@ -18,6 +18,8 @@ async function tester() {
     await test15(credentials);
     await test16();
     await test17(newCredentials);
+    await test18();
+    await test19();
     await test21();
     await test22();
     await test23();
@@ -321,6 +323,38 @@ async function test17(credentials) {
     } else {
         document.querySelector("#test17").classList.add("fail");
         document.querySelector("#test17 .status").textContent = "Failed!";
+    }
+}
+
+async function test18() {
+    let req = new Request("http://localhost:8000/settings/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: "idontexist", password: "bla"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 404) {
+        document.querySelector("#test18").classList.add("success");
+        document.querySelector("#test18 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test18").classList.add("fail");
+        document.querySelector("#test18 .status").textContent = "Failed!";
+    }
+}
+
+async function test19() {
+    let req = new Request("http://localhost:8000/settings/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: "617953", password: "wrong"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 401) {
+        document.querySelector("#test19").classList.add("success");
+        document.querySelector("#test19 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test19").classList.add("fail");
+        document.querySelector("#test19 .status").textContent = "Failed!";
     }
 }
 
