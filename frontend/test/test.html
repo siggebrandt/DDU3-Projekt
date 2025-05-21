@@ -189,7 +189,7 @@
         <div id="test22">
             <h2>Test 22</h2>
             <p><b>POST</b> request to endpoint /quiz/create</p>
-            <p>Request body: Object consisting of questions array from Trivia API</p>
+            <p>Request body: Object with difficulty and category keys</p>
             <p>{difficulty: string, category: number}</p>
             <p>Expected Response status: <b>200 OK</b></p>
             <p>Expected Response body: <b>Created quiz-object</b></p>
@@ -198,7 +198,7 @@
         <div id="test23">
             <h2>Test 23</h2>
             <p><b>POST</b> request to endpoint /quiz/create</p>
-            <p>Request body: Object with missing "questions" key</p>
+            <p>Request body: Object with missing "category" key</p>
             <p>{difficulty: string}</p>
             <p>Expected Response status: <b>400 Bad Request</b></p>
             <p>Expected Response body: <b>JSON-formatted string</b></p>

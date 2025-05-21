@@ -15,6 +15,7 @@ async function tester() {
     await test12();
     await test21();
     await test22();
+    await test23();
     await test24();
     await test25();
 }
@@ -266,6 +267,22 @@ async function test22() {
     } else {
         document.querySelector("#test22").classList.add("fail");
         document.querySelector("#test22 .status").textContent = "Failed!";
+    }
+}
+
+async function test23() {
+    let req = new Request("http://localhost:8000/quiz/create", {
+        method: "POST",
+        body: JSON.stringify({difficulty: "easy"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 400) {
+        document.querySelector("#test23").classList.add("success");
+        document.querySelector("#test23 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test23").classList.add("fail");
+        document.querySelector("#test23 .status").textContent = "Failed!";
     }
 }
 
