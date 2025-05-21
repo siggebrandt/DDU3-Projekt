@@ -26,7 +26,7 @@
 body{
     background-color: #f9fdf4;
     max-height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 main {
     margin: 65px 150px;
@@ -112,7 +112,7 @@ color: white;
 /* Leaderboard */
 
 #leaderboardMain{
-    background-color: #CFE1B9;
+    background-color: #B5C99A;
     padding: 50px;
     display: flex;
     flex-direction: column;
@@ -167,3 +167,37 @@ color: white;
     margin-left: 5px;
     border-radius: 3px;
   }
+
+/* Login and register */
+#loginMain, #registerMain{
+    background-color: #CFE1B9;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+.input-row{
+    display: flex;
+    max-width: 300px;
+    margin: 10px 0;
+    align-items: center;
+}
+.input{
+    flex-grow: 1;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 5px;
+    background-color: transparent;
+    outline: none;
+}
+.button{
+    background-color: #718355;
+    width: fit-content;
+    text-align: center;
+    padding: 7px;
+    border: 1px solid #505c3e;
+    border-radius: 5px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+}

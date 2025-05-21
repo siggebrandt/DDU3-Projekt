@@ -18,7 +18,8 @@
         <button id="registerButton" class="navButton">Register</button>
       </div>
     </nav>
-    <main>
+    <!-- Homepage -->
+    <main id="homepageMain">
       <h2>Välkommen! Välj ett quiz nedan;</h2>
       <div id="quizes" class="flexContainer">
         <div class="quizBox flexItem quizGeneralKnowledge">General Knowledge</div>
@@ -31,6 +32,70 @@
         <h2 id="createGameButton">Starta spel</h2>
       </div> -->
     </main>
+    <!-- Login page -->
+    <main id="loginMain">
+      <h1>Log In</h1>
+      <div id="flexCenter">
+          <div class="input-row">
+              <label for="username">Username:</label>
+              <input type="text" id="username" class="input">
+          </div>
+          <div class="input-row">
+              <label for="password">Password:</label>
+              <input type="password" id="password" class="input">
+          </div>
+      </div>
+      <button class="button" id="loginButton">LOGIN</button>
+    </main>
+    <!-- Register -->
+    <main id="registerMain">
+      <h1>Register user</h1>
+      <div id="flexCenter">
+          <div class="input-row">
+              <label for="username">Username:</label>
+              <input type="text" id="username" class="input">
+          </div>
+          <div class="input-row">
+              <label for="e-mail">E-mail:</label>
+              <input type="text" id="e-mail" class="input">
+          </div>
+          <div class="input-row">
+              <label for="password">Password:</label>
+              <input type="password" id="password" class="input">
+          </div>
+          <div class="input-row">
+              <label for="password2">Password again:</label>
+              <input type="password" id="password2" class="input">
+          </div>
+      </div>
+      <button class="button" id="registerButton">REGISTER</button>
+    </main>
+    <!-- Quiz -->
+    <main id="quizMain">
+      <div id="quizPageHeader" class="flexContainer textAlignCenter">
+          <div id="quizPageChooseDifficulty" class="flexItem">
+              Välj Svårighetsgrad: 
+          <select id="chooseDifficultyDropdown">
+              <option value="easy">Lätt</option>
+              <option value="medium" selected="selected">Medium</option>
+              <option value="hard">Svår</option>
+          </select></div>
+          <button id="playQuizButton" class="flexItem">Play</button>
+      </div>
+      <div id="quizLeaderboard"></div>
+    </main>
+    <!-- Leaderboard page -->
+    <main id="leaderboardMain">
+      <h1>Leaderboard - Score based on success rate</h1>
+      <div class="user">
+          <h4>Users</h4>
+          <div class="userScores">
+              <p>Easy</p>
+              <p>Medium</p>
+              <p>Hard</p>
+          </div>
+      </div>
+  </main>
     <script src="script.js"></script>
   </body>
 </html>

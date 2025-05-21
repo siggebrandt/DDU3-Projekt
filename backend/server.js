@@ -83,7 +83,7 @@ async function handler(request){
             let user = data.users.find((user) => user.username === body.username);
             if (user) {
                 if (user.password === body.password) {
-                    return new Response(JSON.stringify(user), {headers: headersCORS});
+                    return new Response(JSON.stringify(user), {status: 200, headers: headersCORS});
                 } else {
                     return new Response(JSON.stringify("Incorrect password"), {status: 401, headers: headersCORS});
                 }
