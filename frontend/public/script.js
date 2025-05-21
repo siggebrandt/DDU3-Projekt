@@ -74,3 +74,41 @@ async function startQuiz(questions) {
         button.classList("quizOption");
     }
 }
+async function leaderboard() {
+    const response = await fetch("http://localhost:8000/users");
+    const users = await response.json();
+    const leaderboardMain = document.querySelector("#leaderboardMain");
+    for(let user of users){
+        const easyScore = user.score.easy;
+        const mediumScore = user.score.medium;
+        const hardScore = user.score.hard;
+        const userDiv = document.createElement("div");
+        const usernameDOM = document.createElement("p");
+        const userScore = document.createElement("div");
+
+        leaderboardMain.appendChild(userDiv);
+        userDiv.appendChild(usernameDOM);
+        userDiv.classList.add("user")
+        usernameDOM.textContent = user.username;
+        userDiv.appendChild(userScore)
+        userScore.classList.add("userScores")
+
+
+        const circleEasy = document.createElement("div");
+        circleEasy.classList.add("scoreCircle");
+        circleEasy.style.backgroundColor = `rgba(0, 150, 0, ${easyScore})`;
+        userScore.appendChild(circleEasy)
+
+        const circleMedium = document.createElement("div")
+        circleMedium.classList.add("scoreCircle");
+        circleMedium.style.backgroundColor = `rgba(255, 200, 0, ${mediumScore})`;
+        userScore.appendChild(circleMedium)
+
+        const circleHard = document.createElement("div")
+        circleHard.classList.add("scoreCircle");
+        circleHard.style.backgroundColor = `rgba(150, 0, 0, ${hardScore})`;
+        userScore.appendChild(circleHard)
+
+    }
+}
+leaderboard()
