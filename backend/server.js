@@ -126,6 +126,9 @@ async function handler(request){
 
         if (url.pathname == "/quiz/create") { // { category: <siffra> (beroende på vilken quiz-sida vi är inne på), difficulty: <easy/medium/hard>}
             // Kategorier:  general knowledge: 9, filmer: 11, mygologi: 20, kändisar: 26, animals: 27, musik: 12
+            if (!body.difficulty || !body.category) {
+                return new Response(JSON.stringify("Bad request, attributes missing"), {status: 400, headers: headersCORS});
+            }
             let quizQuestions = await fetch(`https://opentdb.com/api.php?amount=10&category=${body.category}&difficulty=${body.difficulty}&type=multiple`)
             quizQuestions = await quizQuestions.json();
             let sortedDb = data.quiz.sort((a, b) => b.id - a.id);
