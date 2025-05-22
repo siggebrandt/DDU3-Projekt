@@ -118,17 +118,14 @@ async function handler(request){
                         easy: {
                             correct: 0,
                             answered: 0,
-                            percentage: 0,
                         },
                         medium: {
                             correct: 0,
                             answered: 0,
-                            percentage: 0,
                         },
                         hard: {
                             correct: 0,
                             answered: 0,
-                            percentage: 0,
                         }
                     },
                 }
