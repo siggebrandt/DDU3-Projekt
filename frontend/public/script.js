@@ -43,18 +43,24 @@ const homepageMain = document.querySelector("#homepageMain");
 const loginMain = document.querySelector("#loginMain");
 const registerMain = document.querySelector("#registerMain");
 const quizMain = document.querySelector("#quizMain");
+const quizPlayMain = document.querySelector("#quizPlayMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
 
-loginMain.style.display = "none";
-registerMain.style.display = "none";
-quizMain.style.display = "none";
-leaderboardMain.style.display = "none";
+function hidePages (){
+    homepageMain.style.display = "none";
+    loginMain.style.display = "none";
+    registerMain.style.display = "none";
+    quizMain.style.display = "none";
+    quizPlayMain.style.display = "none"
+    leaderboardMain.style.display = "none";
+}
+hidePages();
+homepageMain.style.display = "block";
 
 // Login 
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
-    homepageMain.style.display = "none";
-    registerMain.style.display = "none";
+    hidePages()
     loginMain.style.display = "block";
     const loginButton = document.querySelector("#loginMain #loginButton");
     loginButton.addEventListener("click", async () => {
@@ -126,61 +132,88 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
     const element = document.getElementById("pexelsTest");
       element.style.backgroundImage = `url('${photo.src.landscape}')`;
 })
-    document.getElementById("playQuizButton").addEventListener("click", async function() {
-        const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
+document.getElementById("playQuizButton").addEventListener("click", async function() {
+    const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
         console.log(difficultyChosen)
         
 
-        fetch(`${websiteURL}/quiz/create`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
-          })
-          .then(response => response.json())
-          .then(async function(data) {
-            await startQuiz(data);
-          });
-    })
+    fetch(`${websiteURL}/quiz/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
+        })
+        .then(response => response.json())
+        .then(async function(data) {
+        await startQuiz(data);
+        });
+})
 
 async function startQuiz(questions) {
     console.log("Quiz started:",questions);
+    document.getElementById("quizQuestion").style.padding = "30px"
     let quizProgress = 0;
     let correctAnswers = 0;
 
-    let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
-
-    console.log(currentQuestions);
-
-    console.log(currentQuestions.question);    
-    console.log(currentQuestions.choices);    
-
-
     function showQuestion () {
+        let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
+        let haveAnswered = false;
+
+        console.log(currentQuestions);
+
         const quizQuestion = document.getElementById("quizQuestion");
         const quizChoices = document.getElementById("quizChoices");
-        quizChoices.innerHTML = "";
+        const quizResponse = document.getElementById("quizResponse");
 
         quizQuestion.innerHTML = currentQuestions.question;
+        quizChoices.innerHTML = "";
+        quizResponse.innerHTML = "";
+
         currentQuestions.choices.forEach(choice => {
-            quizChoices.innerHTML += `
-            <div class="quizAnswerButton">${choice}</div>
-            `
+            const choiceButton = document.createElement("div");
+            choiceButton.className = "flexItem quizAnswerButton textAlignCenter";
+            choiceButton.textContent = choice;
+            quizChoices.appendChild(choiceButton);
+
+            choiceButton.addEventListener("click", function() {
+                if (!haveAnswered) {
+                haveAnswered = true;
+
+                document.getElementById("quizResponse").innerHTML = currentQuestions.isCorrect(choice);
+
+                for (let button of document.querySelectorAll(".quizAnswerButton")) {
+                    button.style.backgroundColor = "#ef2d56";
+                    if (button.textContent === currentQuestions.correct) {
+                        button.style.backgroundColor = "#2fbf71"
+                    }
+                }
+                //document.getElementById("quizResponse").style.backgroundColor = "red"
+
+                console.log(document.querySelectorAll(".quizAnswerButton"))
+
+                if (currentQuestions.isCorrect(choice)) {
+                    correctAnswers++;
+                    //choiceButton.style.backgroundColor = "#87986A"
+                    document.getElementById("quizResponse").style.backgroundColor = "green"
+                }
+                setTimeout(function () {
+                    quizProgress++;
+                    if (quizProgress < 10) {
+                        showQuestion();
+                        console.log("progress:", quizProgress)
+                    } else if (quizProgress >= 10) {
+                        // alla frågor svarade
+                    }
+                }, 3000);
+            }
+            })
         })
-        /* quizChoices.innerHTML = `
-        <div id="answerOne" class="quizAnswerButton">one
-        </div>
-        <div id="answerTwo" class="quizAnswerButton">two
-        </div>
-        <div id="answerThree" class="quizAnswerButton">three
-        </div>
-        <div id="answerFour" class="quizAnswerButton">four
-        </div>
-        ` */
     }
     showQuestion();
-    
 }
-async function leaderboard() {
+
+
+// Leaderboard
+async function createLeaderboard() {
     const response = await fetch("http://localhost:8000/users");
     const users = await response.json();
     const leaderboardMain = document.querySelector("#leaderboardMain");
@@ -189,32 +222,32 @@ async function leaderboard() {
         const mediumScore = user.score.medium;
         const hardScore = user.score.hard;
         const userDiv = document.createElement("div");
-        const usernameDOM = document.createElement("p");
-        const userScore = document.createElement("div");
-
+        
         leaderboardMain.appendChild(userDiv);
-        userDiv.appendChild(usernameDOM);
-        userDiv.classList.add("user")
-        usernameDOM.textContent = user.username;
-        userDiv.appendChild(userScore)
-        userScore.classList.add("userScores")
-
-
-        const circleEasy = document.createElement("div");
-        circleEasy.classList.add("scoreCircle");
-        circleEasy.style.backgroundColor = `rgba(0, 150, 0, ${easyScore})`;
-        userScore.appendChild(circleEasy)
-
-        const circleMedium = document.createElement("div")
-        circleMedium.classList.add("scoreCircle");
-        circleMedium.style.backgroundColor = `rgba(255, 200, 0, ${mediumScore})`;
-        userScore.appendChild(circleMedium)
-
-        const circleHard = document.createElement("div")
-        circleHard.classList.add("scoreCircle");
-        circleHard.style.backgroundColor = `rgba(150, 0, 0, ${hardScore})`;
-        userScore.appendChild(circleHard)
-
+        
+        userDiv.innerHTML += `
+        <div class="user"> 
+        <p>${user.username}</p>
+        <div class="userScores">
+        <div class="scoreCircle">
+        <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
+        </div>
+        <div class="scoreCircle">
+        <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
+        </div>
+        <div class="scoreCircle">
+        <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
+        </div>
+        </div>
+        </div
+        `;
     }
 }
-leaderboard()
+createLeaderboard();
+const leaderboardButton = document.querySelector("#leaderboardButton");
+leaderboardButton.addEventListener("click", () => {
+    hidePages();
+    leaderboardMain.style.display = "block";
+})
+
+// Register

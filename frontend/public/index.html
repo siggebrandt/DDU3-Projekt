@@ -14,6 +14,7 @@
       <div class="flexItem"></div>
       <div id="navLinks" class="flexContainer flexItem">
         <!-- detta byts ut med JS sedan beroende på om användaren är inloggad eller inte :D -->
+        <button id="leaderboardButton" class="navButton">Leaderboard</button>
         <button id="loginButton" class="navButton">Login</button>
         <button id="registerButton" class="navButton">Register</button>
       </div>
@@ -85,9 +86,28 @@
       </div>
       <div id="quizLeaderboard"></div>
     </main>
+    <!-- Quiz Play -->
+    <main id="quizPlayMain">
+      <div id="quizPageHeader" class="flexContainer textAlignCenter">
+          <div id="quizPageChooseDifficulty" class="flexItem">
+              Välj Svårighetsgrad: 
+          <select id="chooseDifficultyDropdown">
+              <option value="easy">Lätt</option>
+              <option value="medium" selected="selected">Medium</option>
+              <option value="hard">Svår</option>
+          </select></div>
+          <button id="playQuizButton" class="flexItem">Play</button>
+      </div>
+      <div id="playQuiz">
+          <div id="quizQuestion" class="textAlignCenter"></div>
+          <div id="quizChoices" class="flexContainer"></div>
+          <div id="quizResponse" class="textAlignCenter"></div>
+      </div>
+    </main>
     <!-- Leaderboard page -->
     <main id="leaderboardMain">
       <h1>Leaderboard - Score based on success rate</h1>
+      <h3>Higher opacity = higher score</h3>
       <div class="user">
           <h4>Users</h4>
           <div class="userScores">
@@ -96,7 +116,7 @@
               <p>Hard</p>
           </div>
       </div>
-  </main>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
