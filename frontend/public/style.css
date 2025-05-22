@@ -194,6 +194,20 @@ nav {
 }
 .quizAnswerButton, #quizQuestion, #quizResponse { color: black }
 
+/* -- Results of Quiz -- */
+#quizScore {
+    background-color: #B5C99A;
+    padding: 30px;
+    border-radius: 10px;
+}
+#returnHomeButton {
+    background-color: #718355;
+    border-radius: 7px;
+    padding: 10px;
+    flex-basis: 200px;
+    margin-top: 15px;
+}
+
 /* -- Login and register -- */
 #loginMain, #registerMain{
     background-color: #CFE1B9;
