@@ -92,11 +92,11 @@ async function handler(request){
             }
         }
         if(url.pathname === "/register"){
-            if(body.username && body.password){
+            if(body.username && body.password && body.email){
                 if(data.users.some(user => user.username === body.username)){
                     return new Response(JSON.stringify("Conflict, username already exists"), { status: 409, headers: headersCORS })
                 }
-                if (!body.username || !body.password) {
+                if (!body.username || !body.password || !body.email) {
                     return new Response(JSON.stringify("Bad Request, Attributes missing", {status: 400, headers: headersCORS}));
                 }
                 const username = body.username;
@@ -112,6 +112,7 @@ async function handler(request){
                     id: userId,
                     username: username,
                     password: password,
+                    email: body.email,
                     score: 0,
                     following: []
                 }
