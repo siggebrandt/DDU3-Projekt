@@ -321,5 +321,13 @@ function loggedIn (){
     profilButton.id = "profileButton";
     navLinks.appendChild(profilButton);
     profilButton.textContent = "Profil"
+    profilButton.addEventListener("click", showProfile);
 }
 // Register
+
+//Profile
+async function showProfile() {
+    hidePages();
+    profileMain.style.display = "block";
+}
+showProfile();
