@@ -7,6 +7,7 @@
     <title>QuizSite</title>
   </head>
   <body>
+    <!-- Nav -->
     <nav class="flexContainer">
       <div id="logo" class="flexItem">
         <h1>QuizSite</h1> <!--logo img?-->
@@ -84,6 +85,24 @@
           <button id="playQuizButton" class="flexItem">Play</button>
       </div>
       <div id="quizLeaderboard"></div>
+    </main>
+    <!-- Quiz Play -->
+    <main id="quizPlayMain">
+      <div id="quizPageHeader" class="flexContainer textAlignCenter">
+          <div id="quizPageChooseDifficulty" class="flexItem">
+              Välj Svårighetsgrad: 
+          <select id="chooseDifficultyDropdown">
+              <option value="easy">Lätt</option>
+              <option value="medium" selected="selected">Medium</option>
+              <option value="hard">Svår</option>
+          </select></div>
+          <button id="playQuizButton" class="flexItem">Play</button>
+      </div>
+      <div id="playQuiz">
+          <div id="quizQuestion" class="textAlignCenter"></div>
+          <div id="quizChoices" class="flexContainer"></div>
+          <div id="quizResponse" class="textAlignCenter"></div>
+      </div>
     </main>
     <!-- Leaderboard page -->
     <main id="leaderboardMain">
