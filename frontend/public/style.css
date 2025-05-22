@@ -180,9 +180,10 @@ color: white;
     margin: 0 80px;
 }
 .quizAnswerButton {
-    padding: 20px;
+    padding: 30px 0;
     background-color: #E9F5DB;
     border-radius: 4px;
+    font-size: 18px;
 }
 .flexItem.quizAnswerButton {
     flex-basis: 33%;

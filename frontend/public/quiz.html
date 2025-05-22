@@ -94,11 +94,9 @@ async function startQuiz(questions) {
 
     function showQuestion () {
         let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
-        let haveAnswered = false; 
+        let haveAnswered = false;
 
         console.log(currentQuestions);
-        console.log(currentQuestions.question);    
-        console.log(currentQuestions.choices);   
 
         const quizQuestion = document.getElementById("quizQuestion");
         const quizChoices = document.getElementById("quizChoices");
@@ -116,11 +114,23 @@ async function startQuiz(questions) {
 
             choiceButton.addEventListener("click", function() {
                 if (!haveAnswered) {
-                    haveAnswered = true;
+                haveAnswered = true;
+
                 document.getElementById("quizResponse").innerHTML = currentQuestions.isCorrect(choice);
-                document.getElementById("quizResponse").style.backgroundColor = "red"
+
+                for (let button of document.querySelectorAll(".quizAnswerButton")) {
+                    button.style.backgroundColor = "#ef2d56";
+                    if (button.textContent === currentQuestions.correct) {
+                        button.style.backgroundColor = "#2fbf71"
+                    }
+                }
+                //document.getElementById("quizResponse").style.backgroundColor = "red"
+
+                console.log(document.querySelectorAll(".quizAnswerButton"))
+
                 if (currentQuestions.isCorrect(choice)) {
                     correctAnswers++;
+                    //choiceButton.style.backgroundColor = "#87986A"
                     document.getElementById("quizResponse").style.backgroundColor = "green"
                 }
                 setTimeout(function () {
@@ -128,14 +138,15 @@ async function startQuiz(questions) {
                     if (quizProgress < 10) {
                         showQuestion();
                         console.log("progress:", quizProgress)
+                    } else if (quizProgress >= 10) {
+                        // alla frågor svarade
                     }
-                }, 2500);
+                }, 3000);
             }
             })
         })
     }
     showQuestion();
-    
 }
 </script>
 <!--<script src="script.js"></script>-->
