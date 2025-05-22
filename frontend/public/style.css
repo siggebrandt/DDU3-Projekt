@@ -62,6 +62,22 @@ nav {
 }
 
 /* -- Home Page -- */
+#quizes {
+    gap: 10px;
+}
+.quizBox {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aquamarine;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.quizBox p {
+    color: black;
+}
 #logo{
     display: flex;
     justify-content: center;
@@ -85,9 +101,6 @@ nav {
     background-color: rgb(181, 215, 181);
     width: 400px;
     font-size: 36px;
-}
-#quizes .flexItem {
-    text-align: center;
 }
 #pexelsTest {
     height: 500px;

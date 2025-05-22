@@ -158,7 +158,32 @@ loginButton.addEventListener("click", async () => {
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
 
-const quizCategories = ["music", "movie"]
+const quizCategories = ["GeneralKnowledge", "Music", "Movies"]
+quizCategories.forEach(category => {
+    fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
+      headers: {
+        Authorization: pexelsAPIKey
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const photo = data.photos[0];
+        console.log("pexel", data);
+    
+        // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
+        const elementId = `quiz${category}`;
+        const element = document.getElementById(elementId);
+        
+        if (element && photo) {
+          element.style.backgroundImage = `url('${photo.src.landscape}')`;
+        }
+      })
+      .catch(error => {
+        console.error(`Något gick snett med kategorin ${category}`, error);
+      });
+});
+
+
 fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, {
     headers: {
       Authorization: pexelsAPIKey
@@ -167,7 +192,7 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
 .then(data => {
     const photo = data.photos[0];
     console.log("pexel", data)
-    const element = document.getElementById("pexelsTest");
+    const element = document.getElementById("quizMusic");
       element.style.backgroundImage = `url('${photo.src.landscape}')`;
 })
 document.getElementById("playQuizButton").addEventListener("click", async function() {
@@ -241,7 +266,7 @@ async function startQuiz(questions) {
                     } else if (quizProgress >= 10) {
                         // alla frågor svarade
                     }
-                }, 3000);
+                }, 1500);
             }
             })
         })
