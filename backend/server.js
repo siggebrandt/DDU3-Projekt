@@ -113,8 +113,23 @@ async function handler(request){
                     username: username,
                     password: password,
                     email: body.email,
-                    score: 0,
-                    following: []
+                    score: {
+                        easy: {
+                            correct: 0,
+                            answered: 0,
+                            percentage: 0,
+                        },
+                        medium: {
+                            correct: 0,
+                            answered: 0,
+                            percentage: 0,
+                        },
+                        hard: {
+                            correct: 0,
+                            answered: 0,
+                            percentage: 0,
+                        }
+                    },
                 }
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
