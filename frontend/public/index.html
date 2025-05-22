@@ -14,6 +14,7 @@
       <div class="flexItem"></div>
       <div id="navLinks" class="flexContainer flexItem">
         <!-- detta byts ut med JS sedan beroende på om användaren är inloggad eller inte :D -->
+        <button id="leaderboardButton" class="navButton">Leaderboard</button>
         <button id="loginButton" class="navButton">Login</button>
         <button id="registerButton" class="navButton">Register</button>
       </div>
@@ -87,6 +88,7 @@
     <!-- Leaderboard page -->
     <main id="leaderboardMain">
       <h1>Leaderboard - Score based on success rate</h1>
+      <h3>Higher opacity = higher score</h3>
       <div class="user">
           <h4>Users</h4>
           <div class="userScores">
@@ -95,7 +97,7 @@
               <p>Hard</p>
           </div>
       </div>
-  </main>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

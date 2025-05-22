@@ -119,13 +119,18 @@ color: white;
     border-radius: 5px; 
     height: max-content;
 }
-#leaderboardMain h1 {
+#leaderboardMain h1, #leaderboardMain h3 {
     text-align: center;
 }
-.scoreCircle{
+.scoreCircle, .scoreCircle div{
     height: 20px;
     width: 20px;
     border-radius: 50px;
+}
+.scoreCircle{
+    background-color: white;
+}
+.scoreCircle div{
     border: 1px solid rgb(132, 162, 131);
 }
 .user{
@@ -133,7 +138,8 @@ color: white;
     justify-content: space-between;
     align-items: baseline;
     border-bottom: 1px solid black;
-    margin-top: 10px;
+    margin: 10px 0;
+    padding-bottom: 5px;
 }
 .userScores{
     display: flex;

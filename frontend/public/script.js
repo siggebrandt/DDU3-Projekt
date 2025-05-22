@@ -41,15 +41,20 @@ const registerMain = document.querySelector("#registerMain");
 const quizMain = document.querySelector("#quizMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
 
-loginMain.style.display = "none";
-registerMain.style.display = "none";
-quizMain.style.display = "none";
-leaderboardMain.style.display = "none";
+function hidePages (){
+    homepageMain.style.display = "none";
+    loginMain.style.display = "none";
+    registerMain.style.display = "none";
+    quizMain.style.display = "none";
+    leaderboardMain.style.display = "none";
+}
+hidePages();
+homepageMain.style.display = "block";
 
 // Login 
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
-    homepageMain.style.display = "none";
+    hidePages()
     loginMain.style.display = "block";
     const loginButton = document.querySelector("#loginMain #loginButton");
     loginButton.addEventListener("click", async () => {
@@ -141,7 +146,8 @@ async function startQuiz(questions) {
     showQuestion();
     
 }
-async function leaderboard() {
+// Leaderboard
+async function createLeaderboard() {
     const response = await fetch("http://localhost:8000/users");
     const users = await response.json();
     const leaderboardMain = document.querySelector("#leaderboardMain");
@@ -150,32 +156,30 @@ async function leaderboard() {
         const mediumScore = user.score.medium;
         const hardScore = user.score.hard;
         const userDiv = document.createElement("div");
-        const usernameDOM = document.createElement("p");
-        const userScore = document.createElement("div");
-
+        
         leaderboardMain.appendChild(userDiv);
-        userDiv.appendChild(usernameDOM);
-        userDiv.classList.add("user")
-        usernameDOM.textContent = user.username;
-        userDiv.appendChild(userScore)
-        userScore.classList.add("userScores")
-
-
-        const circleEasy = document.createElement("div");
-        circleEasy.classList.add("scoreCircle");
-        circleEasy.style.backgroundColor = `rgba(0, 150, 0, ${easyScore})`;
-        userScore.appendChild(circleEasy)
-
-        const circleMedium = document.createElement("div")
-        circleMedium.classList.add("scoreCircle");
-        circleMedium.style.backgroundColor = `rgba(255, 200, 0, ${mediumScore})`;
-        userScore.appendChild(circleMedium)
-
-        const circleHard = document.createElement("div")
-        circleHard.classList.add("scoreCircle");
-        circleHard.style.backgroundColor = `rgba(150, 0, 0, ${hardScore})`;
-        userScore.appendChild(circleHard)
-
+        
+        userDiv.innerHTML += `
+        <div class="user"> 
+        <p>${user.username}</p>
+        <div class="userScores">
+        <div class="scoreCircle">
+        <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
+        </div>
+        <div class="scoreCircle">
+        <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
+        </div>
+        <div class="scoreCircle">
+        <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
+        </div>
+        </div>
+        </div
+        `;
     }
 }
-leaderboard()
+const leaderboardButton = document.querySelector("#leaderboardButton");
+leaderboardButton.addEventListener("click", () => {
+    hidePages();
+    leaderboardMain.style.display = "block";
+    createLeaderboard();
+})

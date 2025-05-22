@@ -9,6 +9,7 @@
 <body>
     <main id="leaderboardMain">
         <h1>Leaderboard - Score based on success rate</h1>
+        <h3>Higher opacity = higher score</h3>
         <div class="user">
             <h4>Users</h4>
             <div class="userScores">
@@ -29,31 +30,25 @@
             const mediumScore = user.score.medium;
             const hardScore = user.score.hard;
             const userDiv = document.createElement("div");
-            const usernameDOM = document.createElement("p");
-            const userScore = document.createElement("div");
 
             leaderboardMain.appendChild(userDiv);
-            userDiv.appendChild(usernameDOM);
-            userDiv.classList.add("user")
-            usernameDOM.textContent = user.username;
-            userDiv.appendChild(userScore)
-            userScore.classList.add("userScores")
 
-
-            const circleEasy = document.createElement("div");
-            circleEasy.classList.add("scoreCircle");
-            circleEasy.style.backgroundColor = `rgba(0, 150, 0, ${easyScore})`;
-            userScore.appendChild(circleEasy)
-
-            const circleMedium = document.createElement("div")
-            circleMedium.classList.add("scoreCircle");
-            circleMedium.style.backgroundColor = `rgba(255, 200, 0, ${mediumScore})`;
-            userScore.appendChild(circleMedium)
-
-            const circleHard = document.createElement("div")
-            circleHard.classList.add("scoreCircle");
-            circleHard.style.backgroundColor = `rgba(150, 0, 0, ${hardScore})`;
-            userScore.appendChild(circleHard)
+            userDiv.innerHTML += `
+                <div class="user"> 
+                    <p>${user.username}</p>
+                    <div class="userScores">
+                        <div class="scoreCircle">
+                            <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
+                        </div>
+                        <div class="scoreCircle">
+                            <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
+                        </div>
+                        <div class="scoreCircle">
+                            <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
+                        </div>
+                    </div>
+                </div
+            `
 
         }
     }
