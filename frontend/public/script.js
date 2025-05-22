@@ -87,7 +87,68 @@ loginButtonNav.addEventListener("click", () => {
             loginMain.innerHTML += "Password or username is incorrect! Please try again"
         }
     })
+});
+
+const registerButtonNav = document.querySelector("#registerButton");
+registerButtonNav.addEventListener("click", () => {
+    hidePages();
+    registerMain.style.display = "block";
+
+    const username = document.querySelector("#register-username");
+    const password = document.querySelector("#register-password");
+    const repeatedPassword = document.querySelector("#password2");
+    const email = document.querySelector("#e-mail");
+    const status = document.querySelector("#register-status");
+    
+    const registerButton = document.querySelector("#register-button");
+    registerButton.addEventListener("click", async () => {
+        if (password.value !== repeatedPassword.value) {
+            status.textContent = "Passwords do not match!";
+            return;
+        }
+        const req = new Request(`${websiteURL}/register`, {
+            method: "POST",
+            body: JSON.stringify({username: username.value, password: password.value, email: email.value}),
+            headers: {"content-type": "application/json"}
+        });
+        let resp = await fetch(req);
+        if (resp.status === 201) {
+            status.textContent = "Register successfull! You can now login!";
+        } else if (resp.status === 409) {
+            status.textContent = "Username already in use, try again";
+        } else {
+            status.textContent = "One or more inputs are empty! Try again."
+        }
+    })
 })
+const loginButton = document.querySelector("#loginMain #loginButton");
+const updateStatus = document.createElement("p");
+loginMain.appendChild(updateStatus);
+loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#loginMain #username").value;
+    const password = document.querySelector("#loginMain #password").value;
+    const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }
+    const response = await fetch(websiteURL + "/login", options);
+    console.log(response)
+    if (response.status === 200){
+        updateStatus.textContent = "Login was successfull"
+        loggedIn();
+        setTimeout(function (){
+            hidePages();
+            homepageMain.style.display = "block";
+        }, 2000);
+    } else {
+        updateStatus.textContent = "Password or username is incorrect! Please try again"
+    }
+})
+
 
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
@@ -246,5 +307,13 @@ leaderboardButton.addEventListener("click", () => {
     hidePages();
     leaderboardMain.style.display = "block";
 })
-
+function loggedIn (){
+    loginButtonNav.style.display = "none";
+    document.getElementById("registerButton").style.display = "none"
+    const profilButton = document.createElement("button");
+    const navLinks = document.querySelector("#navLinks");
+    profilButton.classList.add("navButton");
+    navLinks.appendChild(profilButton);
+    profilButton.textContent = "Profil"
+}
 // Register
