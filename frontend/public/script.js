@@ -1,4 +1,4 @@
-const websiteURL = "http://localhost:8000"; // använd dena variabel för websidans-URL, representerar localhost OCH serverlänken
+const websiteURL = "http:localhost:8000";
 
 class CreateQuestion{
     constructor(data){
@@ -51,11 +51,17 @@ function hidePages (){
     loginMain.style.display = "none";
     registerMain.style.display = "none";
     quizMain.style.display = "none";
-    quizPlayMain.style.display = "none"
+    quizPlayMain.style.display = "none";
     leaderboardMain.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
+
+// Nav
+document.querySelector("#logo h1").addEventListener("click", function () { 
+    hidePages()
+    homepageMain.style.display = "block" 
+})
 
 // Login 
 const loginButtonNav = document.getElementById("loginButton");
@@ -115,6 +121,32 @@ registerButtonNav.addEventListener("click", () => {
         }
     })
 })
+const loginButton = document.querySelector("#loginMain #loginButton");
+loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#loginMain #username").value;
+    const password = document.querySelector("#loginMain #password").value;
+    const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }
+    const response = await fetch(websiteURL + "/login", options);
+    console.log(response)
+    if (response.status === 200){
+        loginMain.innerHTML += "<p>Login was successfull</p>"
+        loggedIn();
+        setTimeout(function (){
+            hidePages();
+            homepageMain.style.display = "block";
+        }, 2000);
+    } else {
+        loginMain.innerHTML += "Password or username is incorrect! Please try again"
+    }
+})
+
 
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
@@ -248,5 +280,13 @@ leaderboardButton.addEventListener("click", () => {
     hidePages();
     leaderboardMain.style.display = "block";
 })
-
+function loggedIn (){
+    loginButtonNav.style.display = "none";
+    document.getElementById("registerButton").style.display = "none"
+    const profilButton = document.createElement("button");
+    const navLinks = document.querySelector("#navLinks");
+    profilButton.classList.add("navButton");
+    navLinks.appendChild(profilButton);
+    profilButton.textContent = "Profil"
+}
 // Register
