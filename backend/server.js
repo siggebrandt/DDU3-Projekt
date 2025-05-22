@@ -191,6 +191,28 @@ async function handler(request){
                 return new Response(JSON.stringify("Not Found, No user with that username was found"), {status: 404, headers: headersCORS});
             }
         }
+        const userRoute = new URLPattern({ pathname: "/user/:id/score" });
+        const userMatch = userRoute.exec(request.url);
+        if(userMatch){
+            const requestId = userMatch.pathname.groups.id;
+            console.log(requestId)
+            let user = data.users.find(user => user.id == requestId);
+            console.log(user)
+            if(user){
+                if(body.difficulty && body.correct && body.answered){
+                    let difficulty = body.difficulty;
+                    let correct = body.correct;
+                    let answered = body.answered
+                    user.score[difficulty].correct = user.score[difficulty].correct + correct;
+                    user.score[difficulty].answered = user.score[difficulty].answered + answered;
+                    Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
+                    return new Response(JSON.stringify("The score is now updated"), {status: 200, headers: headersCORS});
+                }
+            } else {
+                return new Response(JSON.stringify("Not Found, No user with that id was found"), {status: 404, headers: headersCORS});
+            }
+        }
+
     }
 
     if (request.method === "DELETE") {

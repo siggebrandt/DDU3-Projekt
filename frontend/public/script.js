@@ -64,6 +64,7 @@ const loginMain = document.querySelector("#loginMain");
 const registerMain = document.querySelector("#registerMain");
 const quizMain = document.querySelector("#quizMain");
 const quizPlayMain = document.querySelector("#quizPlayMain");
+const quizResultMain = document.querySelector("#quizResultMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
 const profileMain = document.querySelector("#profileMain");
 const overlay = document.querySelector("#overlay");
@@ -74,6 +75,7 @@ function hidePages (){
     registerMain.style.display = "none";
     quizMain.style.display = "none";
     quizPlayMain.style.display = "none";
+    quizResultMain.style.display = "none";
     leaderboardMain.style.display = "none";
     profileMain.style.display = "none";
     overlay.style.display = "none";
@@ -166,7 +168,7 @@ const quizCategories = ["Knowledge", "Movies", "Music"]
 quizCategories.forEach(category => {
     fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
       headers: {
-        Authorization: pexelsAPIKey
+        Authorization: siggePexelsAPIKey
       }
     })
     .then(response => response.json())
@@ -192,7 +194,7 @@ quizCategories.forEach(category => {
       });
 });
 
-
+/* 
 fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, {
     headers: {
       Authorization: pexelsAPIKey
@@ -203,7 +205,7 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
     console.log("pexel", data)
     const element = document.getElementById("quizMusic");
       element.style.backgroundImage = `url('${photo.src.landscape}')`;
-})
+}) */
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
         console.log("difficulty:",difficultyChosen)
@@ -233,8 +235,6 @@ async function startQuiz(questions) {
         let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
         let haveAnswered = false;
 
-        console.log(currentQuestions);
-
         const quizQuestion = document.getElementById("quizQuestion");
         const quizChoices = document.getElementById("quizChoices");
         const quizResponse = document.getElementById("quizResponse");
@@ -254,20 +254,15 @@ async function startQuiz(questions) {
                 haveAnswered = true;
 
                 document.getElementById("quizResponse").innerHTML = currentQuestions.isCorrect(choice);
-
                 for (let button of document.querySelectorAll(".quizAnswerButton")) {
                     button.style.backgroundColor = "#ef2d56";
                     if (button.textContent === currentQuestions.correct) {
                         button.style.backgroundColor = "#2fbf71"
                     }
                 }
-                //document.getElementById("quizResponse").style.backgroundColor = "red"
-
-                console.log(document.querySelectorAll(".quizAnswerButton"))
 
                 if (currentQuestions.isCorrect(choice)) {
                     correctAnswers++;
-                    //choiceButton.style.backgroundColor = "#87986A"
                     document.getElementById("quizResponse").style.backgroundColor = "green"
                 }
                 setTimeout(function () {
@@ -276,7 +271,17 @@ async function startQuiz(questions) {
                         showQuestion();
                         console.log("progress:", quizProgress)
                     } else if (quizProgress >= 10) {
-                        // alla frågor svarade
+                        hidePages()
+                        quizResultMain.style.display = "block";
+
+                        document.getElementById("resultsOfQuiz").innerHTML = `
+                        <div id="quizScore" class="textAlignCenter">Du fick ${correctAnswers} rätt av 10 möjliga!
+                        <div id="returnHome" class="flexContainer flexJustifyCenter"><div id="returnHomeButton">Gå tillbaka till startsidan</div></div>
+                        </div>`
+                        document.getElementById("returnHomeButton").addEventListener("click", function () {
+                            hidePages()
+                            homepageMain.style.display = "block";
+                        })
                     }
                 }, 1500);
             }
