@@ -79,6 +79,7 @@ nav {
     color: white;
     font-size: 40px;
     text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+    cursor: default;
 }
 #logo{
     display: flex;
@@ -103,9 +104,6 @@ nav {
     background-color: rgb(181, 215, 181);
     width: 400px;
     font-size: 36px;
-}
-#pexelsTest {
-    height: 500px;
 }
 
 /* -- Leaderboard -- */

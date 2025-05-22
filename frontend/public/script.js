@@ -149,6 +149,11 @@ quizCategories.forEach(category => {
         // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
         const elementId = `quiz${category}`;
         const element = document.getElementById(elementId);
+
+        element.addEventListener("click", function() {
+            hidePages();
+            quizMain.style.display = "block";
+        })
         
         if (element && photo) {
           element.style.backgroundImage = `url('${photo.src.landscape}')`;
@@ -173,8 +178,11 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
 })
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log(difficultyChosen)
-        
+        console.log("difficulty:",difficultyChosen)
+
+        hidePages();
+        quizPlayMain.style.display = "block";
+
 
     fetch(`${websiteURL}/quiz/create`, {
         method: "POST",
