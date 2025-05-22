@@ -68,27 +68,36 @@ const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
     loginMain.style.display = "block";
-    const loginButton = document.querySelector("#loginMain #loginButton");
-    loginButton.addEventListener("click", async () => {
-        const username = document.querySelector("#loginMain #username").value;
-        const password = document.querySelector("#loginMain #password").value;
-        const options = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        }
-        const response = await fetch(websiteURL + "/login", options);
-        if (response.status === 200){
-            loginMain.innerHTML += "Login was successfull"
-        } else {
-            loginMain.innerHTML += "Password or username is incorrect! Please try again"
-        }
-    })
-});
 
+});
+const loginButton = document.querySelector("#loginMain #loginButton");
+const updateStatus = document.createElement("p");
+loginMain.appendChild(updateStatus);
+loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#loginMain #username").value;
+    const password = document.querySelector("#loginMain #password").value;
+    const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }
+    const response = await fetch(websiteURL + "/login", options);
+    console.log(response)
+    if (response.status === 200){
+        updateStatus.textContent = "Login was successfull"
+        loggedIn();
+        setTimeout(function (){
+            hidePages();
+            homepageMain.style.display = "block";
+        }, 2000);
+    } else {
+        updateStatus.textContent = "Password or username is incorrect! Please try again"
+    }
+})
+// Register
 const registerButtonNav = document.querySelector("#registerButton");
 registerButtonNav.addEventListener("click", () => {
     hidePages();
@@ -121,34 +130,6 @@ registerButtonNav.addEventListener("click", () => {
         }
     })
 })
-const loginButton = document.querySelector("#loginMain #loginButton");
-const updateStatus = document.createElement("p");
-loginMain.appendChild(updateStatus);
-loginButton.addEventListener("click", async () => {
-    const username = document.querySelector("#loginMain #username").value;
-    const password = document.querySelector("#loginMain #password").value;
-    const options = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    }
-    const response = await fetch(websiteURL + "/login", options);
-    console.log(response)
-    if (response.status === 200){
-        updateStatus.textContent = "Login was successfull"
-        loggedIn();
-        setTimeout(function (){
-            hidePages();
-            homepageMain.style.display = "block";
-        }, 2000);
-    } else {
-        updateStatus.textContent = "Password or username is incorrect! Please try again"
-    }
-})
-
 
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
@@ -316,4 +297,4 @@ function loggedIn (){
     navLinks.appendChild(profilButton);
     profilButton.textContent = "Profil"
 }
-// Register
+
