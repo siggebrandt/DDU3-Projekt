@@ -275,8 +275,7 @@ async function startQuiz(questions) {
                         document.getElementById("resultsOfQuiz").innerHTML = `
                         <div id="quizScore" class="textAlignCenter">Du fick ${correctAnswers} rätt av 10 möjliga!
                         <div id="returnHome" class="flexContainer flexJustifyCenter"><div id="returnHomeButton">Gå tillbaka till startsidan</div></div>
-                        </div>
-                        `
+                        </div>`
                         document.getElementById("returnHomeButton").addEventListener("click", function () {
                             hidePages()
                             homepageMain.style.display = "block";

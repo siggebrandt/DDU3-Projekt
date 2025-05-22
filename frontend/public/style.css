@@ -79,7 +79,7 @@ nav {
     color: white;
     font-size: 40px;
     text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
-    cursor: default;
+    cursor: pointer;
 }
 #logo{
     display: flex;
@@ -91,7 +91,7 @@ nav {
     padding: 30px;
     border-radius: 5px;
     color: white;
-    cursor: default;
+    cursor: pointer;
 }
 #getStarted{
     display: flex;
@@ -206,6 +206,7 @@ nav {
     padding: 10px;
     flex-basis: 200px;
     margin-top: 15px;
+    cursor: pointer;
 }
 
 /* -- Login and register -- */
