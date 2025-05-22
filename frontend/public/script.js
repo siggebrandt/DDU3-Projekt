@@ -168,6 +168,11 @@ quizCategories.forEach(category => {
         // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
         const elementId = `quiz${category}`;
         const element = document.getElementById(elementId);
+
+        element.addEventListener("click", function() {
+            hidePages();
+            quizMain.style.display = "block";
+        })
         
         if (element && photo) {
           element.style.backgroundImage = `url('${photo.src.landscape}')`;
