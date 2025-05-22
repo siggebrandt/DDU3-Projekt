@@ -1,20 +1,3 @@
-/* --- Färg Variabler --- */
-:root {
-    /* colors */
-    /* --colorA: #050505;
-    --colorB: #121212;
-    --colorC: #353535;
-    --colorD: #666666;
-    --colorE: #7f7f7f;
-    --colorF: #999999;
-    --colorG: #e5e5e5;
-    --colorH: #f4f4f4;
-    --colorI: #087fe7; */
-    /* box shadow */
-    /* --boxShadowA: rgba(0, 0, 0, 0.1);
-    --boxShadowB: rgba(0, 0, 0, 0.2); */
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -26,7 +9,6 @@
 body{
     background-color: #f9fdf4;
     max-height: 100vh;
-    /* overflow: hidden; */
 }
 main {
     margin: 65px 150px;
@@ -73,11 +55,6 @@ nav {
     color: white;
 }
 
-header {
-    
-}
-
-
 /* -- Home Page -- */
 #logo{
     display: flex;
@@ -88,7 +65,7 @@ header {
     background-color: #718355 /*rgb(243, 246, 159)*/;
     padding: 30px;
     border-radius: 5px;
-color: white;
+    color: white;
 }
 #getStarted{
     display: flex;
@@ -109,8 +86,7 @@ color: white;
     height: 500px;
 }
 
-/* Leaderboard */
-
+/* -- Leaderboard -- */
 #leaderboardMain{
     background-color: #B5C99A;
     padding: 50px;
@@ -145,6 +121,7 @@ color: white;
     border-radius: 5px;
     padding: 5px;
 }
+
 /* -- Quiz Page -- */
 #quizPageHeader {
     gap: 25px;
@@ -168,6 +145,7 @@ color: white;
     margin-left: 5px;
     border-radius: 3px;
 }
+
 /* -- Play Quiz -- */
 #quizQuestion {
     background-color: #97A97C;
@@ -187,9 +165,9 @@ color: white;
 }
 .flexItem.quizAnswerButton {
     flex-basis: 33%;
-  }
+}
 
-/* Login and register */
+/* -- Login and register -- */
 #loginMain, #registerMain{
     background-color: #CFE1B9;
     padding: 50px;
