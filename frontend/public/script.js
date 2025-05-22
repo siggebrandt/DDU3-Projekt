@@ -153,7 +153,7 @@ loginButton.addEventListener("click", async () => {
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
 
-const quizCategories = ["GeneralKnowledge", "Music", "Movies"]
+const quizCategories = ["Knowledge", "Movies", "Music"]
 quizCategories.forEach(category => {
     fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
       headers: {
@@ -163,7 +163,7 @@ quizCategories.forEach(category => {
     .then(response => response.json())
     .then(data => {
         const photo = data.photos[0];
-        console.log("pexel", data);
+        console.log(category, "pexel", data);
     
         // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
         const elementId = `quiz${category}`;
