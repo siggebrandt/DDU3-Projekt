@@ -196,7 +196,7 @@ nav {
 
 /* -- Login and register -- */
 #loginMain, #registerMain{
-    background-color: #CFE1B9;
+    background-color: #B5C99A;
     padding: 50px;
     display: flex;
     flex-direction: column;
