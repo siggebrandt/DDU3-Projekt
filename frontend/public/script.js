@@ -325,7 +325,7 @@ async function showProfile() {
     profile.innerHTML = `
     <div id="profilePic">
         <img src="${loggedInUser.profilePic}">
-    </div
+    </div>
     <h1>${loggedInUser.username}</h1>
     <h2>Your stats</h2>
     <div id="profile-stats">
