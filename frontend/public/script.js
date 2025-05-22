@@ -54,6 +54,7 @@ leaderboardMain.style.display = "none";
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     homepageMain.style.display = "none";
+    registerMain.style.display = "none";
     loginMain.style.display = "block";
     const loginButton = document.querySelector("#loginMain #loginButton");
     loginButton.addEventListener("click", async () => {
@@ -72,6 +73,40 @@ loginButtonNav.addEventListener("click", () => {
             loginMain.innerHTML += "Login was successfull"
         } else {
             loginMain.innerHTML += "Password or username is incorrect! Please try again"
+        }
+    })
+});
+
+const registerButtonNav = document.querySelector("#registerButton");
+registerButtonNav.addEventListener("click", () => {
+    homepageMain.style.display = "none";
+    registerMain.style.display = "block";
+    loginMain.style.display = "none";
+
+    const username = document.querySelector("#username");
+    const password = document.querySelector("#register-password");
+    const repeatedPassword = document.querySelector("#password2");
+    const email = document.querySelector("#e-mail");
+    const status = document.querySelector("#status");
+    
+    const registerButton = document.querySelector("#register-button");
+    registerButton.addEventListener("click", async () => {
+        if (password.value !== repeatedPassword.value) {
+            status.textContent += "Passwords do not match!";
+            return;
+        }
+        const req = new Request(`${websiteURL}/register`, {
+            method: "POST",
+            body: JSON.stringify({username: username.value, password: password.value, email: email.value}),
+            headers: {"content-type": "application/json"}
+        });
+        let resp = await fetch(req);
+        if (resp.status === 200) {
+            status.textContent += "Register successfull! You can now login!";
+        } else if (resp.status === 409) {
+            status.textContent += "Username already in use, try again";
+        } else {
+            status.textContent += "One or more inputs are empty! Try again."
         }
     })
 })
