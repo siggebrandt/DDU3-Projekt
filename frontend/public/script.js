@@ -323,7 +323,7 @@ async function showProfile() {
         <img src=""
     `
 }
-showProfile();
+//showProfile();
 
 class User {
     constructor(data) {
