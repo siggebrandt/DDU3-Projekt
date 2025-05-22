@@ -137,7 +137,8 @@ registerButtonNav.addEventListener("click", () => {
 })
 
 /* Home Page Quiz Images */
-const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
+const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
+const neoPexelsAPIKey = `sQLMQfpcJkVFD8dbejB6VqtaMkmnv7rIyaHrR45W2tOG5UWyaAeR4wfe`;
 
 const quizCategories = ["Knowledge", "Movies", "Music"]
 quizCategories.forEach(category => {
