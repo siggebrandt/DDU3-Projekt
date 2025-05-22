@@ -318,10 +318,40 @@ async function showProfile() {
     profileMain.style.display = "block";
     let profile = document.createElement("div");
     profile.id = "profile";
+    let userStats = await loggedInUser.getUserStats();
     profile.innerHTML = `
     <div id="profilePic">
         <img src="${loggedInUser.profilePic}">
-    `
+    </div
+    <h1>${loggedInUser.username}</h1>
+    <h2>Your stats</h2>
+    <div id="profile-stats">
+        <ul>
+            <h3>Easy</h3>
+            <li><b>Correct: </b>${userStats["easy"].correct}</li>
+            <li><b>Answered: </b>${userStats["easy"].answered}</li>
+            <li><b>Percentage: </b>${userStats["easy"].percentage}</li>
+        </ul>
+        <ul>
+            <h3>Medium</h3>
+            <li><b>Correct: </b>${userStats["medium"].correct}</li>
+            <li><b>Answered: </b>${userStats["medium"].answered}</li>
+            <li><b>Percentage: </b>${userStats["medium"].percentage}</li>
+        </ul>
+        <ul>
+            <h3>Hard</h3>
+            <li><b>Correct: </b>${userStats["hard"].correct}</li>
+            <li><b>Answered: </b>${userStats["hard"].answered}</li>
+            <li><b>Percentage: </b>${userStats["hard"].percentage}</li>
+        </ul>
+    </div>
+    <div id="profileManagement">
+        <button class="profileButton" id="deleteAccount">Delete Account</button>
+        <button class="profileButton" id="changePassword">Change Password</button>
+    </div>
+    `;
+    console.log(profile.innerHTML);
+    profileMain.appendChild(profile);
 }
 showProfile();
 
