@@ -1,4 +1,4 @@
-const websiteURL = "http:localhost:8000"; // använd dena variabel för websidans-URL, representerar localhost OCH serverlänken
+const websiteURL = "http://localhost:8000"; // använd dena variabel för websidans-URL, representerar localhost OCH serverlänken
 
 class CreateQuestion{
     constructor(data){
@@ -85,20 +85,19 @@ loginButtonNav.addEventListener("click", () => {
 
 const registerButtonNav = document.querySelector("#registerButton");
 registerButtonNav.addEventListener("click", () => {
-    homepageMain.style.display = "none";
+    hidePages();
     registerMain.style.display = "block";
-    loginMain.style.display = "none";
 
-    const username = document.querySelector("#username");
+    const username = document.querySelector("#register-username");
     const password = document.querySelector("#register-password");
     const repeatedPassword = document.querySelector("#password2");
     const email = document.querySelector("#e-mail");
-    const status = document.querySelector("#status");
+    const status = document.querySelector("#register-status");
     
     const registerButton = document.querySelector("#register-button");
     registerButton.addEventListener("click", async () => {
         if (password.value !== repeatedPassword.value) {
-            status.textContent += "Passwords do not match!";
+            status.textContent = "Passwords do not match!";
             return;
         }
         const req = new Request(`${websiteURL}/register`, {
@@ -107,12 +106,12 @@ registerButtonNav.addEventListener("click", () => {
             headers: {"content-type": "application/json"}
         });
         let resp = await fetch(req);
-        if (resp.status === 200) {
-            status.textContent += "Register successfull! You can now login!";
+        if (resp.status === 201) {
+            status.textContent = "Register successfull! You can now login!";
         } else if (resp.status === 409) {
-            status.textContent += "Username already in use, try again";
+            status.textContent = "Username already in use, try again";
         } else {
-            status.textContent += "One or more inputs are empty! Try again."
+            status.textContent = "One or more inputs are empty! Try again."
         }
     })
 })
