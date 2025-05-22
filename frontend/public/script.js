@@ -87,7 +87,7 @@ loginButtonNav.addEventListener("click", () => {
         if (response.status === 200){
             loginMain.innerHTML += "Login was successfull";
             let resource = await response.json();
-            loggedInUser = resource;
+            loggedInUser = new User(resource);
         } else {
             loginMain.innerHTML += "Password or username is incorrect! Please try again"
         }
@@ -329,5 +329,32 @@ function loggedIn (){
 async function showProfile() {
     hidePages();
     profileMain.style.display = "block";
+    let profile = document.createElement("div");
+    profile.id = "profile";
+    profile.innerHTML = `
+    <div id="profilePic">
+        <img src=""
+    `
 }
 showProfile();
+
+class User {
+    constructor(data) {
+        this.id = data.id;
+        this.username = data.username;
+        this.password = data.password;
+        this.email = data.email;
+        this.profilePic = data.profilePic;
+    }
+
+    async getUserStats() {
+        let req = new Request(`${websiteURL}/user/${this.id}`);
+        let resp = await fetch(req);
+        console.log(resp);
+        if (resp.ok) {
+            let reso = await resp.json();
+            console.log(reso);
+            return reso.score;
+        }
+    }
+}
