@@ -221,11 +221,11 @@ document.getElementById("playQuizButton").addEventListener("click", async functi
         })
         .then(response => response.json())
         .then(async function(data) {
-        await startQuiz(data);
+        await startQuiz(data, difficultyChosen);
         });
 })
 
-async function startQuiz(questions) {
+async function startQuiz(questions, difficultyChosen) {
     console.log("Quiz started:",questions);
     document.getElementById("quizQuestion").style.padding = "30px"
     let quizProgress = 0;
@@ -273,6 +273,14 @@ async function startQuiz(questions) {
                     } else if (quizProgress >= 10) {
                         hidePages()
                         quizResultMain.style.display = "block";
+                        if (loggedInUser) {
+                            console.log(loggedInUser);
+                            fetch(`${websiteURL}/user/${loggedInUser.id}/score`, {
+                                method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ difficulty: difficultyChosen, correct: correctAnswers, answered: 10 })
+                            })
+                            .then(response => response.json())
+                            .then(console.log)
+                        }
 
                         document.getElementById("resultsOfQuiz").innerHTML = `
                         <div id="quizScore" class="textAlignCenter">Du fick ${correctAnswers} rätt av 10 möjliga!
