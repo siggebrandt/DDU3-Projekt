@@ -15,7 +15,11 @@ class CreateQuestion{
         return answer.replace(/&quot;/g, '"')
                 .replace(/&#039;/g, "'")
                 .replace(/&amp;/g, "&")
-                .replace(/&ntilde;/g, "ñ");
+                .replace(/&ntilde;/g, "ñ")
+                .replace(/&ldquo;/g, '"')
+                .replace(/&hellip;/g, "…")
+                .replace(/&rdquo;/g, '"')
+                .replace(/&eacute;/g, "é");
     }
 
     shuffle (array){
