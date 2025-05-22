@@ -34,6 +34,26 @@ class CreateQuestion{
         return shuffledArray;
     }
 }
+class User {
+    constructor(data) {
+        this.id = data.id;
+        this.username = data.username;
+        this.password = data.password;
+        this.email = data.email;
+        this.profilePic = data.profilePic;
+    }
+
+    async getUserStats() {
+        let req = new Request(`${websiteURL}/user/${this.id}`);
+        let resp = await fetch(req);
+        console.log(resp);
+        if (resp.ok) {
+            let reso = await resp.json();
+            console.log(reso);
+            return reso.score;
+        }
+    }
+}
 const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
 let question1 = new CreateQuestion(testData)
 console.log(question1.question, question1.choices);
@@ -328,23 +348,4 @@ async function showProfile() {
 }
 //showProfile();
 
-class User {
-    constructor(data) {
-        this.id = data.id;
-        this.username = data.username;
-        this.password = data.password;
-        this.email = data.email;
-        this.profilePic = data.profilePic;
-    }
 
-    async getUserStats() {
-        let req = new Request(`${websiteURL}/user/${this.id}`);
-        let resp = await fetch(req);
-        console.log(resp);
-        if (resp.ok) {
-            let reso = await resp.json();
-            console.log(reso);
-            return reso.score;
-        }
-    }
-}
