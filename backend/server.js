@@ -213,6 +213,23 @@ async function handler(request){
             }
         }
 
+        const profilePicPath = new URLPattern({pathname: "/user/:id/profilePic"});
+        const profilePicMatch = profilePicPath.exec(url);
+        if (profilePicMatch) {
+            if (!body.profilePic) {
+                return new Response(JSON.stringify("Bad request, missing attribute"), {status: 400, headers: headersCORS});
+            }
+            
+            let userID = parseInt(profilePicMatch.pathname.groups.id);
+            let user = data.users.find((user) => user.id === userID);
+            if (user) {
+                user.profilePic = body.profilePic;
+                return new Response(JSON.stringify("Profilepic Updated"), {headers: headersCORS});
+            } else {
+                return new Response(JSON.stringify("User not found"), {status: 404, headers: headersCORS});
+            }
+        }
+
     }
 
     if (request.method === "DELETE") {
