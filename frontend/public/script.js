@@ -209,9 +209,11 @@ async function createLeaderboard() {
         `;
     }
 }
+createLeaderboard();
 const leaderboardButton = document.querySelector("#leaderboardButton");
 leaderboardButton.addEventListener("click", () => {
     hidePages();
     leaderboardMain.style.display = "block";
-    createLeaderboard();
 })
+
+// Register
