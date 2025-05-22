@@ -223,7 +223,9 @@ async function handler(request){
             let userID = parseInt(profilePicMatch.pathname.groups.id);
             let user = data.users.find((user) => user.id === userID);
             if (user) {
-                user.profilePic = body.profilePic;
+                let index = data.users.findIndex((user) => user.id === userID);
+                data.users[index].profilePic = body.profilePic;
+                Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
                 return new Response(JSON.stringify("Profilepic Updated"), {headers: headersCORS});
             } else {
                 return new Response(JSON.stringify("User not found"), {status: 404, headers: headersCORS});
