@@ -178,8 +178,11 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
 })
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log(difficultyChosen)
-        
+        console.log("difficulty:",difficultyChosen)
+
+        hidePages();
+        quizPlayMain.style.display = "block";
+
 
     fetch(`${websiteURL}/quiz/create`, {
         method: "POST",
