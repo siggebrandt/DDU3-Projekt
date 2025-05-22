@@ -66,6 +66,7 @@ const quizMain = document.querySelector("#quizMain");
 const quizPlayMain = document.querySelector("#quizPlayMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
 const profileMain = document.querySelector("#profileMain");
+const overlay = document.querySelector("#overlay");
 
 function hidePages (){
     homepageMain.style.display = "none";
@@ -75,6 +76,7 @@ function hidePages (){
     quizPlayMain.style.display = "none";
     leaderboardMain.style.display = "none";
     profileMain.style.display = "none";
+    overlay.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -345,10 +347,9 @@ async function showProfile() {
     let userStats = await loggedInUser.getUserStats();
     let profilePic;
     if (!loggedInUser.profilePic) {
-        profilePic = "https://static.thenounproject.com/png/4530368-200.png";
-    } else {
-        profilePic = loggedInUser.profilePic;
+        await profilePicPicker();
     }
+    profilePic = loggedInUser.profilePic;
 
     profile.innerHTML = `
     <div id="profilePic">
@@ -380,6 +381,9 @@ async function showProfile() {
     `;
     profileMain.appendChild(profile);
 }
-//showProfile();
+
+async function profilePicPicker() {
+    overlay.style.display = "flex";
+}
 
 

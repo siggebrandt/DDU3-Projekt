@@ -229,6 +229,40 @@ nav {
 }
 
 /* Profile Page */
+#image-options {
+    border: 2px solid white;
+    height: 200px;
+    width: 800px;
+    background-color: white;
+    display: flex;
+    gap: 10px;
+}
+
+#image-options div {
+    flex-grow: 1;
+    flex-basis: 0;
+    border: 2px solid black;
+}
+
+#image-options div img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .profileButton {
     padding: 10px;
     background-color: red;
