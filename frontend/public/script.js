@@ -350,10 +350,10 @@ async function showProfile() {
         <button class="profileButton" id="changePassword">Change Password</button>
     </div>
     `;
-    console.log(profile.innerHTML);
+    console.log("HELLO");
     profileMain.appendChild(profile);
 }
-//showProfile();
+showProfile();
 
 class User {
     constructor(data) {
