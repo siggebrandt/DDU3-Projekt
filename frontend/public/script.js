@@ -137,7 +137,8 @@ registerButtonNav.addEventListener("click", () => {
 })
 
 /* Home Page Quiz Images */
-const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
+const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
+const neoPexelsAPIKey = `sQLMQfpcJkVFD8dbejB6VqtaMkmnv7rIyaHrR45W2tOG5UWyaAeR4wfe`;
 
 const quizCategories = ["Knowledge", "Movies", "Music"]
 quizCategories.forEach(category => {
@@ -270,27 +271,27 @@ async function createLeaderboard() {
     const users = await response.json();
     const leaderboardMain = document.querySelector("#leaderboardMain");
     for(let user of users){
-        const easyScore = user.score.easy;
-        const mediumScore = user.score.medium;
-        const hardScore = user.score.hard;
+        const easyScore = user.score.easy.correct / user.score.easy.answered;
+        const mediumScore = user.score.medium.correct / user.score.medium.answered;
+        const hardScore = user.score.hard.correct / user.score.hard.answered;
         const userDiv = document.createElement("div");
         
         leaderboardMain.appendChild(userDiv);
         
         userDiv.innerHTML += `
         <div class="user"> 
-        <p>${user.username}</p>
-        <div class="userScores">
-        <div class="scoreCircle">
-        <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
-        </div>
-        <div class="scoreCircle">
-        <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
-        </div>
-        <div class="scoreCircle">
-        <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
-        </div>
-        </div>
+            <p>${user.username}</p>
+            <div class="userScores">
+                <div class="scoreCircle">
+                    <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
+                </div>
+                <div class="scoreCircle">
+                    <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
+                </div>
+                <div class="scoreCircle">
+                    <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
+                </div>
+            </div>
         </div
         `;
     }
