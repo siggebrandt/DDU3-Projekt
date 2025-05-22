@@ -113,6 +113,7 @@ async function handler(request){
                     username: username,
                     password: password,
                     email: body.email,
+                    profilePic: "",
                     score: {
                         easy: {
                             correct: 0,
