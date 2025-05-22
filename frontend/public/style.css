@@ -226,3 +226,56 @@ nav {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     font-size: 14px;
 }
+
+/* Profile Page */
+.profileButton {
+    padding: 10px;
+    background-color: red;
+    border-radius: 10px;
+}
+
+.profileButton:hover {
+    background-color: indianred;
+    transform: scale(1.05);
+}
+
+#profileMain {
+    background-color: #CFE1B9;
+    border-radius: 5px;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 40px;
+}
+
+#profileMain #profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#profileMain #profile #profilePic {
+    height: 100px;
+    width: 100px;
+    justify-self: center;
+}
+
+#profileMain #profile h1 {
+    justify-self: center;
+}
+
+#profileMain #profile h2, #profileMain #profile h3, #profileMain #profile li {
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.5);
+}
+
+#profileMain #profile #profilePic img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+#profile-stats {
+    display: flex;
+    gap: 30px;
+}

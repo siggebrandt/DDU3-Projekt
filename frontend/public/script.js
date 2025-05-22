@@ -45,6 +45,7 @@ const registerMain = document.querySelector("#registerMain");
 const quizMain = document.querySelector("#quizMain");
 const quizPlayMain = document.querySelector("#quizPlayMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
+const profileMain = document.querySelector("#profileMain");
 
 function hidePages (){
     homepageMain.style.display = "none";
@@ -53,6 +54,7 @@ function hidePages (){
     quizMain.style.display = "none";
     quizPlayMain.style.display = "none";
     leaderboardMain.style.display = "none";
+    profileMain.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -63,11 +65,34 @@ document.querySelector("#logo h1").addEventListener("click", function () {
     homepageMain.style.display = "block" 
 })
 
-// Login 
+// Login
+let loggedInUser = null; 
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
     loginMain.style.display = "block";
+    const loginButton = document.querySelector("#loginMain #loginButton");
+    loginButton.addEventListener("click", async () => {
+        const username = document.querySelector("#loginMain #username").value;
+        const password = document.querySelector("#loginMain #password").value;
+        const options = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        }
+        const response = await fetch(websiteURL + "/login", options);
+        if (response.status === 200){
+            loginMain.innerHTML += "Login was successfull";
+            let resource = await response.json();
+            loggedInUser = new User(resource);
+        } else {
+            loginMain.innerHTML += "Password or username is incorrect! Please try again"
+        }
+    })
+});
 
 });
 const loginButton = document.querySelector("#loginMain #loginButton");
@@ -302,7 +327,43 @@ function loggedIn (){
     const profilButton = document.createElement("button");
     const navLinks = document.querySelector("#navLinks");
     profilButton.classList.add("navButton");
+    profilButton.id = "profileButton";
     navLinks.appendChild(profilButton);
     profilButton.textContent = "Profil"
+    profilButton.addEventListener("click", showProfile);
 }
+// Register
 
+//Profile
+async function showProfile() {
+    hidePages();
+    profileMain.style.display = "block";
+    let profile = document.createElement("div");
+    profile.id = "profile";
+    profile.innerHTML = `
+    <div id="profilePic">
+        <img src=""
+    `
+}
+showProfile();
+
+class User {
+    constructor(data) {
+        this.id = data.id;
+        this.username = data.username;
+        this.password = data.password;
+        this.email = data.email;
+        this.profilePic = data.profilePic;
+    }
+
+    async getUserStats() {
+        let req = new Request(`${websiteURL}/user/${this.id}`);
+        let resp = await fetch(req);
+        console.log(resp);
+        if (resp.ok) {
+            let reso = await resp.json();
+            console.log(reso);
+            return reso.score;
+        }
+    }
+}
