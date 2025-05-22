@@ -350,7 +350,7 @@ async function showProfile() {
         await profilePicPicker();
     }
     profilePic = loggedInUser.profilePic;
-
+    console.log(profilePic);
     profile.innerHTML = `
     <div id="profilePic">
         <img src="${profilePic}">
@@ -384,6 +384,29 @@ async function showProfile() {
 
 async function profilePicPicker() {
     overlay.style.display = "flex";
+    let themes = ["tiger", "parrot", "dog", "snail", "koala"];
+    let num = Math.floor(Math.random() * themes.length);
+    let req = new Request(`https://api.pexels.com/v1/search?query=${themes[num]}&per_page=5`, {
+        headers: {"Authorization": neoPexelsAPIKey}
+    });
+    let resp = await fetch(req);
+    let reso = await resp.json();
+    if (!resp.ok) {
+        console.log("ajdå");
+        return;
+    }
+    let imageOptions = document.querySelector("#image-options");
+    for (let img of reso.photos) {
+        let div = document.createElement("div");
+        div.innerHTML = `
+        <img src="${img.src.medium}">
+        `;
+        imageOptions.appendChild(div);
+        div.addEventListener("click", () => {
+            loggedInUser.profilePic = div.children[0].src;
+            overlay.style.display = "none";
+        });
+    }
 }
 
 
