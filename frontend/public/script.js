@@ -166,7 +166,7 @@ const quizCategories = ["Knowledge", "Movies", "Music"]
 quizCategories.forEach(category => {
     fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
       headers: {
-        Authorization: pexelsAPIKey
+        Authorization: siggePexelsAPIKey
       }
     })
     .then(response => response.json())
