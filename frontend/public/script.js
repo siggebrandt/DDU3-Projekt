@@ -70,6 +70,8 @@ loginButtonNav.addEventListener("click", () => {
     loginMain.style.display = "block";
 })
 const loginButton = document.querySelector("#loginMain #loginButton");
+const updateStatus = document.createElement("p");
+loginMain.appendChild(updateStatus);
 loginButton.addEventListener("click", async () => {
     const username = document.querySelector("#loginMain #username").value;
     const password = document.querySelector("#loginMain #password").value;
@@ -84,14 +86,14 @@ loginButton.addEventListener("click", async () => {
     const response = await fetch(websiteURL + "/login", options);
     console.log(response)
     if (response.status === 200){
-        loginMain.innerHTML += "<p>Login was successfull</p>"
+        updateStatus.textContent = "Login was successfull"
         loggedIn();
         setTimeout(function (){
             hidePages();
             homepageMain.style.display = "block";
         }, 2000);
     } else {
-        loginMain.innerHTML += "Password or username is incorrect! Please try again"
+        updateStatus.textContent = "Password or username is incorrect! Please try again"
     }
 })
 
