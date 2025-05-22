@@ -317,6 +317,7 @@ function loggedIn (){
 //Profile
 async function showProfile() {
     hidePages();
+    profileMain.innerHTML = "";
     profileMain.style.display = "block";
     let profile = document.createElement("div");
     profile.id = "profile";
