@@ -330,19 +330,16 @@ async function showProfile() {
             <h3>Easy</h3>
             <li><b>Correct: </b>${userStats["easy"].correct}</li>
             <li><b>Answered: </b>${userStats["easy"].answered}</li>
-            <li><b>Percentage: </b>${userStats["easy"].percentage}</li>
         </ul>
         <ul>
             <h3>Medium</h3>
             <li><b>Correct: </b>${userStats["medium"].correct}</li>
             <li><b>Answered: </b>${userStats["medium"].answered}</li>
-            <li><b>Percentage: </b>${userStats["medium"].percentage}</li>
         </ul>
         <ul>
             <h3>Hard</h3>
             <li><b>Correct: </b>${userStats["hard"].correct}</li>
             <li><b>Answered: </b>${userStats["hard"].answered}</li>
-            <li><b>Percentage: </b>${userStats["hard"].percentage}</li>
         </ul>
     </div>
     <div id="profileManagement">
@@ -350,10 +347,9 @@ async function showProfile() {
         <button class="profileButton" id="changePassword">Change Password</button>
     </div>
     `;
-    console.log("HELLO");
     profileMain.appendChild(profile);
 }
-showProfile();
+//showProfile();
 
 class User {
     constructor(data) {
