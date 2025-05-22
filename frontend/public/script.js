@@ -45,6 +45,7 @@ const registerMain = document.querySelector("#registerMain");
 const quizMain = document.querySelector("#quizMain");
 const quizPlayMain = document.querySelector("#quizPlayMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
+const profileMain = document.querySelector("#profileMain");
 
 function hidePages (){
     homepageMain.style.display = "none";
@@ -53,6 +54,7 @@ function hidePages (){
     quizMain.style.display = "none";
     quizPlayMain.style.display = "none";
     leaderboardMain.style.display = "none";
+    profileMain.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -63,7 +65,8 @@ document.querySelector("#logo h1").addEventListener("click", function () {
     homepageMain.style.display = "block" 
 })
 
-// Login 
+// Login
+let loggedInUser = null; 
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
@@ -82,7 +85,9 @@ loginButtonNav.addEventListener("click", () => {
         }
         const response = await fetch(websiteURL + "/login", options);
         if (response.status === 200){
-            loginMain.innerHTML += "Login was successfull"
+            loginMain.innerHTML += "Login was successfull";
+            let resource = await response.json();
+            loggedInUser = resource;
         } else {
             loginMain.innerHTML += "Password or username is incorrect! Please try again"
         }
@@ -288,6 +293,7 @@ function loggedIn (){
     const profilButton = document.createElement("button");
     const navLinks = document.querySelector("#navLinks");
     profilButton.classList.add("navButton");
+    profilButton.id = "profileButton";
     navLinks.appendChild(profilButton);
     profilButton.textContent = "Profil"
 }
