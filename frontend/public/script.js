@@ -1,4 +1,4 @@
-const websiteURL = "http:localhost:8000"; // använd dena variabel för websidans-URL, representerar localhost OCH serverlänken
+const websiteURL = "http:localhost:8000";
 
 class CreateQuestion{
     constructor(data){
@@ -51,11 +51,17 @@ function hidePages (){
     loginMain.style.display = "none";
     registerMain.style.display = "none";
     quizMain.style.display = "none";
-    quizPlayMain.style.display = "none"
+    quizPlayMain.style.display = "none";
     leaderboardMain.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
+
+// Nav
+document.querySelector("#logo h1").addEventListener("click", function () { 
+    hidePages()
+    homepageMain.style.display = "block" 
+})
 
 // Login 
 const loginButtonNav = document.getElementById("loginButton");
