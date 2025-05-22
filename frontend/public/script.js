@@ -322,9 +322,16 @@ async function showProfile() {
     let profile = document.createElement("div");
     profile.id = "profile";
     let userStats = await loggedInUser.getUserStats();
+    let profilePic;
+    if (!loggedInUser.profilePic) {
+        profilePic = "https://static.thenounproject.com/png/4530368-200.png";
+    } else {
+        profilePic = loggedInUser.profilePic;
+    }
+
     profile.innerHTML = `
     <div id="profilePic">
-        <img src="${loggedInUser.profilePic}">
+        <img src="${profilePic}">
     </div>
     <h1>${loggedInUser.username}</h1>
     <h2>Your stats</h2>
