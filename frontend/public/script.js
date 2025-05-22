@@ -91,6 +91,8 @@ loginButton.addEventListener("click", async () => {
     console.log(response)
     if (response.status === 200){
         updateStatus.textContent = "Login was successfull"
+        let resource = await response.json();
+        loggedInUser = new User(resource);
         loggedIn();
         setTimeout(function (){
             hidePages();
