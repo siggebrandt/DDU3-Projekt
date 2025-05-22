@@ -94,6 +94,35 @@ loginButtonNav.addEventListener("click", () => {
     })
 });
 
+});
+const loginButton = document.querySelector("#loginMain #loginButton");
+const updateStatus = document.createElement("p");
+loginMain.appendChild(updateStatus);
+loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#loginMain #username").value;
+    const password = document.querySelector("#loginMain #password").value;
+    const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }
+    const response = await fetch(websiteURL + "/login", options);
+    console.log(response)
+    if (response.status === 200){
+        updateStatus.textContent = "Login was successfull"
+        loggedIn();
+        setTimeout(function (){
+            hidePages();
+            homepageMain.style.display = "block";
+        }, 2000);
+    } else {
+        updateStatus.textContent = "Password or username is incorrect! Please try again"
+    }
+})
+// Register
 const registerButtonNav = document.querySelector("#registerButton");
 registerButtonNav.addEventListener("click", () => {
     hidePages();
@@ -126,34 +155,6 @@ registerButtonNav.addEventListener("click", () => {
         }
     })
 })
-const loginButton = document.querySelector("#loginMain #loginButton");
-const updateStatus = document.createElement("p");
-loginMain.appendChild(updateStatus);
-loginButton.addEventListener("click", async () => {
-    const username = document.querySelector("#loginMain #username").value;
-    const password = document.querySelector("#loginMain #password").value;
-    const options = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    }
-    const response = await fetch(websiteURL + "/login", options);
-    console.log(response)
-    if (response.status === 200){
-        updateStatus.textContent = "Login was successfull"
-        loggedIn();
-        setTimeout(function (){
-            hidePages();
-            homepageMain.style.display = "block";
-        }, 2000);
-    } else {
-        updateStatus.textContent = "Password or username is incorrect! Please try again"
-    }
-})
-
 
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
@@ -173,6 +174,11 @@ quizCategories.forEach(category => {
         // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
         const elementId = `quiz${category}`;
         const element = document.getElementById(elementId);
+
+        element.addEventListener("click", function() {
+            hidePages();
+            quizMain.style.display = "block";
+        })
         
         if (element && photo) {
           element.style.backgroundImage = `url('${photo.src.landscape}')`;
@@ -197,8 +203,11 @@ fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, 
 })
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log(difficultyChosen)
-        
+        console.log("difficulty:",difficultyChosen)
+
+        hidePages();
+        quizPlayMain.style.display = "block";
+
 
     fetch(`${websiteURL}/quiz/create`, {
         method: "POST",
