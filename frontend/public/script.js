@@ -353,7 +353,7 @@ async function showProfile() {
     console.log(profile.innerHTML);
     profileMain.appendChild(profile);
 }
-showProfile();
+//showProfile();
 
 class User {
     constructor(data) {

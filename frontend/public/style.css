@@ -192,6 +192,7 @@ nav {
 .flexItem.quizAnswerButton {
     flex-basis: 33%;
 }
+.quizAnswerButton, #quizQuestion, #quizResponse { color: black }
 
 /* -- Login and register -- */
 #loginMain, #registerMain{
