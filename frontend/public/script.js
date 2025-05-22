@@ -395,6 +395,7 @@ async function showProfile() {
     profileMain.appendChild(profile);
 }
 
+//GÖR SÅ ATT DATABASEN UPPDATERAS MED BILDEN
 async function profilePicPicker() {
     overlay.style.display = "flex";
     let themes = ["tiger", "parrot", "dog", "snail", "koala"];
