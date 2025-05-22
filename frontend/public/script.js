@@ -94,7 +94,7 @@ loginButtonNav.addEventListener("click", () => {
     })
 });
 
-});
+
 const loginButton = document.querySelector("#loginMain #loginButton");
 const updateStatus = document.createElement("p");
 loginMain.appendChild(updateStatus);
@@ -342,7 +342,7 @@ async function showProfile() {
     profile.id = "profile";
     profile.innerHTML = `
     <div id="profilePic">
-        <img src=""
+        <img src="${loggedInUser.profilePic}">
     `
 }
 showProfile();
