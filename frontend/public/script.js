@@ -71,29 +71,7 @@ const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
     loginMain.style.display = "block";
-    const loginButton = document.querySelector("#loginMain #loginButton");
-    loginButton.addEventListener("click", async () => {
-        const username = document.querySelector("#loginMain #username").value;
-        const password = document.querySelector("#loginMain #password").value;
-        const options = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        }
-        const response = await fetch(websiteURL + "/login", options);
-        if (response.status === 200){
-            loginMain.innerHTML += "Login was successfull";
-            let resource = await response.json();
-            loggedInUser = new User(resource);
-        } else {
-            loginMain.innerHTML += "Password or username is incorrect! Please try again"
-        }
-    })
 });
-
 
 const loginButton = document.querySelector("#loginMain #loginButton");
 const updateStatus = document.createElement("p");
