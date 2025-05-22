@@ -60,26 +60,33 @@ const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
     loginMain.style.display = "block";
-    const loginButton = document.querySelector("#loginMain #loginButton");
-    loginButton.addEventListener("click", async () => {
-        const username = document.querySelector("#loginMain #username").value;
-        const password = document.querySelector("#loginMain #password").value;
-        const options = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        }
-        const response = await fetch(websiteURL + "/login", options);
-        if (response.status === 200){
-            loginMain.innerHTML += "Login was successfull"
-        } else {
-            loginMain.innerHTML += "Password or username is incorrect! Please try again"
-        }
-    })
 })
+const loginButton = document.querySelector("#loginMain #loginButton");
+loginButton.addEventListener("click", async () => {
+    const username = document.querySelector("#loginMain #username").value;
+    const password = document.querySelector("#loginMain #password").value;
+    const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username,
+            password: password
+        })
+    }
+    const response = await fetch(websiteURL + "/login", options);
+    console.log(response)
+    if (response.status === 200){
+        loginMain.innerHTML += "<p>Login was successfull</p>"
+        loggedIn();
+        setTimeout(function (){
+            hidePages();
+            homepageMain.style.display = "block";
+        }, 2000);
+    } else {
+        loginMain.innerHTML += "Password or username is incorrect! Please try again"
+    }
+})
+
 
 /* Home Page Quiz Images */
 const pexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`
@@ -187,5 +194,13 @@ leaderboardButton.addEventListener("click", () => {
     hidePages();
     leaderboardMain.style.display = "block";
 })
-
+function loggedIn (){
+    loginButtonNav.style.display = "none";
+    document.getElementById("registerButton").style.display = "none"
+    const profilButton = document.createElement("button");
+    const navLinks = document.querySelector("#navLinks");
+    profilButton.classList.add("navButton");
+    navLinks.appendChild(profilButton);
+    profilButton.textContent = "Profil"
+}
 // Register
