@@ -61,6 +61,10 @@ nav {
     color: white;
 }
 
+.navButton:hover {
+    cursor: pointer;
+}
+
 /* -- Home Page -- */
 #quizes {
     gap: 10px;
