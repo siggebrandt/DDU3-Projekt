@@ -176,6 +176,9 @@ async function handler(request){
             if (!body.username || !body.password || !body.newPassword) {
                 return new Response(JSON.stringify("Bad request, Attributes missing"), {status: 400, headers: headersCORS});
             }
+            if (body.password === body.newPassword) {
+                return new Response(JSON.stringify("Bad Request, Old and New password are the same"), {status: 400, headers: headersCORS});
+            }
 
             let user = data.users.find((user) => user.username === body.username);
             if (user) {
