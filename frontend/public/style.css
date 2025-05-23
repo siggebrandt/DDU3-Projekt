@@ -282,18 +282,20 @@ nav {
 .overlay #change-button-and-status {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
 }
 
-.overlay button {
+.overlay .submit {
     color: black;
     padding: 10px;
     border-radius: 10px;
 }
 
-.overlay button:hover {
+.overlay .submit:hover {
     cursor: pointer;
     background-color: #999;
+    transform: scale(1.05);
 }
 
 .overlay h1 {
@@ -304,6 +306,10 @@ nav {
     color: black;
     padding: 10px;
     border-radius: 10px;
+}
+
+.overlay p {
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .profileButton {

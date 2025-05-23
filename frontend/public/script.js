@@ -403,10 +403,25 @@ async function showProfile() {
         let submit = document.createElement("button");
         submit.id = "change-submit";
         submit.textContent = "Sumbit";
+        submit.classList.add("submit");
         let status =  document.createElement("p");
         status.id = "change-status";
+        status.textContent = "...";
+        let back = document.createElement("button");
+        back.id = "change-back";
+        back.textContent = "Go Back";
+        back.classList.add("profileButton");
+
         buttonAndStatus.appendChild(submit);
         buttonAndStatus.appendChild(status);
+        buttonAndStatus.appendChild(back);
+
+        back.addEventListener("click", () => {
+            oldPwd.value = "";
+            newPwd.value = "";
+            document.querySelector("#change-status").textContent = "...";
+            changeOverlay.style.display = "none";
+        });
 
         submit.addEventListener("click", async () => {
             let req = new Request(`${websiteURL}/settings/changePassword`, {
@@ -422,7 +437,7 @@ async function showProfile() {
                 oldPwd.value = "";
                 newPwd.value = "";
                 setTimeout(() => {
-                    document.querySelector("#change-status").textContent = "";
+                    document.querySelector("#change-status").textContent = "...";
                     changeOverlay.style.display = "none";
                 }, 1500)
             } else {
