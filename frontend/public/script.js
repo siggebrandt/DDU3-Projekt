@@ -358,15 +358,13 @@ async function showProfile() {
     let profile = document.createElement("div");
     profile.id = "profile";
     let userStats = await loggedInUser.getUserStats();
-    let profilePic;
     if (!loggedInUser.profilePic) {
         await profilePicPicker();
-        profilePic = loggedInUser.profilePic;
     }
-    console.log(profilePic);
+    console.log(loggedInUser.profilePic);
     profile.innerHTML = `
     <div id="profilePic">
-        <img src="${profilePic}">
+        <img src="${loggedInUser.profilePic}">
     </div>
     <h1>${loggedInUser.username}</h1>
     <h2>Your stats</h2>
@@ -398,7 +396,7 @@ async function showProfile() {
 //GÖR SÅ ATT DATABASEN UPPDATERAS MED BILDEN
 async function profilePicPicker() {
     overlay.style.display = "flex";
-    let themes = ["tiger", "parrot", "dog", "snail", "koala"];
+    let themes = ["tiger", "parrot", "dog", "snail", "koala", "giraffe", "cat", "turtle", "penguin"];
     let num = Math.floor(Math.random() * themes.length);
     let req = new Request(`https://api.pexels.com/v1/search?query=${themes[num]}&per_page=5`, {
         headers: {"Authorization": neoPexelsAPIKey}
@@ -416,9 +414,21 @@ async function profilePicPicker() {
         <img src="${img.src.medium}">
         `;
         imageOptions.appendChild(div);
-        div.addEventListener("click", () => {
+        div.addEventListener("click", async () => {
+            let req = new Request(`${websiteURL}/user/${loggedInUser.id}/profilePic`, {
+                method: "PATCH",
+                body: JSON.stringify({profilePic: div.children[0].src}),
+                headers: {"content-type": "application/json"}
+            });
+            let resp = await fetch(req);
+            if (resp.status !== 200) {
+                console.log("something broke");
+                return;
+            }
+
             loggedInUser.profilePic = div.children[0].src;
             overlay.style.display = "none";
+            showProfile();
         });
     }
 }
