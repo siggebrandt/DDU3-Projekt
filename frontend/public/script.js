@@ -361,8 +361,8 @@ async function showProfile() {
     let profilePic;
     if (!loggedInUser.profilePic) {
         await profilePicPicker();
+        profilePic = loggedInUser.profilePic;
     }
-    profilePic = loggedInUser.profilePic;
     console.log(profilePic);
     profile.innerHTML = `
     <div id="profilePic">
