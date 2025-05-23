@@ -118,10 +118,18 @@
     <main id="profileMain">
     </main>
     <!--Profile Pic Picker screen-->
-    <div id="overlay">
+    <div id="profilePicPicker-overlay" class="overlay">
       <h1>Pick an image!</h1>
+      <p>Choose wisely! This decision is final.</p>
       <div id="image-options">
       </div>
+    </div>
+    <!--Change Password Overlay Screen-->
+    <div id="changePassword-overlay" class="overlay">
+      <h1>Change Password</h1>
+      <input id="change-old-password" type="password" placeholder="Old password...">
+      <input id="change-new-password" type="password" placeholder="New password...">
+      <div id="change-button-and-status"></div>
     </div>
     <script src="script.js"></script>
   </body>

@@ -265,17 +265,45 @@ nav {
     object-fit: cover;
 }
 
-#overlay {
+.overlay {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(135, 152, 106, 0.6);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 10px;
+}
+
+.overlay #change-button-and-status {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.overlay button {
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.overlay button:hover {
+    cursor: pointer;
+    background-color: #999;
+}
+
+.overlay h1 {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.overlay input {
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .profileButton {
@@ -287,6 +315,7 @@ nav {
 .profileButton:hover {
     background-color: indianred;
     transform: scale(1.05);
+    cursor: pointer;
 }
 
 #profileMain {
@@ -295,6 +324,11 @@ nav {
     max-width: 500px;
     margin: 50px auto;
     padding: 40px;
+}
+
+#profileManagement {
+    display: flex;
+    gap: 20px;
 }
 
 #profileMain #profile {

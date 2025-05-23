@@ -67,7 +67,8 @@ const quizPlayMain = document.querySelector("#quizPlayMain");
 const quizResultMain = document.querySelector("#quizResultMain");
 const leaderboardMain = document.querySelector("#leaderboardMain");
 const profileMain = document.querySelector("#profileMain");
-const overlay = document.querySelector("#overlay");
+const profilePicOverlay = document.querySelector("#profilePicPicker-overlay");
+const changeOverlay = document.querySelector("#changePassword-overlay");
 
 function hidePages (){
     homepageMain.style.display = "none";
@@ -78,7 +79,8 @@ function hidePages (){
     quizResultMain.style.display = "none";
     leaderboardMain.style.display = "none";
     profileMain.style.display = "none";
-    overlay.style.display = "none";
+    profilePicOverlay.style.display = "none";
+    changeOverlay.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -345,7 +347,7 @@ function loggedIn (){
     profilButton.classList.add("navButton");
     profilButton.id = "profileButton";
     navLinks.appendChild(profilButton);
-    profilButton.textContent = "Profil"
+    profilButton.textContent = "Profile"
     profilButton.addEventListener("click", showProfile);
 }
 // Register
@@ -361,7 +363,6 @@ async function showProfile() {
     if (!loggedInUser.profilePic) {
         await profilePicPicker();
     }
-    console.log(loggedInUser.profilePic);
     profile.innerHTML = `
     <div id="profilePic">
         <img src="${loggedInUser.profilePic}">
@@ -388,14 +389,52 @@ async function showProfile() {
     <div id="profileManagement">
         <button class="profileButton" id="deleteAccount">Delete Account</button>
         <button class="profileButton" id="changePassword">Change Password</button>
+        <button class="profileButton" id="logOut">Log Out</button>
     </div>
     `;
     profileMain.appendChild(profile);
+    document.querySelector("#changePassword").addEventListener("click", async () => {
+        changeOverlay.style.display = "flex";
+        let oldPwd = document.querySelector("#change-old-password");
+        let newPwd = document.querySelector("#change-new-password");
+        let buttonAndStatus = document.querySelector("#change-button-and-status");
+        buttonAndStatus.innerHTML = "";
+
+        let submit = document.createElement("button");
+        submit.id = "change-submit";
+        submit.textContent = "Sumbit";
+        let status =  document.createElement("p");
+        status.id = "change-status";
+        buttonAndStatus.appendChild(submit);
+        buttonAndStatus.appendChild(status);
+
+        submit.addEventListener("click", async () => {
+            let req = new Request(`${websiteURL}/settings/changePassword`, {
+                method: "PATCH",
+                body: JSON.stringify({username: loggedInUser.username, password: oldPwd.value, newPassword: newPwd.value}),
+                headers: {"content-type": "application/json"}
+            });
+            let resp = await fetch(req);
+            let reso = await resp.json();
+            if (resp.status === 200) {
+                document.querySelector("#change-status").textContent = "Success!";
+                loggedInUser = new User(reso);
+                oldPwd.value = "";
+                newPwd.value = "";
+                setTimeout(() => {
+                    document.querySelector("#change-status").textContent = "";
+                    changeOverlay.style.display = "none";
+                }, 1500)
+            } else {
+                document.querySelector("#change-status").textContent = reso;
+            } 
+        });
+    });
 }
 
-//GÖR SÅ ATT DATABASEN UPPDATERAS MED BILDEN
+
 async function profilePicPicker() {
-    overlay.style.display = "flex";
+    profilePicOverlay.style.display = "flex";
     let themes = ["tiger", "parrot", "dog", "snail", "koala", "giraffe", "cat", "turtle", "penguin"];
     let num = Math.floor(Math.random() * themes.length);
     let req = new Request(`https://api.pexels.com/v1/search?query=${themes[num]}&per_page=5`, {
@@ -427,7 +466,7 @@ async function profilePicPicker() {
             }
 
             loggedInUser.profilePic = div.children[0].src;
-            overlay.style.display = "none";
+            profilePicOverlay.style.display = "none";
             showProfile();
         });
     }
