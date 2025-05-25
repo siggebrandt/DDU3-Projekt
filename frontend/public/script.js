@@ -189,6 +189,7 @@ quizCategories.forEach(category => {
         
         if (element && photo) {
           element.style.backgroundImage = `url('${photo.src.landscape}')`;
+          element.style.border = "none";
         }
       })
       .catch(error => {
@@ -196,18 +197,40 @@ quizCategories.forEach(category => {
       });
 });
 
-/* 
-fetch(`https://api.pexels.com/v1/search?query=${quizCategories[0]}&per_page=1`, {
-    headers: {
-      Authorization: pexelsAPIKey
-    }})
-.then(response => response.json())
-.then(data => {
-    const photo = data.photos[0];
-    console.log("pexel", data)
-    const element = document.getElementById("quizMusic");
-      element.style.backgroundImage = `url('${photo.src.landscape}')`;
-}) */
+function quizCategories(quiz) { // TBA
+    hidePages();
+    quizMain.style.display = "block";
+
+    let quizID;
+    if (quiz == "Knowledge") {
+        //siffra
+        }
+        else if (quiz == "Music") {
+            //siffra
+        } else if (quiz == "Movies") {
+            //siffra
+        }
+
+    document.getElementById("playQuizButton").addEventListener("click", async function() {
+        const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
+            console.log("difficulty:",difficultyChosen)
+    
+            hidePages();
+            quizPlayMain.style.display = "block";
+    
+    
+        fetch(`${websiteURL}/quiz/create`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
+            })
+            .then(response => response.json())
+            .then(async function(data) {
+            await startQuiz(data, difficultyChosen);
+            });
+    })
+}
+
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
         console.log("difficulty:",difficultyChosen)

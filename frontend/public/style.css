@@ -66,8 +66,13 @@ nav {
 }
 
 /* -- Home Page -- */
+h2 {
+    color: #718355;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
 #quizes {
-    gap: 10px;
+    gap: 30px;
 }
 .quizBox {
     width: 300px;
@@ -75,9 +80,11 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aquamarine;
+    background-color: #b2b7ac36;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 5px;
+    border: 1px solid black;
 }
 .quizBox p {
     color: white;
