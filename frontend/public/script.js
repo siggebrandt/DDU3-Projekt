@@ -166,8 +166,8 @@ registerButtonNav.addEventListener("click", () => {
 const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
 const neoPexelsAPIKey = `sQLMQfpcJkVFD8dbejB6VqtaMkmnv7rIyaHrR45W2tOG5UWyaAeR4wfe`;
 
-const quizCategories = ["Knowledge", "Movies", "Music"]
-quizCategories.forEach(category => {
+const quizCategoriesArray = ["Knowledge", "Movies", "Music"]
+quizCategoriesArray.forEach(category => {
     fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
       headers: {
         Authorization: siggePexelsAPIKey
