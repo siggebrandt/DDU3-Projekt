@@ -1,4 +1,4 @@
-const websiteURL = "http:localhost:8000";
+const websiteURL = "http://localhost:8000";
 
 class CreateQuestion{
     constructor(data){
@@ -197,7 +197,7 @@ quizCategoriesArray.forEach(category => {
       });
 });
 
-function quizCategories(quiz) { // TBA
+function quizCategories(quiz) { // Work in progress
     hidePages();
     quizMain.style.display = "block";
 
@@ -238,7 +238,6 @@ document.getElementById("playQuizButton").addEventListener("click", async functi
         hidePages();
         quizPlayMain.style.display = "block";
 
-
     fetch(`${websiteURL}/quiz/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -246,7 +245,11 @@ document.getElementById("playQuizButton").addEventListener("click", async functi
         })
         .then(response => response.json())
         .then(async function(data) {
-        await startQuiz(data, difficultyChosen);
+            if (data != "Bad Request") {
+                await startQuiz(data, difficultyChosen);
+            } else {
+                document.getElementById("quizQuestion").textContent = "oops, something went wrong!"
+            }
         });
 })
 
