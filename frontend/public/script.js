@@ -123,6 +123,7 @@ loginButton.addEventListener("click", async () => {
         loggedInUser = new User(resource);
         loggedIn();
         setTimeout(function (){
+            updateStatus.textContent = "";
             hidePages();
             homepageMain.style.display = "block";
         }, 2000);
@@ -156,6 +157,15 @@ registerButtonNav.addEventListener("click", () => {
         let resp = await fetch(req);
         if (resp.status === 201) {
             status.textContent = "Register successfull! You can now login!";
+            setTimeout(() => {
+                username.value = "";
+                password.value = "";
+                repeatedPassword.value = "";
+                email.value = "";
+                status.textContent = "";
+                hidePages();
+                loginMain.style.display = "block";
+            }, 1500);
         } else if (resp.status === 409) {
             status.textContent = "Username already in use, try again";
         } else {
@@ -550,6 +560,7 @@ async function profilePicPicker() {
         return;
     }
     let imageOptions = document.querySelector("#image-options");
+    imageOptions.innerHTML = "";
     for (let img of reso.photos) {
         let div = document.createElement("div");
         div.innerHTML = `
