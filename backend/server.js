@@ -242,8 +242,11 @@ async function handler(request){
         if (request.headers.get("content-type") !== "application/json") {
             return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
         }
-        if (!body.username || !body.password) {
+        if (!body.username || !body.password || !body.repeatPassword) {
             return new Response(JSON.stringify("Bad request, Attributes missing"), {status: 400, headers: headersCORS});
+        }
+        if (body.password !== body.repeatPassword) {
+            return new Response(JSON.stringify("Password do not match"), {status: 400, headers: headersCORS});
         }
         if (url.pathname === "/settings/deleteAccount") {
             let user = data.users.find((user) => user.username === body.username);
