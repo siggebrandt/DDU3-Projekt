@@ -69,6 +69,7 @@ const leaderboardMain = document.querySelector("#leaderboardMain");
 const profileMain = document.querySelector("#profileMain");
 const profilePicOverlay = document.querySelector("#profilePicPicker-overlay");
 const changeOverlay = document.querySelector("#changePassword-overlay");
+const deleteOverlay = document.querySelector("#deleteAccount-overlay");
 
 function hidePages (){
     homepageMain.style.display = "none";
@@ -81,6 +82,7 @@ function hidePages (){
     profileMain.style.display = "none";
     profilePicOverlay.style.display = "none";
     changeOverlay.style.display = "none";
+    deleteOverlay.style.display = "none";
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -471,6 +473,36 @@ async function showProfile() {
             } 
         });
     });
+
+    document.querySelector("#logOut").addEventListener("click", logOut);
+
+    document.querySelector("#deleteAccount").addEventListener("click", async => {
+        deleteOverlay.style.display = "flex";
+        let submit = document.createElement("button");
+        submit.id = "delete-submit";
+        submit.textContent = "Submit";
+        submit.classList.add("submit");
+        let status = document.createElement("p");
+        status.id = "delete-status";
+        status.textContent = "...";
+        let back = document.createElement("button");
+        back.id = "delete-back";
+        back.textContent = "Go Back";
+        back.classList.add("profileButton");
+
+        document.querySelector("#delete-controls").appendChild(submit);
+        document.querySelector("#delete-controls").appendChild(status);
+        document.querySelector("#delete-controls").appendChild(back);
+
+        let username = document.querySelector("#delete-username");
+        let password = document.querySelector("#delete-password");
+        let repeatPassword = document.querySelector("#delete-repeat-password");
+
+        let req = new Request(`${websiteURL}/settings/deleteAccount`, {
+            method: "DELETE",
+            body: JSON.stringify()
+        })
+    })
 }
 
 
@@ -513,4 +545,11 @@ async function profilePicPicker() {
     }
 }
 
-
+async function logOut() {
+    hidePages();
+    homepageMain.style.display = "block";
+    loginButtonNav.style.display = "inline";
+    registerButtonNav.style.display = "inline";
+    document.querySelector("#profileButton").remove();
+    loggedInUser = null;
+}
