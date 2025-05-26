@@ -476,8 +476,9 @@ async function showProfile() {
 
     document.querySelector("#logOut").addEventListener("click", logOut);
 
-    document.querySelector("#deleteAccount").addEventListener("click", async => {
+    document.querySelector("#deleteAccount").addEventListener("click", async () => {
         deleteOverlay.style.display = "flex";
+        document.querySelector("#delete-controls").innerHTML = "";
         let submit = document.createElement("button");
         submit.id = "delete-submit";
         submit.textContent = "Submit";
@@ -498,11 +499,40 @@ async function showProfile() {
         let password = document.querySelector("#delete-password");
         let repeatPassword = document.querySelector("#delete-repeat-password");
 
-        let req = new Request(`${websiteURL}/settings/deleteAccount`, {
-            method: "DELETE",
-            body: JSON.stringify()
-        })
-    })
+        back.addEventListener("click", () => {
+            username.value = "";
+            password.value = "";
+            repeatPassword.value = "";
+            document.querySelector("#delete-status").textContent = "...";
+            deleteOverlay.style.display = "none";
+        });
+
+        submit.addEventListener("click", async () => {
+            if (loggedInUser.username !== username.value) {
+                document.querySelector("#delete-status").textContent = "You can't delete someone elses account!";
+                return;
+            }
+            let req = new Request(`${websiteURL}/settings/deleteAccount`, {
+                method: "DELETE",
+                body: JSON.stringify({username: username.value, password: password.value, repeatPassword: repeatPassword.value}),
+                headers: {"content-type": "application/json"}
+            });
+            let resp = await fetch(req);
+            let reso = await resp.json();
+            if (resp.status === 200) {
+                username.value = "";
+                password.value = "";
+                repeatPassword.value = "";
+                document.querySelector("#delete-status").textContent = "Account deleted! Logging out...";
+
+                setTimeout(() => {
+                    logOut();
+                }, 1500)
+            } else {
+                document.querySelector("#delete-status").textContent = reso;
+            }
+        });
+    });
 }
 
 
