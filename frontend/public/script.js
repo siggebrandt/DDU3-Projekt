@@ -138,42 +138,41 @@ const registerButtonNav = document.querySelector("#registerButton");
 registerButtonNav.addEventListener("click", () => {
     hidePages();
     registerMain.style.display = "block";
+});
 
-    const username = document.querySelector("#register-username");
-    const password = document.querySelector("#register-password");
-    const repeatedPassword = document.querySelector("#password2");
-    const email = document.querySelector("#e-mail");
-    const status = document.querySelector("#register-status");
-    
-    const registerButton = document.querySelector("#register-button");
-    registerButton.addEventListener("click", async () => {
-        if (password.value !== repeatedPassword.value) {
-            status.textContent = "Passwords do not match!";
-            return;
-        }
-        const req = new Request(`${websiteURL}/register`, {
-            method: "POST",
-            body: JSON.stringify({username: username.value, password: password.value, email: email.value}),
-            headers: {"content-type": "application/json"}
-        });
-        let resp = await fetch(req);
-        if (resp.status === 201) {
-            status.textContent = "Register successfull! You can now login!";
-            setTimeout(() => {
-                username.value = "";
-                password.value = "";
-                repeatedPassword.value = "";
-                email.value = "";
-                status.textContent = "";
-                hidePages();
-                loginMain.style.display = "block";
-            }, 1500);
-        } else if (resp.status === 409) {
-            status.textContent = "Username already in use, try again";
-        } else {
-            status.textContent = "One or more inputs are empty! Try again."
-        }
-    })
+const registerButton = document.querySelector("#register-button");
+const username = document.querySelector("#register-username");
+const password = document.querySelector("#register-password");
+const repeatedPassword = document.querySelector("#password2");
+const email = document.querySelector("#e-mail");
+const status = document.querySelector("#register-status");
+registerButton.addEventListener("click", async () => {
+    if (password.value !== repeatedPassword.value) {
+        status.textContent = "Passwords do not match!";
+        return;
+    }
+    const req = new Request(`${websiteURL}/register`, {
+        method: "POST",
+        body: JSON.stringify({username: username.value, password: password.value, email: email.value}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 201) {
+        status.textContent = "Register successfull! You can now login!";
+        setTimeout(() => {
+            username.value = "";
+            password.value = "";
+            repeatedPassword.value = "";
+            email.value = "";
+            status.textContent = "";
+            hidePages();
+            loginMain.style.display = "block";
+        }, 1500);
+    } else if (resp.status === 409) {
+        status.textContent = "Username already in use, try again";
+    } else {
+        status.textContent = "One or more inputs are empty! Try again."
+    }
 })
 
 /* Home Page Quiz Images */
