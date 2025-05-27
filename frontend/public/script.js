@@ -124,6 +124,8 @@ loginButton.addEventListener("click", async () => {
         loggedIn();
         setTimeout(function (){
             updateStatus.textContent = "";
+            document.querySelector("#loginMain #username").value = "";
+            document.querySelector("#loginMain #password").value = "";
             hidePages();
             homepageMain.style.display = "block";
         }, 2000);

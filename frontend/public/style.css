@@ -338,7 +338,7 @@ h2 {
 }
 
 .profileButton:hover {
-    background-color: indianred;
+    background-color: tomato;
     transform: scale(1.05);
     cursor: pointer;
 }
