@@ -293,6 +293,8 @@ async function startQuiz(questions, difficultyChosen) {
         const quizQuestion = document.getElementById("quizQuestion");
         const quizChoices = document.getElementById("quizChoices");
         const quizResponse = document.getElementById("quizResponse");
+        const quizProgressDOM = document.querySelector("#quizProgress p");
+        quizProgressDOM.textContent = `${quizProgress} of 10 questions is answered so far!!`
 
         quizQuestion.innerHTML = currentQuestions.question;
         quizChoices.innerHTML = "";

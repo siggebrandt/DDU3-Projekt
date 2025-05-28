@@ -212,6 +212,19 @@ h2 {
 #quizResponse {
     margin-top: 20px;
 }
+#quizProgress{
+    background-color: rgb(248, 199, 102);
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+    border-radius: 50%;
+    color: rgb(65, 83, 65);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+}
 
 /* -- Results of Quiz -- */
 #quizScore {
