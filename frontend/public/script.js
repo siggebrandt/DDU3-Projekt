@@ -49,14 +49,14 @@ class User {
         console.log(resp);
         if (resp.ok) {
             let reso = await resp.json();
-            console.log(reso);
+            console.log("reso",reso);
             return reso.score;
         }
     }
 }
-const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
+/* const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
 let question1 = new CreateQuestion(testData)
-console.log(question1.question, question1.choices);
+console.log(question1.question, question1.choices); */
 
 // The diffrent pages
 const homepageMain = document.querySelector("#homepageMain");
@@ -210,8 +210,7 @@ quizCategoriesArray.forEach(category => {
         const element = document.getElementById(elementId);
 
         element.addEventListener("click", function() {
-            hidePages();
-            quizMain.style.display = "block";
+            quizCategoryPages(category)
         })
         
         if (element && photo) {
@@ -224,40 +223,37 @@ quizCategoriesArray.forEach(category => {
       });
 });
 
-function quizCategories(quiz) { // Work in progress
+function quizCategoryPages(quiz) {
     hidePages();
     quizMain.style.display = "block";
+    document.getElementById("quizPageTitle").textContent = `${quiz} Quiz`;
 
     let quizID;
-    if (quiz == "Knowledge") {
-        //siffra
-        }
-        else if (quiz == "Music") {
-            //siffra
-        } else if (quiz == "Movies") {
-            //siffra
-        }
+    if (quiz == "Knowledge") { quizID = 9 }
+    else if (quiz == "Music") { quizID = 12 }
+    else if (quiz == "Movies") { quizID = 11 }
 
     document.getElementById("playQuizButton").addEventListener("click", async function() {
         const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-            console.log("difficulty:",difficultyChosen)
-    
             hidePages();
             quizPlayMain.style.display = "block";
-    
     
         fetch(`${websiteURL}/quiz/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
+            body: JSON.stringify({ difficulty: difficultyChosen, category: quizID }),
             })
             .then(response => response.json())
             .then(async function(data) {
-            await startQuiz(data, difficultyChosen);
+                if (data != "Bad Request") {
+                    await startQuiz(data, difficultyChosen);
+                } else {
+                    document.getElementById("quizQuestion").textContent = "oops, something went wrong!"
+                }
             });
     })
 }
-
+/* 
 document.getElementById("playQuizButton").addEventListener("click", async function() {
     const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
         console.log("difficulty:",difficultyChosen)
@@ -278,7 +274,7 @@ document.getElementById("playQuizButton").addEventListener("click", async functi
                 document.getElementById("quizQuestion").textContent = "oops, something went wrong!"
             }
         });
-})
+}) */
 
 async function startQuiz(questions, difficultyChosen) {
     console.log("Quiz started:",questions);
