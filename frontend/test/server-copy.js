@@ -1,6 +1,5 @@
 import { serveFile } from "jsr:@std/http";
-//This server is a copy of the original server, but with changed paths to the db to instead use testdb.json
-//Intended for test site use ONLY
+
 function findUser(arrayOfUsers, userID) {
     return arrayOfUsers.find((user) => user.id === userID)
 }
@@ -25,10 +24,7 @@ async function handler(request){
         }
         if(url.pathname === "/quiz"){
             return await serveFile(request, "frontend/public/quiz.html");
-        }/*
-        if(url.pathname === "/join"){
-            return await serveFile(request, "frontend/public/joinGame.html");
-        } */
+        }
         if(url.pathname === "/play"){
             return await serveFile(request, "frontend/public/play.html");
         }
@@ -87,7 +83,7 @@ async function handler(request){
             let user = data.users.find((user) => user.username === body.username);
             if (user) {
                 if (user.password === body.password) {
-                    return new Response(JSON.stringify(user), {headers: headersCORS});
+                    return new Response(JSON.stringify(user), {status: 200, headers: headersCORS});
                 } else {
                     return new Response(JSON.stringify("Incorrect password"), {status: 401, headers: headersCORS});
                 }
@@ -96,11 +92,11 @@ async function handler(request){
             }
         }
         if(url.pathname === "/register"){
-            if(body.username && body.password){
+            if(body.username && body.password && body.email){
                 if(data.users.some(user => user.username === body.username)){
                     return new Response(JSON.stringify("Conflict, username already exists"), { status: 409, headers: headersCORS })
                 }
-                if (!body.username || !body.password) {
+                if (!body.username || !body.password || !body.email) {
                     return new Response(JSON.stringify("Bad Request, Attributes missing", {status: 400, headers: headersCORS}));
                 }
                 const username = body.username;
@@ -116,8 +112,22 @@ async function handler(request){
                     id: userId,
                     username: username,
                     password: password,
-                    score: 0,
-                    following: []
+                    email: body.email,
+                    profilePic: "",
+                    score: {
+                        easy: {
+                            correct: 0,
+                            answered: 0,
+                        },
+                        medium: {
+                            correct: 0,
+                            answered: 0,
+                        },
+                        hard: {
+                            correct: 0,
+                            answered: 0,
+                        }
+                    },
                 }
                 data.users.push(user);
                 Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
@@ -166,6 +176,9 @@ async function handler(request){
             if (!body.username || !body.password || !body.newPassword) {
                 return new Response(JSON.stringify("Bad request, Attributes missing"), {status: 400, headers: headersCORS});
             }
+            if (body.password === body.newPassword) {
+                return new Response(JSON.stringify("Bad Request, Old and New password are the same"), {status: 400, headers: headersCORS});
+            }
 
             let user = data.users.find((user) => user.username === body.username);
             if (user) {
@@ -181,6 +194,45 @@ async function handler(request){
                 return new Response(JSON.stringify("Not Found, No user with that username was found"), {status: 404, headers: headersCORS});
             }
         }
+        const userRoute = new URLPattern({ pathname: "/user/:id/score" });
+        const userMatch = userRoute.exec(request.url);
+        if(userMatch){
+            const requestId = userMatch.pathname.groups.id;
+            let user = data.users.find(user => user.id == requestId);
+            if(user){
+                if(body.difficulty && body.correct && body.answered){
+                    let difficulty = body.difficulty;
+                    let correct = body.correct;
+                    let answered = body.answered
+                    user.score[difficulty].correct = user.score[difficulty].correct + correct;
+                    user.score[difficulty].answered = user.score[difficulty].answered + answered;
+                    Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
+                    return new Response(JSON.stringify("The score is now updated"), {status: 200, headers: headersCORS});
+                }
+            } else {
+                return new Response(JSON.stringify("Not Found, No user with that id was found"), {status: 404, headers: headersCORS});
+            }
+        }
+
+        const profilePicPath = new URLPattern({pathname: "/user/:id/profilePic"});
+        const profilePicMatch = profilePicPath.exec(url);
+        if (profilePicMatch) {
+            if (!body.profilePic) {
+                return new Response(JSON.stringify("Bad request, missing attribute"), {status: 400, headers: headersCORS});
+            }
+            
+            let userID = parseInt(profilePicMatch.pathname.groups.id);
+            let user = data.users.find((user) => user.id === userID);
+            if (user) {
+                let index = data.users.findIndex((user) => user.id === userID);
+                data.users[index].profilePic = body.profilePic;
+                Deno.writeTextFileSync("testdb.json", JSON.stringify(data));
+                return new Response(JSON.stringify("Profilepic Updated"), {headers: headersCORS});
+            } else {
+                return new Response(JSON.stringify("User not found"), {status: 404, headers: headersCORS});
+            }
+        }
+
     }
 
     if (request.method === "DELETE") {
@@ -188,8 +240,11 @@ async function handler(request){
         if (request.headers.get("content-type") !== "application/json") {
             return new Response(JSON.stringify("Invalid Content-Type, JSON Expected"), { status: 406, headers: headersCORS });
         }
-        if (!body.username || !body.password) {
+        if (!body.username || !body.password || !body.repeatPassword) {
             return new Response(JSON.stringify("Bad request, Attributes missing"), {status: 400, headers: headersCORS});
+        }
+        if (body.password !== body.repeatPassword) {
+            return new Response(JSON.stringify("Password do not match"), {status: 400, headers: headersCORS});
         }
         if (url.pathname === "/settings/deleteAccount") {
             let user = data.users.find((user) => user.username === body.username);

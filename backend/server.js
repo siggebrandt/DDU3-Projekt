@@ -52,19 +52,6 @@ async function handler(request){
             }
         }
 
-        /* User Settings */
-        const userFollowingRoute = new URLPattern({ pathname: "/following/:id" });
-        const userFollowingMatch = userFollowingRoute.exec(request.url);
-        if (userFollowingMatch) {
-            const userID = parseInt(userFollowingMatch.pathname.groups.id);
-            let user = findUser(data.users, userID);
-            if (user) {
-                return new Response(JSON.stringify(user.following), { headers: headersCORS });
-            } else {
-                return new Response(JSON.stringify("Not Found, No user with that ID was found"), { status: 404, headers: headersCORS });
-            }
-        }
-
         /* Quiz */
         if (url.pathname === "/quiz/all") {
             return new Response(JSON.stringify(data.quiz), { headers: headersCORS });

@@ -13,13 +13,13 @@ async function tester() {
     await test8();
     await test9();
     await test10(credentials);
-    await test11();
+    let newCredentials = await test11(credentials);
     await test12();
-    let newCredentials = await test13(credentials);
+    await test13(credentials);
     await test14();
-    await test15(credentials);
+    await test15(newCredentials);
     await test16();
-    await test17(newCredentials);
+    await test17();
     await test18();
     await test19();
     await test20();
@@ -28,6 +28,8 @@ async function tester() {
     await test23();
     await test24();
     await test25();
+    await test26();
+    await test27();
 }
 
 async function serverStatus() {
@@ -90,7 +92,7 @@ async function test4() {
     let num = Math.floor(Math.random() * 1000000);
     let req = new Request("http://localhost:8000/register", {
         method: "POST",
-        body: JSON.stringify({username: `${num}`, password: "test123"}),
+        body: JSON.stringify({username: `${num}`, password: "test123", email: "mail@mail.com"}),
         headers: {"content-type": "application/json"}
     });
 
@@ -129,7 +131,7 @@ async function test5() {
 async function test6(credentials) {
     let req = new Request("http://localhost:8000/register", {
         method: "POST",
-        body: JSON.stringify({username: credentials.username, password: "test"}),
+        body: JSON.stringify({username: credentials.username, password: "test", email: "mail@mail.com"}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
@@ -211,14 +213,20 @@ async function test10(credentials) {
     }
 }
 
-async function test11() {
-    let req = new Request("http://localhost:8000/following/0");
+async function test11(credentials) {
+    let newPwd = "new123";
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: credentials.username, password: credentials.password, newPassword: newPwd}),
+        headers: {"content-type": "application/json"}
+    });
     let resp = await fetch(req);
     if (resp.status === 200) {
         let reso = await resp.json();
-        if (Array.isArray(reso)) {
+        if (reso.password === newPwd) {
             document.querySelector("#test11").classList.add("success");
             document.querySelector("#test11 .status").textContent = "Success!";
+            return reso;
         } else {
             document.querySelector("#test11").classList.add("fail");
             document.querySelector("#test11 .status").textContent = "Failed!";
@@ -230,7 +238,11 @@ async function test11() {
 }
 
 async function test12() {
-    let req = new Request("http://localhost:8000/following/2894124687125");
+    let req = new Request("http://localhost:8000/settings/changePassword", {
+        method: "PATCH",
+        body: JSON.stringify({username: "idontexist", password: "noo", newPassword: "new123"}),
+        headers: {"content-type": "application/json"}
+    });
     let resp = await fetch(req);
     if (resp.status === 404) {
         document.querySelector("#test12").classList.add("success");
@@ -242,23 +254,15 @@ async function test12() {
 }
 
 async function test13(credentials) {
-    let newPwd = "new123";
     let req = new Request("http://localhost:8000/settings/changePassword", {
         method: "PATCH",
-        body: JSON.stringify({username: credentials.username, password: credentials.password, newPassword: newPwd}),
+        body: JSON.stringify({username: credentials.username, password: "wrong", newPassword: "new123"}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
-    if (resp.status === 200) {
-        let reso = await resp.json();
-        if (reso.password === newPwd) {
-            document.querySelector("#test13").classList.add("success");
-            document.querySelector("#test13 .status").textContent = "Success!";
-            return reso;
-        } else {
-            document.querySelector("#test13").classList.add("fail");
-            document.querySelector("#test13 .status").textContent = "Failed!";
-        }
+    if (resp.status === 401) {
+        document.querySelector("#test13").classList.add("success");
+        document.querySelector("#test13 .status").textContent = "Success!";
     } else {
         document.querySelector("#test13").classList.add("fail");
         document.querySelector("#test13 .status").textContent = "Failed!";
@@ -268,11 +272,11 @@ async function test13(credentials) {
 async function test14() {
     let req = new Request("http://localhost:8000/settings/changePassword", {
         method: "PATCH",
-        body: JSON.stringify({username: "idontexist", password: "noo", newPassword: "new123"}),
+        body: JSON.stringify({username: "bla", password: "bla"}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
-    if (resp.status === 404) {
+    if (resp.status === 400) {
         document.querySelector("#test14").classList.add("success");
         document.querySelector("#test14 .status").textContent = "Success!";
     } else {
@@ -282,13 +286,13 @@ async function test14() {
 }
 
 async function test15(credentials) {
-    let req = new Request("http://localhost:8000/settings/changePassword", {
-        method: "PATCH",
-        body: JSON.stringify({username: credentials.username, password: "wrong", newPassword: "new123"}),
+    let req = new Request("http://localhost:8000/settings/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: credentials.username, password: credentials.password, repeatPassword: credentials.password}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
-    if (resp.status === 401) {
+    if (resp.status === 200) {
         document.querySelector("#test15").classList.add("success");
         document.querySelector("#test15 .status").textContent = "Success!";
     } else {
@@ -298,13 +302,13 @@ async function test15(credentials) {
 }
 
 async function test16() {
-    let req = new Request("http://localhost:8000/settings/changePassword", {
-        method: "PATCH",
-        body: JSON.stringify({username: "bla", password: "bla"}),
+    let req = new Request("http://localhost:8000/settings/deleteAccount", {
+        method: "DELETE",
+        body: JSON.stringify({username: "idontexist", password: "bla", repeatPassword: "bla"}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
-    if (resp.status === 400) {
+    if (resp.status === 404) {
         document.querySelector("#test16").classList.add("success");
         document.querySelector("#test16 .status").textContent = "Success!";
     } else {
@@ -313,14 +317,14 @@ async function test16() {
     }
 }
 
-async function test17(credentials) {
+async function test17() {
     let req = new Request("http://localhost:8000/settings/deleteAccount", {
         method: "DELETE",
-        body: JSON.stringify({username: credentials.username, password: credentials.password}),
+        body: JSON.stringify({username: "617953", password: "wrong", repeatPassword: "wrong"}),
         headers: {"content-type": "application/json"}
     });
     let resp = await fetch(req);
-    if (resp.status === 200) {
+    if (resp.status === 401) {
         document.querySelector("#test17").classList.add("success");
         document.querySelector("#test17 .status").textContent = "Success!";
     } else {
@@ -330,38 +334,6 @@ async function test17(credentials) {
 }
 
 async function test18() {
-    let req = new Request("http://localhost:8000/settings/deleteAccount", {
-        method: "DELETE",
-        body: JSON.stringify({username: "idontexist", password: "bla"}),
-        headers: {"content-type": "application/json"}
-    });
-    let resp = await fetch(req);
-    if (resp.status === 404) {
-        document.querySelector("#test18").classList.add("success");
-        document.querySelector("#test18 .status").textContent = "Success!";
-    } else {
-        document.querySelector("#test18").classList.add("fail");
-        document.querySelector("#test18 .status").textContent = "Failed!";
-    }
-}
-
-async function test19() {
-    let req = new Request("http://localhost:8000/settings/deleteAccount", {
-        method: "DELETE",
-        body: JSON.stringify({username: "617953", password: "wrong"}),
-        headers: {"content-type": "application/json"}
-    });
-    let resp = await fetch(req);
-    if (resp.status === 401) {
-        document.querySelector("#test19").classList.add("success");
-        document.querySelector("#test19 .status").textContent = "Success!";
-    } else {
-        document.querySelector("#test19").classList.add("fail");
-        document.querySelector("#test19 .status").textContent = "Failed!";
-    }
-}
-
-async function test20() {
     let req = new Request("http://localhost:8000/deleteAccount", {
         method: "DELETE",
         body: JSON.stringify({username: "weeee"}),
@@ -369,32 +341,32 @@ async function test20() {
     });
     let resp = await fetch(req);
     if (resp.status === 400) {
-        document.querySelector("#test20").classList.add("success");
-        document.querySelector("#test20 .status").textContent = "Success!";
+        document.querySelector("#test18").classList.add("success");
+        document.querySelector("#test18 .status").textContent = "Success!";
     } else {
-        document.querySelector("#test20").classList.add("success");
-        document.querySelector("#test20 .status").textContent = "Success!";
+        document.querySelector("#test18").classList.add("success");
+        document.querySelector("#test18 .status").textContent = "Success!";
     }
 }
 
-async function test21() {
+async function test19() {
     let resp = await fetch("http://localhost:8000/quiz/all");
     if (resp.status === 200) {
         let reso = await resp.json();
         if (typeof reso === "object") {
-            document.querySelector("#test21").classList.add("success");
-            document.querySelector("#test21 .status").textContent = "Success!";
+            document.querySelector("#test19").classList.add("success");
+            document.querySelector("#test19 .status").textContent = "Success!";
         } else {
-            document.querySelector("#test21").classList.add("fail");
-            document.querySelector("#test21 .status").textContent = "Failed!";
+            document.querySelector("#test19").classList.add("fail");
+            document.querySelector("#test19 .status").textContent = "Failed!";
         }
     } else {
-        document.querySelector("#test21").classList.add("fail");
-        document.querySelector("#test21 .status").textContent = "Failed!";
+        document.querySelector("#test19").classList.add("fail");
+        document.querySelector("#test19 .status").textContent = "Failed!";
     }
 }
 
-async function test22() {
+async function test20() {
     let req = new Request("http://localhost:8000/quiz/create", {
         method: "POST",
         body: JSON.stringify({difficulty: "easy", category: 21}),
@@ -404,19 +376,19 @@ async function test22() {
     if (resp.status === 200) {
         let reso = await resp.json();
         if (reso.questions && reso.id) {
-            document.querySelector("#test22").classList.add("success");
-            document.querySelector("#test22 .status").textContent = "Success!";
+            document.querySelector("#test20").classList.add("success");
+            document.querySelector("#test20 .status").textContent = "Success!";
         } else {
-            document.querySelector("#test22").classList.add("fail");
-            document.querySelector("#test22 .status").textContent = "Failed!";
+            document.querySelector("#test20").classList.add("fail");
+            document.querySelector("#test20 .status").textContent = "Failed!";
         }
     } else {
-        document.querySelector("#test22").classList.add("fail");
-        document.querySelector("#test22 .status").textContent = "Failed!";
+        document.querySelector("#test20").classList.add("fail");
+        document.querySelector("#test20 .status").textContent = "Failed!";
     }
 }
 
-async function test23() {
+async function test21() {
     let req = new Request("http://localhost:8000/quiz/create", {
         method: "POST",
         body: JSON.stringify({difficulty: "easy"}),
@@ -424,6 +396,34 @@ async function test23() {
     });
     let resp = await fetch(req);
     if (resp.status === 400) {
+        document.querySelector("#test21").classList.add("success");
+        document.querySelector("#test21 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test21").classList.add("fail");
+        document.querySelector("#test21 .status").textContent = "Failed!";
+    }
+}
+
+async function test22() {
+    let resp = await fetch("http://localhost:8000/wrongEndpoint");
+    if (resp.status === 400) {
+        document.querySelector("#test22").classList.add("success");
+        document.querySelector("#test22 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test22").classList.add("fail");
+        document.querySelector("#test22 .status").textContent = "Failed!";
+    }
+}
+
+async function test23() {
+    let req = new Request("http://localhost:8000/login", {
+        method: "POST",
+        body: JSON.stringify({username: "bla", password: "bla"}),
+        headers: {"content-type": "text/html"}
+    });
+
+    let resp = await fetch(req);
+    if (resp.status === 406) {
         document.querySelector("#test23").classList.add("success");
         document.querySelector("#test23 .status").textContent = "Success!";
     } else {
@@ -433,8 +433,13 @@ async function test23() {
 }
 
 async function test24() {
-    let resp = await fetch("http://localhost:8000/wrongEndpoint");
-    if (resp.status === 400) {
+    let req = new Request("http://localhost:8000/user/0/score", {
+        method: "PATCH",
+        body: JSON.stringify({difficulty: "easy", correct: 5, answered: 10}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 200) {
         document.querySelector("#test24").classList.add("success");
         document.querySelector("#test24 .status").textContent = "Success!";
     } else {
@@ -444,19 +449,50 @@ async function test24() {
 }
 
 async function test25() {
-    let req = new Request("http://localhost:8000/login", {
-        method: "POST",
-        body: JSON.stringify({username: "bla", password: "bla"}),
-        headers: {"content-type": "text/html"}
+    let req = new Request("http://localhost:8000/user/98356813735/score", {
+        method: "PATCH",
+        body: JSON.stringify({difficulty: "easy", correct: 5, answered: 10}),
+        headers: {"content-type": "application/json"}
     });
-
     let resp = await fetch(req);
-    if (resp.status === 406) {
+    if (resp.status === 404) {
         document.querySelector("#test25").classList.add("success");
         document.querySelector("#test25 .status").textContent = "Success!";
     } else {
         document.querySelector("#test25").classList.add("fail");
         document.querySelector("#test25 .status").textContent = "Failed!";
+    }
+}
+
+async function test26() {
+    let req = new Request("http://localhost:8000/user/0/profilePic", {
+        method: "PATCH",
+        body: JSON.stringify({profilePic: "https://i0.wp.com/plopdo.com/wp-content/uploads/2021/11/feature-pic.jpg?fit=537%2C322&ssl=1"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 200) {
+        document.querySelector("#test26").classList.add("success");
+        document.querySelector("#test26 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test26").classList.add("fail");
+        document.querySelector("#test26 .status").textContent = "Failed!";
+    }
+}
+
+async function test27() {
+    let req = new Request("http://localhost:8000/user/219487124/profilePic", {
+        method: "PATCH",
+        body: JSON.stringify({profilePic: "whatever"}),
+        headers: {"content-type": "application/json"}
+    });
+    let resp = await fetch(req);
+    if (resp.status === 404) {
+        document.querySelector("#test27").classList.add("success");
+        document.querySelector("#test27 .status").textContent = "Success!";
+    } else {
+        document.querySelector("#test27").classList.add("fail");
+        document.querySelector("#test27 .status").textContent = "Failed!";
     }
 }
 
