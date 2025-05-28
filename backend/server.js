@@ -1,4 +1,5 @@
 import { serveFile } from "jsr:@std/http";
+import { handleGET } from "./routes/get.js";
 
 function findUser(arrayOfUsers, userID) {
   return arrayOfUsers.find((user) => user.id === userID);
@@ -22,11 +23,11 @@ async function handler(request) {
     return new Response(null, { status: 204, headers: headersCORS });
   }
 
-  if (request.method === "GET") {
+  /*  if (request.method === "GET") {
     if (url.pathname === "/favicon.ico") {
       return await serveFile(request, "frontend/public/favicon.ico");
     }
-    /* Webbsidor */
+    // Webbsidor
     if (url.pathname === "/") {
       return await serveFile(request, "frontend/public/index.html");
     }
@@ -43,7 +44,7 @@ async function handler(request) {
       return await serveFile(request, "frontend/public/style.css");
     }
 
-    /* User */
+    // User
     if (url.pathname === "/users") {
       return new Response(JSON.stringify(data.users), { headers: headersCORS }); // array av alla användare
     }
@@ -63,10 +64,13 @@ async function handler(request) {
       }
     }
 
-    /* Quiz */
+    // Quiz
     if (url.pathname === "/quiz/all") {
       return new Response(JSON.stringify(data.quiz), { headers: headersCORS });
     }
+  } */
+  if (request.method === "GET") {
+    return await handleGET(request, url, data, headersCORS);
   }
 
   if (request.method === "POST") {

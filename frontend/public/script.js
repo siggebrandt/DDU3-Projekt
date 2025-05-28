@@ -276,7 +276,6 @@ function quizCategoryPages(quiz) {
 
 // Start Quiz
 async function startQuiz(questions, difficultyChosen) {
-  document.getElementById("quizQuestion").style.padding = "30px";
   let quizProgress = 0;
   let correctAnswers = 0;
 
@@ -291,6 +290,7 @@ async function startQuiz(questions, difficultyChosen) {
     const quizProgressDOM = document.querySelector("#quizProgress p");
     quizProgressDOM.textContent = `${quizProgress} of 10 questions is answered so far!!`;
 
+    quizQuestion.style.padding = "30px";
     quizQuestion.innerHTML = currentQuestions.question;
     quizChoices.innerHTML = "";
 
