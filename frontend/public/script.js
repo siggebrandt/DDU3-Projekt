@@ -102,9 +102,17 @@ loginButtonNav.addEventListener("click", () => {
 });
 
 const loginButton = document.querySelector("#loginMain #loginButton");
+const usernameInout = document.querySelector("#loginMain #username");
+const passwordInput = document.querySelector("#loginMain #password");
 const updateStatus = document.createElement("p");
 loginMain.appendChild(updateStatus);
-loginButton.addEventListener("click", async () => {
+loginButton.addEventListener("click", () => login());
+passwordInput.addEventListener("keydown", (event) =>  {
+    if(event.key === "Enter"){
+        login();
+    }
+})
+async function login(){
     const username = document.querySelector("#loginMain #username").value;
     const password = document.querySelector("#loginMain #password").value;
     const options = {
@@ -132,7 +140,7 @@ loginButton.addEventListener("click", async () => {
     } else {
         updateStatus.textContent = "Password or username is incorrect! Please try again"
     }
-})
+}
 // Register
 const registerButtonNav = document.querySelector("#registerButton");
 registerButtonNav.addEventListener("click", () => {
@@ -146,7 +154,13 @@ const password = document.querySelector("#register-password");
 const repeatedPassword = document.querySelector("#password2");
 const email = document.querySelector("#e-mail");
 const status = document.querySelector("#register-status");
-registerButton.addEventListener("click", async () => {
+registerButton.addEventListener("click", () => register());
+repeatedPassword.addEventListener("keydown", (event) =>  {
+    if(event.key === "Enter"){
+        register();
+    }
+})
+async function register() {
     if (password.value !== repeatedPassword.value) {
         status.textContent = "Passwords do not match!";
         return;
@@ -173,7 +187,7 @@ registerButton.addEventListener("click", async () => {
     } else {
         status.textContent = "One or more inputs are empty! Try again."
     }
-})
+}
 
 /* Home Page Quiz Images */
 const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
