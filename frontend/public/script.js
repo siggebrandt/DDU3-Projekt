@@ -54,9 +54,9 @@ class User {
         }
     }
 }
-const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
+/* const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
 let question1 = new CreateQuestion(testData)
-console.log(question1.question, question1.choices);
+console.log(question1.question, question1.choices); */
 
 // The diffrent pages
 const homepageMain = document.querySelector("#homepageMain");
