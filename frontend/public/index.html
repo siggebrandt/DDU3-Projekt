@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <title>QuizSite</title>
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" />
   </head>
   <body>
     <!-- Nav -->
     <nav class="flexContainer">
       <div id="logo" class="flexItem">
-        <h1>QuizSite</h1> <!--logo img?-->
+        <h1>QuizSite</h1>
+        <!--logo img?-->
       </div>
       <div class="flexItem"></div>
       <div id="navLinks" class="flexContainer flexItem">
@@ -34,14 +35,14 @@
     <main id="loginMain">
       <h1>Log In</h1>
       <div id="flexCenter">
-          <div class="input-row">
-              <label for="username">Username:</label>
-              <input type="text" id="username" class="input">
-          </div>
-          <div class="input-row">
-              <label for="password">Password:</label>
-              <input type="password" id="password" class="input">
-          </div>
+        <div class="input-row">
+          <label for="username">Username:</label>
+          <input type="text" id="username" class="input" />
+        </div>
+        <div class="input-row">
+          <label for="password">Password:</label>
+          <input type="password" id="password" class="input" />
+        </div>
       </div>
       <button class="button" id="loginButton">LOG IN</button>
     </main>
@@ -49,23 +50,23 @@
     <main id="registerMain">
       <h1>Register user</h1>
       <div id="flexCenter">
-          <div class="input-row">
-              <label for="username">Username:</label>
-              <input type="text" id="register-username" class="input">
-          </div>
-          <div class="input-row">
-              <label for="e-mail">E-mail:</label>
-              <input type="text" id="e-mail" class="input">
-          </div>
-          <div class="input-row">
-              <label for="password">Password:</label>
-              <input type="password" id="register-password" class="input">
-          </div>
-          <div class="input-row">
-              <label for="password2">Password again:</label>
-              <input type="password" id="password2" class="input">
-          </div>
-          <p id="register-status"></p>
+        <div class="input-row">
+          <label for="username">Username:</label>
+          <input type="text" id="register-username" class="input" />
+        </div>
+        <div class="input-row">
+          <label for="e-mail">E-mail:</label>
+          <input type="text" id="e-mail" class="input" />
+        </div>
+        <div class="input-row">
+          <label for="password">Password:</label>
+          <input type="password" id="register-password" class="input" />
+        </div>
+        <div class="input-row">
+          <label for="password2">Password again:</label>
+          <input type="password" id="password2" class="input" />
+        </div>
+        <p id="register-status"></p>
       </div>
       <button class="button" id="register-button">REGISTER</button>
     </main>
@@ -73,26 +74,27 @@
     <main id="quizMain">
       <h2 id="quizPageTitle" class="textAlignCenter">QuizName</h2>
       <div id="quizPageHeader" class="flexContainer textAlignCenter">
-          <div id="quizPageChooseDifficulty" class="flexItem">
-              Choose difficulty: 
+        <div id="quizPageChooseDifficulty" class="flexItem">
+          Choose difficulty:
           <select id="chooseDifficultyDropdown">
-              <option value="easy">Easy</option>
-              <option value="medium" selected="selected">Medium</option>
-              <option value="hard">Hard</option>
-          </select></div>
-          <button id="playQuizButton" class="flexItem">Play</button>
+            <option value="easy">Easy</option>
+            <option value="medium" selected="selected">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <button id="playQuizButton" class="flexItem">Play</button>
       </div>
       <div id="quizLeaderboard"></div>
     </main>
     <!-- Quiz Play -->
     <main id="quizPlayMain">
       <div id="quizPageHeader" class="flexContainer textAlignCenter">
-          <!-- <div id="quizPageChooseDifficulty" class="flexItem"> -->
+        <!-- <div id="quizPageChooseDifficulty" class="flexItem"> -->
       </div>
       <div id="playQuiz">
-          <div id="quizQuestion" class="textAlignCenter"></div>
-          <div id="quizChoices" class="flexContainer"></div>
-          <div id="quizResponse" class="textAlignCenter"></div>
+        <div id="quizQuestion" class="textAlignCenter"></div>
+        <div id="quizChoices" class="flexContainer"></div>
+        <div id="quizResponse" class="textAlignCenter"></div>
       </div>
       <div id="quizProgress">
         <p id="progressText"></p>
@@ -101,47 +103,56 @@
     <!-- Quiz Result -->
     <main id="quizResultMain">
       <div id="quizPageHeader" class="flexContainer textAlignCenter">
-          <!-- <div id="quizPageChooseDifficulty" class="flexItem"> -->
+        <!-- <div id="quizPageChooseDifficulty" class="flexItem"> -->
       </div>
-      <div id="resultsOfQuiz">
-      </div>
+      <div id="resultsOfQuiz"></div>
     </main>
     <!-- Leaderboard page -->
     <main id="leaderboardMain">
       <h1>Leaderboard - Score based on success rate</h1>
       <h3>Higher opacity = higher score</h3>
       <div class="user">
-          <h4>Users</h4>
-          <div class="userScores">
-              <p>Easy</p>
-              <p>Medium</p>
-              <p>Hard</p>
-          </div>
+        <h4>Users</h4>
+        <div class="userScores">
+          <p>Easy</p>
+          <p>Medium</p>
+          <p>Hard</p>
+        </div>
       </div>
     </main>
     <!--Profile page-->
-    <main id="profileMain">
-    </main>
+    <main id="profileMain"></main>
     <!--Profile Pic Picker screen-->
     <div id="profilePicPicker-overlay" class="overlay">
       <h1>Pick an image!</h1>
       <p>Choose wisely! This decision is final.</p>
-      <div id="image-options">
-      </div>
+      <div id="image-options"></div>
     </div>
     <!--Change Password Overlay Screen-->
     <div id="changePassword-overlay" class="overlay">
       <h1>Change Password</h1>
-      <input id="change-old-password" type="password" placeholder="Old password...">
-      <input id="change-new-password" type="password" placeholder="New password...">
+      <input
+        id="change-old-password"
+        type="password"
+        placeholder="Old password..."
+      />
+      <input
+        id="change-new-password"
+        type="password"
+        placeholder="New password..."
+      />
       <div class="controls" id="change-button-and-status"></div>
     </div>
     <!--Delete Account Overlay Screen-->
     <div id="deleteAccount-overlay" class="overlay">
       <h1>Delete Account</h1>
-      <input id="delete-username" type="text" placeholder="Username...">
-      <input id="delete-password" type="password" placeholder="Password...">
-      <input id="delete-repeat-password" type="password" placeholder="Repeat Password...">
+      <input id="delete-username" type="text" placeholder="Username..." />
+      <input id="delete-password" type="password" placeholder="Password..." />
+      <input
+        id="delete-repeat-password"
+        type="password"
+        placeholder="Repeat Password..."
+      />
       <div id="delete-controls" class="controls"></div>
     </div>
     <script src="script.js"></script>

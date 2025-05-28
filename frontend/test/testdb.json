@@ -1,1 +1,16 @@
-{"users":[{"id":0,"username":"617953","password":"test123","score":{"easy":{"correct":10,"answered":10},"medium":{"correct":8,"answered":10},"hard":{"correct":2,"answered":10}},"profilePic":""}],"quiz":[]}
+{
+  "users": [
+    {
+      "id": 0,
+      "username": "617953",
+      "password": "test123",
+      "score": {
+        "easy": { "correct": 10, "answered": 10 },
+        "medium": { "correct": 8, "answered": 10 },
+        "hard": { "correct": 2, "answered": 10 }
+      },
+      "profilePic": ""
+    }
+  ],
+  "quiz": []
+}

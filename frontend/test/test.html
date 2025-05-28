@@ -1,250 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="../public/favicon.ico">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="../public/favicon.ico" />
+  </head>
+  <body>
     <main>
-        <p id="server-status">...</p>
-        <div id="test1">
-            <h2>Test 1</h2>
-            <p><b>GET</b> request to endpoint /users</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>Array of user objects</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test2">
-            <h2>Test 2</h2>
-            <p><b>GET</b> request to endpoint /user/:id</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>User object with specified ID</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test3">
-            <h2>Test 3</h2>
-            <p><b>GET</b> request to endpoint /user/:id<br>Where userID does not exist in database</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test4">
-            <h2>Test 4</h2>
-            <p><b>POST</b> request to endpoint /register</p>
-            <p>Request body: Object with user credentials</p>
-            <p>{username: string, password: string, email: string}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>User object with credentials + ID</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test5">
-            <h2>Test 5</h2>
-            <p><b>POST</b> request to endpoint /register</p>
-            <p>Request body: Object with missing user credentials</p>
-            <p>{username: string}</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test6">
-            <h2>Test 6</h2>
-            <p><b>POST</b> request to endpoint /register</p>
-            <p>Request body: Object with user credentials where username or email already exists in the database</p>
-            <p>{username: string, password: string, email: string}</p>
-            <p>Expected Response status: <b>409 Conflict</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test7">
-            <h2>Test 7</h2>
-            <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object containing user credentials</p>
-            <p>{username: string, password: string}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>User-object</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test8">
-            <h2>Test 8</h2>
-            <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object missing user credentials</p>
-            <p>{username: string}</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test9">
-            <h2>Test 9</h2>
-            <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object where username doesnt exists in the database</p>
-            <p>{username: string, password: string}</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test10">
-            <h2>Test 10</h2>
-            <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object where username exists, but password don't match</p>
-            <p>{username: string, password: string}</p>
-            <p>Expected Response status: <b>401 Unauthorized</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test11">
-            <h2>Test 11</h2>
-            <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
-            <p>Request body: Object with user credentials +  new password</p>
-            <p>{username: string, password: string, newPassword: string}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>User-object with updated password</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test12">
-            <h2>Test 12</h2>
-            <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
-            <p>Request body: Object with username that does not exist</p>
-            <p>{username: string, password: string, newPassword: string}</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test13">
-            <h2>Test 13</h2>
-            <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
-            <p>Request body: Object with username exists, but old password does not match</p>
-            <p>{username: string, password: string, newPassword: string}</p>
-            <p>Expected Response status: <b>401 Unauthorized</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test14">
-            <h2>Test 14</h2>
-            <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
-            <p>Request body: Object with missing credentials</p>
-            <p>{username: string, password: string}</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test15">
-            <h2>Test 15</h2>
-            <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
-            <p>Request body: Object with user credentials</p>
-            <p>{username: string, password: string, repeatPassword: string}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test16">
-            <h2>Test 16</h2>
-            <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
-            <p>Request body: Object with username that does not exist</p>
-            <p>{username: string, password: string, repeatPassword: string}</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test17">
-            <h2>Test 17</h2>
-            <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
-            <p>Request body: Object with username that exists, but password does not match</p>
-            <p>{username: string, password: string, repeatPassword: string}</p>
-            <p>Expected Response status: <b>401 Unauthorized</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test18">
-            <h2>Test 18</h2>
-            <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
-            <p>Request body: Object with missing credentials</p>
-            <p>{username: string,}</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test19">
-            <h2>Test 19</h2>
-            <p><b>GET</b> request to endpoint /quiz/all</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>Array of quiz-objects</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test20">
-            <h2>Test 20</h2>
-            <p><b>POST</b> request to endpoint /quiz/create</p>
-            <p>Request body: Object with difficulty and category keys</p>
-            <p>{difficulty: string, category: number}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>Created quiz-object</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test21">
-            <h2>Test 21</h2>
-            <p><b>POST</b> request to endpoint /quiz/create</p>
-            <p>Request body: Object with missing "category" key</p>
-            <p>{difficulty: string}</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test22">
-            <h2>Test 22</h2>
-            <p><b>GET</b> request to endpoint /wrongEndpoint</p>
-            <p>Expected Response status: <b>400 Bad Request</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test23">
-            <h2>Test 23</h2>
-            <p><b>POST</b> request to endpoint /login</p>
-            <p>Request body: Object with user credentials, with wrong content-type</p>
-            <p>{username: string, password: string}</p>
-            <p>content-type: text/html</p>
-            <p>Expected Response status: <b>406 Not Acceptable</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test24">
-            <h2>Test 24</h2>
-            <p><b>PATCH</b> request to endpoint /user/:id/score</p>
-            <p>Request body: Object with score from played quiz</p>
-            <p>{difficulty: string, correct: number, answered: number}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test25">
-            <h2>Test 25</h2>
-            <p><b>PATCH</b> request to endpoint /user/:id/score</p>
-            <p>Request body: Object with score from played quiz, where :id does not exist</p>
-            <p>{difficulty: string, correct: number, answered: number}</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test26">
-            <h2>Test 26</h2>
-            <p><b>PATCH</b> request to endpoint /user/:id/profilePic</p>
-            <p>Request body: Object with src to profilePic</p>
-            <p>{profilePic: string}</p>
-            <p>Expected Response status: <b>200 OK</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
-        <div id="test27">
-            <h2>Test 27</h2>
-            <p><b>PATCH</b> request to endpoint /user/:id/profilePic</p>
-            <p>Request body: Object with src to profilePic, where :id does not exist</p>
-            <p>{profilePic: string}</p>
-            <p>Expected Response status: <b>404 Not Found</b></p>
-            <p>Expected Response body: <b>JSON-formatted string</b></p>
-            <p class="status">Status...</p>
-        </div>
+      <p id="server-status">...</p>
+      <div id="test1">
+        <h2>Test 1</h2>
+        <p><b>GET</b> request to endpoint /users</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>Array of user objects</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test2">
+        <h2>Test 2</h2>
+        <p><b>GET</b> request to endpoint /user/:id</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>User object with specified ID</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test3">
+        <h2>Test 3</h2>
+        <p>
+          <b>GET</b> request to endpoint /user/:id<br />Where userID does not
+          exist in database
+        </p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test4">
+        <h2>Test 4</h2>
+        <p><b>POST</b> request to endpoint /register</p>
+        <p>Request body: Object with user credentials</p>
+        <p>{username: string, password: string, email: string}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>User object with credentials + ID</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test5">
+        <h2>Test 5</h2>
+        <p><b>POST</b> request to endpoint /register</p>
+        <p>Request body: Object with missing user credentials</p>
+        <p>{username: string}</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test6">
+        <h2>Test 6</h2>
+        <p><b>POST</b> request to endpoint /register</p>
+        <p>
+          Request body: Object with user credentials where username or email
+          already exists in the database
+        </p>
+        <p>{username: string, password: string, email: string}</p>
+        <p>Expected Response status: <b>409 Conflict</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test7">
+        <h2>Test 7</h2>
+        <p><b>POST</b> request to endpoint /login</p>
+        <p>Request body: Object containing user credentials</p>
+        <p>{username: string, password: string}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>User-object</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test8">
+        <h2>Test 8</h2>
+        <p><b>POST</b> request to endpoint /login</p>
+        <p>Request body: Object missing user credentials</p>
+        <p>{username: string}</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test9">
+        <h2>Test 9</h2>
+        <p><b>POST</b> request to endpoint /login</p>
+        <p>Request body: Object where username doesnt exists in the database</p>
+        <p>{username: string, password: string}</p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test10">
+        <h2>Test 10</h2>
+        <p><b>POST</b> request to endpoint /login</p>
+        <p>
+          Request body: Object where username exists, but password don't match
+        </p>
+        <p>{username: string, password: string}</p>
+        <p>Expected Response status: <b>401 Unauthorized</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test11">
+        <h2>Test 11</h2>
+        <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
+        <p>Request body: Object with user credentials + new password</p>
+        <p>{username: string, password: string, newPassword: string}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>User-object with updated password</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test12">
+        <h2>Test 12</h2>
+        <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
+        <p>Request body: Object with username that does not exist</p>
+        <p>{username: string, password: string, newPassword: string}</p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test13">
+        <h2>Test 13</h2>
+        <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
+        <p>
+          Request body: Object with username exists, but old password does not
+          match
+        </p>
+        <p>{username: string, password: string, newPassword: string}</p>
+        <p>Expected Response status: <b>401 Unauthorized</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test14">
+        <h2>Test 14</h2>
+        <p><b>PATCH</b> request to endpoint /settings/changePassword</p>
+        <p>Request body: Object with missing credentials</p>
+        <p>{username: string, password: string}</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test15">
+        <h2>Test 15</h2>
+        <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
+        <p>Request body: Object with user credentials</p>
+        <p>{username: string, password: string, repeatPassword: string}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test16">
+        <h2>Test 16</h2>
+        <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
+        <p>Request body: Object with username that does not exist</p>
+        <p>{username: string, password: string, repeatPassword: string}</p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test17">
+        <h2>Test 17</h2>
+        <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
+        <p>
+          Request body: Object with username that exists, but password does not
+          match
+        </p>
+        <p>{username: string, password: string, repeatPassword: string}</p>
+        <p>Expected Response status: <b>401 Unauthorized</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test18">
+        <h2>Test 18</h2>
+        <p><b>DELETE</b> request to endpoint /settings/deleteAccount</p>
+        <p>Request body: Object with missing credentials</p>
+        <p>{username: string,}</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test19">
+        <h2>Test 19</h2>
+        <p><b>GET</b> request to endpoint /quiz/all</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>Array of quiz-objects</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test20">
+        <h2>Test 20</h2>
+        <p><b>POST</b> request to endpoint /quiz/create</p>
+        <p>Request body: Object with difficulty and category keys</p>
+        <p>{difficulty: string, category: number}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>Created quiz-object</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test21">
+        <h2>Test 21</h2>
+        <p><b>POST</b> request to endpoint /quiz/create</p>
+        <p>Request body: Object with missing "category" key</p>
+        <p>{difficulty: string}</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test22">
+        <h2>Test 22</h2>
+        <p><b>GET</b> request to endpoint /wrongEndpoint</p>
+        <p>Expected Response status: <b>400 Bad Request</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test23">
+        <h2>Test 23</h2>
+        <p><b>POST</b> request to endpoint /login</p>
+        <p>
+          Request body: Object with user credentials, with wrong content-type
+        </p>
+        <p>{username: string, password: string}</p>
+        <p>content-type: text/html</p>
+        <p>Expected Response status: <b>406 Not Acceptable</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test24">
+        <h2>Test 24</h2>
+        <p><b>PATCH</b> request to endpoint /user/:id/score</p>
+        <p>Request body: Object with score from played quiz</p>
+        <p>{difficulty: string, correct: number, answered: number}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test25">
+        <h2>Test 25</h2>
+        <p><b>PATCH</b> request to endpoint /user/:id/score</p>
+        <p>
+          Request body: Object with score from played quiz, where :id does not
+          exist
+        </p>
+        <p>{difficulty: string, correct: number, answered: number}</p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test26">
+        <h2>Test 26</h2>
+        <p><b>PATCH</b> request to endpoint /user/:id/profilePic</p>
+        <p>Request body: Object with src to profilePic</p>
+        <p>{profilePic: string}</p>
+        <p>Expected Response status: <b>200 OK</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
+      <div id="test27">
+        <h2>Test 27</h2>
+        <p><b>PATCH</b> request to endpoint /user/:id/profilePic</p>
+        <p>
+          Request body: Object with src to profilePic, where :id does not exist
+        </p>
+        <p>{profilePic: string}</p>
+        <p>Expected Response status: <b>404 Not Found</b></p>
+        <p>Expected Response body: <b>JSON-formatted string</b></p>
+        <p class="status">Status...</p>
+      </div>
     </main>
     <script src="test.js"></script>
-</body>
+  </body>
 </html>

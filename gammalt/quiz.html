@@ -1,154 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
     <style>
-        .quizAnswerButton, #quizQuestion, #quizResponse { color: black }
+      .quizAnswerButton,
+      #quizQuestion,
+      #quizResponse {
+        color: black;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="flexContainer">
-        <div id="logo" class="flexItem">
-          <h1>QuizSite</h1> <!--logo img?-->
+      <div id="logo" class="flexItem">
+        <h1>QuizSite</h1>
+        <!--logo img?-->
+      </div>
+      <div class="flexItem"></div>
+      <div id="navLinks" class="flexContainer flexItem">
+        <!-- detta byts ut med JS sedan beroende på om användaren är inloggad eller inte :D -->
+        <button id="loginButton" class="navButton">Login</button>
+        <button id="registerButton" class="navButton">Register</button>
+      </div>
+    </nav>
+    <main id="quizMain">
+      <div id="quizPageHeader" class="flexContainer textAlignCenter">
+        <div id="quizPageChooseDifficulty" class="flexItem">
+          Välj Svårighetsgrad:
+          <select id="chooseDifficultyDropdown">
+            <option value="easy">Lätt</option>
+            <option value="medium" selected="selected">Medium</option>
+            <option value="hard">Svår</option>
+          </select>
         </div>
-        <div class="flexItem"></div>
-        <div id="navLinks" class="flexContainer flexItem">
-          <!-- detta byts ut med JS sedan beroende på om användaren är inloggad eller inte :D -->
-          <button id="loginButton" class="navButton">Login</button>
-          <button id="registerButton" class="navButton">Register</button>
-        </div>
-      </nav>
-      <main id="quizMain">
-        <div id="quizPageHeader" class="flexContainer textAlignCenter">
-            <div id="quizPageChooseDifficulty" class="flexItem">
-                Välj Svårighetsgrad: 
-            <select id="chooseDifficultyDropdown">
-                <option value="easy">Lätt</option>
-                <option value="medium" selected="selected">Medium</option>
-                <option value="hard">Svår</option>
-            </select></div>
-            <button id="playQuizButton" class="flexItem">Play</button>
-        </div>
-        <div id="playQuiz">
-            <div id="quizQuestion" class="textAlignCenter"></div>
-            <div id="quizChoices" class="flexContainer"></div>
-            <div id="quizResponse" class="textAlignCenter"></div>
-        </div>
-</main>
-<script>
-class CreateQuestion{
-    constructor(data){
-        this.question = this.decode(data.question);
-        this.correct = data.correct_answer;
-        const allAnswers = [this.correct, ...data.incorrect_answers.map(this.decode)]
-        this.choices = this.shuffle(allAnswers);
-    }
-   
-    isCorrect (answer){
-        return answer === this.correct;
-    }
-    decode (answer){
-        return answer.replace(/&quot;/g, '"')
-                .replace(/&#039;/g, "'")
-                .replace(/&amp;/g, "&")
-                .replace(/&ntilde;/g, "ñ");
-    }
+        <button id="playQuizButton" class="flexItem">Play</button>
+      </div>
+      <div id="playQuiz">
+        <div id="quizQuestion" class="textAlignCenter"></div>
+        <div id="quizChoices" class="flexContainer"></div>
+        <div id="quizResponse" class="textAlignCenter"></div>
+      </div>
+    </main>
+    <script>
+      class CreateQuestion {
+        constructor(data) {
+          this.question = this.decode(data.question);
+          this.correct = data.correct_answer;
+          const allAnswers = [
+            this.correct,
+            ...data.incorrect_answers.map(this.decode),
+          ];
+          this.choices = this.shuffle(allAnswers);
+        }
 
-    shuffle (array){
-        const shuffledArray = [];
-        let counter = 0;
-        while(counter < 4){
-            const randomIndex = Math.floor(Math.random() * (4 - counter))
+        isCorrect(answer) {
+          return answer === this.correct;
+        }
+        decode(answer) {
+          return answer
+            .replace(/&quot;/g, '"')
+            .replace(/&#039;/g, "'")
+            .replace(/&amp;/g, "&")
+            .replace(/&ntilde;/g, "ñ");
+        }
+
+        shuffle(array) {
+          const shuffledArray = [];
+          let counter = 0;
+          while (counter < 4) {
+            const randomIndex = Math.floor(Math.random() * (4 - counter));
             shuffledArray.push(array[randomIndex]);
             array.splice(randomIndex, 1);
             counter++;
+          }
+          return shuffledArray;
         }
-        return shuffledArray;
-    }
-}
+      }
 
-const websiteURL = "http:localhost:8000"; 
-document.getElementById("playQuizButton").addEventListener("click", async function() {
-        const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log(difficultyChosen)
-        
-        fetch(`${websiteURL}/quiz/create`, {
+      const websiteURL = "http:localhost:8000";
+      document
+        .getElementById("playQuizButton")
+        .addEventListener("click", async function () {
+          const difficultyChosen = document.getElementById(
+            "chooseDifficultyDropdown"
+          ).value;
+          console.log(difficultyChosen);
+
+          fetch(`${websiteURL}/quiz/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
+            body: JSON.stringify({
+              difficulty: difficultyChosen,
+              category: 11,
+            }),
           })
-          .then(response => response.json())
-          .then(async function(data) {
-            await startQuiz(data);
-          });
-    })
+            .then((response) => response.json())
+            .then(async function (data) {
+              await startQuiz(data);
+            });
+        });
 
-async function startQuiz(questions) {
-    console.log("Quiz started:",questions);
-    document.getElementById("quizQuestion").style.padding = "30px"
-    let quizProgress = 0;
-    let correctAnswers = 0;
+      async function startQuiz(questions) {
+        console.log("Quiz started:", questions);
+        document.getElementById("quizQuestion").style.padding = "30px";
+        let quizProgress = 0;
+        let correctAnswers = 0;
 
-    function showQuestion () {
-        let currentQuestions = new CreateQuestion(questions.questions[quizProgress]);
-        let haveAnswered = false;
+        function showQuestion() {
+          let currentQuestions = new CreateQuestion(
+            questions.questions[quizProgress]
+          );
+          let haveAnswered = false;
 
-        console.log(currentQuestions);
+          console.log(currentQuestions);
 
-        const quizQuestion = document.getElementById("quizQuestion");
-        const quizChoices = document.getElementById("quizChoices");
-        const quizResponse = document.getElementById("quizResponse");
+          const quizQuestion = document.getElementById("quizQuestion");
+          const quizChoices = document.getElementById("quizChoices");
+          const quizResponse = document.getElementById("quizResponse");
 
-        quizQuestion.innerHTML = currentQuestions.question;
-        quizChoices.innerHTML = "";
-        quizResponse.innerHTML = "";
+          quizQuestion.innerHTML = currentQuestions.question;
+          quizChoices.innerHTML = "";
+          quizResponse.innerHTML = "";
 
-        currentQuestions.choices.forEach(choice => {
+          currentQuestions.choices.forEach((choice) => {
             const choiceButton = document.createElement("div");
-            choiceButton.className = "flexItem quizAnswerButton textAlignCenter";
+            choiceButton.className =
+              "flexItem quizAnswerButton textAlignCenter";
             choiceButton.textContent = choice;
             quizChoices.appendChild(choiceButton);
 
-            choiceButton.addEventListener("click", function() {
-                if (!haveAnswered) {
+            choiceButton.addEventListener("click", function () {
+              if (!haveAnswered) {
                 haveAnswered = true;
 
-                document.getElementById("quizResponse").innerHTML = currentQuestions.isCorrect(choice);
+                document.getElementById("quizResponse").innerHTML =
+                  currentQuestions.isCorrect(choice);
 
-                for (let button of document.querySelectorAll(".quizAnswerButton")) {
-                    button.style.backgroundColor = "#ef2d56";
-                    if (button.textContent === currentQuestions.correct) {
-                        button.style.backgroundColor = "#2fbf71"
-                    }
+                for (let button of document.querySelectorAll(
+                  ".quizAnswerButton"
+                )) {
+                  button.style.backgroundColor = "#ef2d56";
+                  if (button.textContent === currentQuestions.correct) {
+                    button.style.backgroundColor = "#2fbf71";
+                  }
                 }
                 //document.getElementById("quizResponse").style.backgroundColor = "red"
 
-                console.log(document.querySelectorAll(".quizAnswerButton"))
+                console.log(document.querySelectorAll(".quizAnswerButton"));
 
                 if (currentQuestions.isCorrect(choice)) {
-                    correctAnswers++;
-                    //choiceButton.style.backgroundColor = "#87986A"
-                    document.getElementById("quizResponse").style.backgroundColor = "green"
+                  correctAnswers++;
+                  //choiceButton.style.backgroundColor = "#87986A"
+                  document.getElementById(
+                    "quizResponse"
+                  ).style.backgroundColor = "green";
                 }
                 setTimeout(function () {
-                    quizProgress++;
-                    if (quizProgress < 10) {
-                        showQuestion();
-                        console.log("progress:", quizProgress)
-                    } else if (quizProgress >= 10) {
-                        // alla frågor svarade
-                    }
+                  quizProgress++;
+                  if (quizProgress < 10) {
+                    showQuestion();
+                    console.log("progress:", quizProgress);
+                  } else if (quizProgress >= 10) {
+                    // alla frågor svarade
+                  }
                 }, 3000);
-            }
-            })
-        })
-    }
-    showQuestion();
-}
-</script>
-<!--<script src="script.js"></script>-->
-</body>
+              }
+            });
+          });
+        }
+        showQuestion();
+      }
+    </script>
+    <!--<script src="script.js"></script>-->
+  </body>
 </html>
