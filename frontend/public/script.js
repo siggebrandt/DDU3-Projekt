@@ -19,7 +19,10 @@ class CreateQuestion{
                 .replace(/&ldquo;/g, '"')
                 .replace(/&hellip;/g, "…")
                 .replace(/&rdquo;/g, '"')
-                .replace(/&eacute;/g, "é");
+                .replace(/&eacute;/g, "é")
+                .replace(/&ouml;/g, "ö")
+                .replace(/&auml;/g, "ä")
+                .replace(/&aring;/g, "å");
     }
 
     shuffle (array){
@@ -358,6 +361,19 @@ async function createLeaderboard() {
     const response = await fetch("http://localhost:8000/users");
     const users = await response.json();
     const leaderboardMain = document.querySelector("#leaderboardMain");
+    leaderboardMain.innerHTML = "";
+    leaderboardMain.innerHTML = `
+    <h1>Leaderboard - Score based on success rate</h1>
+    <h3>Higher opacity = higher score</h3>
+    <div class="user"
+        <h4>Users</h4>
+        <div class="userScores">
+              <p>Easy</p>
+              <p>Medium</p>
+              <p>Hard</p>
+        </div>
+    </div>
+    `;
     for(let user of users){
         const easyScore = user.score.easy.correct / user.score.easy.answered;
         const mediumScore = user.score.medium.correct / user.score.medium.answered;
@@ -384,11 +400,12 @@ async function createLeaderboard() {
         `;
     }
 }
-createLeaderboard();
+//createLeaderboard();
 const leaderboardButton = document.querySelector("#leaderboardButton");
 leaderboardButton.addEventListener("click", () => {
     hidePages();
     leaderboardMain.style.display = "block";
+    createLeaderboard();
 })
 function loggedIn (){
     loginButtonNav.style.display = "none";
