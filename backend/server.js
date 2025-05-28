@@ -1,5 +1,9 @@
 import { serveFile } from "jsr:@std/http";
+
+import { handlePOST } from "./routes/post.js";
 import { handleGET } from "./routes/get.js";
+import { handlePATCH } from "./routes/patch.js";
+import { handleDELETE } from "./routes/delete.js";
 
 function findUser(arrayOfUsers, userID) {
   return arrayOfUsers.find((user) => user.id === userID);
