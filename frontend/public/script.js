@@ -3,7 +3,7 @@ const websiteURL = "http://localhost:8000";
 class CreateQuestion{
     constructor(data){
         this.question = this.decode(data.question);
-        this.correct = data.correct_answer;
+        this.correct = this.decode(data.correct_answer);
         const allAnswers = [this.correct, ...data.incorrect_answers.map(this.decode)]
         this.choices = this.shuffle(allAnswers);
     }
@@ -386,13 +386,13 @@ async function createLeaderboard() {
         <div class="user"> 
             <p>${user.username}</p>
             <div class="userScores">
-                <div class="scoreCircle">
+                <div title="${easyScore * 100}%" class="scoreCircle">
                     <div style="background-color: rgba(0, 150, 0, ${easyScore})"></div>
                 </div>
-                <div class="scoreCircle">
+                <div title="${mediumScore * 100}%" class="scoreCircle">
                     <div style="background-color: rgba(255, 200, 0, ${mediumScore})"></div>
                 </div>
-                <div class="scoreCircle">
+                <div title="${hardScore * 100}%" class="scoreCircle">
                     <div style="background-color: rgba(150, 0, 0, ${hardScore})"></div>
                 </div>
             </div>
