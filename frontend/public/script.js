@@ -1,5 +1,6 @@
-const websiteURL = "http://localhost:8000";
+let loggedInUser = null;
 
+// Classes
 class CreateQuestion{
     constructor(data){
         this.question = this.decode(data.question);
@@ -47,7 +48,7 @@ class User {
     }
 
     async getUserStats() {
-        let req = new Request(`${websiteURL}/user/${this.id}`);
+        let req = new Request(`http://localhost:8000/user/${this.id}`);
         let resp = await fetch(req);
         console.log(resp);
         if (resp.ok) {
@@ -57,9 +58,6 @@ class User {
         }
     }
 }
-/* const testData = {"type":"multiple","difficulty":"medium","category":"Entertainment: Video Games","question":"In Terraria, what does the Wall of Flesh not drop upon defeat?","correct_answer":"Picksaw","incorrect_answers":["Pwnhammer","Breaker Blade","Laser Rifle"]}
-let question1 = new CreateQuestion(testData)
-console.log(question1.question, question1.choices); */
 
 // The diffrent pages
 const homepageMain = document.querySelector("#homepageMain");
@@ -97,7 +95,6 @@ document.querySelector("#logo h1").addEventListener("click", function () {
 })
 
 // Login
-let loggedInUser = null; 
 const loginButtonNav = document.getElementById("loginButton");
 loginButtonNav.addEventListener("click", () => {
     hidePages()
@@ -110,11 +107,7 @@ const passwordInput = document.querySelector("#loginMain #password");
 const updateStatus = document.createElement("p");
 loginMain.appendChild(updateStatus);
 loginButton.addEventListener("click", () => login());
-passwordInput.addEventListener("keydown", (event) =>  {
-    if(event.key === "Enter"){
-        login();
-    }
-})
+passwordInput.addEventListener("keydown", (event) =>  { if(event.key === "Enter"){ login() }})
 async function login(){
     const username = document.querySelector("#loginMain #username").value;
     const password = document.querySelector("#loginMain #password").value;
@@ -126,7 +119,7 @@ async function login(){
             password: password
         })
     }
-    const response = await fetch(websiteURL + "/login", options);
+    const response = await fetch("http://localhost:8000/login", options);
     console.log(response)
     if (response.status === 200){
         updateStatus.textContent = "Login was successfull"
@@ -168,7 +161,7 @@ async function register() {
         status.textContent = "Passwords do not match!";
         return;
     }
-    const req = new Request(`${websiteURL}/register`, {
+    const req = new Request("http://localhost:8000/register", {
         method: "POST",
         body: JSON.stringify({username: username.value, password: password.value, email: email.value}),
         headers: {"content-type": "application/json"}
@@ -199,16 +192,12 @@ const neoPexelsAPIKey = `sQLMQfpcJkVFD8dbejB6VqtaMkmnv7rIyaHrR45W2tOG5UWyaAeR4wf
 const quizCategoriesArray = ["Knowledge", "Movies", "Music"]
 quizCategoriesArray.forEach(category => {
     fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=1`, {
-      headers: {
-        Authorization: siggePexelsAPIKey
-      }
+      headers: { Authorization: siggePexelsAPIKey }
     })
     .then(response => response.json())
     .then(data => {
         const photo = data.photos[0];
         console.log(category, "pexel", data);
-    
-        // Skapa ett ID som matchar t.ex. "quizMusic", "quizMovie", etc.
         const elementId = `quiz${category}`;
         const element = document.getElementById(elementId);
 
@@ -241,7 +230,7 @@ function quizCategoryPages(quiz) {
             hidePages();
             quizPlayMain.style.display = "block";
     
-        fetch(`${websiteURL}/quiz/create`, {
+        fetch("http://localhost:8000/quiz/create", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ difficulty: difficultyChosen, category: quizID }),
@@ -256,28 +245,6 @@ function quizCategoryPages(quiz) {
             });
     })
 }
-/* 
-document.getElementById("playQuizButton").addEventListener("click", async function() {
-    const difficultyChosen = document.getElementById("chooseDifficultyDropdown").value;
-        console.log("difficulty:",difficultyChosen)
-
-        hidePages();
-        quizPlayMain.style.display = "block";
-
-    fetch(`${websiteURL}/quiz/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ difficulty: difficultyChosen, category: 11 }),
-        })
-        .then(response => response.json())
-        .then(async function(data) {
-            if (data != "Bad Request") {
-                await startQuiz(data, difficultyChosen);
-            } else {
-                document.getElementById("quizQuestion").textContent = "oops, something went wrong!"
-            }
-        });
-}) */
 
 async function startQuiz(questions, difficultyChosen) {
     console.log("Quiz started:",questions);
@@ -331,7 +298,7 @@ async function startQuiz(questions, difficultyChosen) {
                         quizResultMain.style.display = "block";
                         if (loggedInUser) {
                             console.log(loggedInUser);
-                            fetch(`${websiteURL}/user/${loggedInUser.id}/score`, {
+                            fetch(`http://localhost:8000/user/${loggedInUser.id}/score`, {
                                 method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ difficulty: difficultyChosen, correct: correctAnswers, answered: 10 })
                             })
                             .then(response => response.json())
@@ -491,7 +458,7 @@ async function showProfile() {
         });
 
         submit.addEventListener("click", async () => {
-            let req = new Request(`${websiteURL}/settings/changePassword`, {
+            let req = new Request(`http://localhost:8000/settings/changePassword`, {
                 method: "PATCH",
                 body: JSON.stringify({username: loggedInUser.username, password: oldPwd.value, newPassword: newPwd.value}),
                 headers: {"content-type": "application/json"}
@@ -551,7 +518,7 @@ async function showProfile() {
                 document.querySelector("#delete-status").textContent = "You can't delete someone elses account!";
                 return;
             }
-            let req = new Request(`${websiteURL}/settings/deleteAccount`, {
+            let req = new Request(`http://localhost:8000/settings/deleteAccount`, {
                 method: "DELETE",
                 body: JSON.stringify({username: username.value, password: password.value, repeatPassword: repeatPassword.value}),
                 headers: {"content-type": "application/json"}
@@ -597,7 +564,7 @@ async function profilePicPicker() {
         `;
         imageOptions.appendChild(div);
         div.addEventListener("click", async () => {
-            let req = new Request(`${websiteURL}/user/${loggedInUser.id}/profilePic`, {
+            let req = new Request(`http://localhost:8000/user/${loggedInUser.id}/profilePic`, {
                 method: "PATCH",
                 body: JSON.stringify({profilePic: div.children[0].src}),
                 headers: {"content-type": "application/json"}
