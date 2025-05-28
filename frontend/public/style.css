@@ -283,7 +283,7 @@ h2 {
   font-size: 14px;
 }
 
-/* Profile Page */
+/* -- Profile Page -- */
 #image-options {
   border: 2px solid white;
   height: 200px;
@@ -354,12 +354,12 @@ h2 {
 
 .profileButton {
   padding: 10px;
-  background-color: red;
+  background-color: #D9534F;
   border-radius: 10px;
 }
 
 .profileButton:hover {
-  background-color: tomato;
+  background-color: #e48784;
   transform: scale(1.05);
   cursor: pointer;
 }
