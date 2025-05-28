@@ -388,7 +388,6 @@ function loggedIn (){
     profilButton.textContent = "Profile"
     profilButton.addEventListener("click", showProfile);
 }
-// Register
 
 //Profile
 async function showProfile() {

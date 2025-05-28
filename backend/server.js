@@ -127,7 +127,7 @@ async function handler(request){
                             correct: 0,
                             answered: 0,
                         }
-                    },
+                    }
                 }
                 data.users.push(user);
                 Deno.writeTextFileSync("backend/database.json", JSON.stringify(data));
