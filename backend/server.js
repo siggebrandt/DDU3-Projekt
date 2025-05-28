@@ -18,6 +18,9 @@ async function handler(request){
     if(request.method === "OPTIONS") { return new Response(null, { status: 204, headers: headersCORS })};
 
     if(request.method === "GET"){
+        if(url.pathname === "/favicon.ico"){
+            return await serveFile(request, "frontend/public/favicon.ico");
+        }
         /* Webbsidor */
         if(url.pathname === "/"){
             return await serveFile(request, "frontend/public/index.html");
@@ -152,7 +155,6 @@ async function handler(request){
             }
         }
     }
-
     if (request.method === "PATCH") {
         const body = await request.json();
         if (request.headers.get("content-type") !== "application/json") {
@@ -252,6 +254,5 @@ async function handler(request){
         }
     }
     return new Response(JSON.stringify(JSON.stringify("Bad Request")), { status: 400, headers: headersCORS })
-
 }
 Deno.serve(handler);
