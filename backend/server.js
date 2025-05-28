@@ -187,9 +187,7 @@ async function handler(request){
         const userMatch = userRoute.exec(request.url);
         if(userMatch){
             const requestId = userMatch.pathname.groups.id;
-            console.log(requestId)
             let user = data.users.find(user => user.id == requestId);
-            console.log(user)
             if(user){
                 if(body.difficulty && body.correct && body.answered){
                     let difficulty = body.difficulty;
