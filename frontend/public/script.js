@@ -366,7 +366,7 @@ async function createLeaderboard() {
     <h1>Leaderboard - Score based on success rate</h1>
     <h3>Higher opacity = higher score</h3>
     <div class="user"
-        <h4>Users</h4>
+        <b><h4>Users</h4></b>
         <div class="userScores">
               <p>Easy</p>
               <p>Medium</p>
@@ -577,7 +577,7 @@ async function showProfile() {
 
 async function profilePicPicker() {
     profilePicOverlay.style.display = "flex";
-    let themes = ["tiger", "parrot", "dog", "snail", "koala", "giraffe", "cat", "turtle", "penguin"];
+    let themes = ["tiger", "parrot", "dog", "snail", "koala", "giraffe", "cat", "turtle", "penguin", "lion", "frog", "toad"];
     let num = Math.floor(Math.random() * themes.length);
     let req = new Request(`https://api.pexels.com/v1/search?query=${themes[num]}&per_page=5`, {
         headers: {"Authorization": neoPexelsAPIKey}
