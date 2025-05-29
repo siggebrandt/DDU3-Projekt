@@ -208,7 +208,6 @@ quizCategoriesArray.forEach((category) => {
     .then((response) => response.json())
     .then((data) => {
       const photo = data.photos[0];
-      console.log(category, "pexel", data);
       const elementId = `quiz${category}`;
       const element = document.getElementById(elementId);
 
@@ -347,6 +346,7 @@ async function startQuiz(questions, difficultyChosen) {
                 .addEventListener("click", function () {
                   hidePages();
                   homepageMain.style.display = "block";
+                  quizProgressDOM.textContent = "";
                 });
             }
           }, 1250);
@@ -437,7 +437,7 @@ async function showProfile() {
     </div>
     <h1>${loggedInUser.username}</h1>
     <h2>Your stats</h2>
-    <div id="profile-stats">
+    <div id="profile-stats" class="flexContainer">
         <ul>
             <h3>Easy</h3>
             <li><b>Correct: </b>${userStats["easy"].correct}</li>
@@ -454,7 +454,7 @@ async function showProfile() {
             <li><b>Answered: </b>${userStats["hard"].answered}</li>
         </ul>
     </div>
-    <div id="profileManagement">
+    <div id="profileManagement" class="flexContainer">
         <button class="profileButton" id="deleteAccount">Delete Account</button>
         <button class="profileButton" id="changePassword">Change Password</button>
         <button class="profileButton" id="logOut">Log Out</button>
