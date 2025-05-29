@@ -57,7 +57,6 @@ class User {
     console.log(resp);
     if (resp.ok) {
       let reso = await resp.json();
-      console.log("reso", reso);
       return reso.score;
     }
   }
