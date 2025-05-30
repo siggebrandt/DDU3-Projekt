@@ -1,37 +1,37 @@
 body {
-    background-color: #CFE1B9;
+  background-color: #cfe1b9;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 1000px;
-    align-items: center;
-    margin: auto;
-    font-family: Helvetica;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 1000px;
+  align-items: center;
+  margin: auto;
+  font-family: Helvetica;
+  text-align: center;
 }
 
 main div {
-    width: 400px;
-    border: 2px solid black;
-    border-radius: 10px;
-    background-color: white;
+  width: 400px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
 }
 
 main div h2 {
-    border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .fail {
-    background-color: tomato;
+  background-color: tomato;
 }
 
 .status {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .success {
-    background-color: lime;
+  background-color: lime;
 }
