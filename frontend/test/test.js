@@ -1,4 +1,3 @@
-//import { jsx } from "react/jsx-runtime";
 
 async function tester() {
   let servStatus = await serverStatus();

@@ -80,8 +80,6 @@ h2 {
 .quizBox {
   width: 300px;
   height: 300px;
-  /*   display: flex;
- */
   justify-content: center;
   align-items: center;
   background-color: #b2b7ac36;
@@ -98,44 +96,21 @@ h2 {
     -1px -1px #000, 1px -1px #000, -1px 1px #000;
   cursor: pointer;
 }
-/* #logo {
-  display: flex;
-  justify-content: center;
-} */
 #logo h1 {
   width: fit-content;
-  background-color: #718355 /*rgb(243, 246, 159)*/;
+  background-color: #718355;
   padding: 30px;
   border-radius: 5px;
   color: white;
   cursor: pointer;
 }
-/* #getStarted {
-  display: flex;
-  justify-content: space-between;
-}
-#getStarted h2 {
-  padding: 100px 0;
-  text-align: center;
-  border-radius: 5px;
-  background-color: rgb(181, 215, 181);
-  width: 400px;
-  font-size: 36px;
-} */
-
 /* -- Leaderboard -- */
 #leaderboardMain {
   background-color: #b5c99a;
   padding: 50px;
-  /*   display: flex;
- */ /* flex-direction: column; */
   border-radius: 5px;
   height: max-content;
 }
-/* #leaderboardMain h1,
-#leaderboardMain h3 {
-  text-align: center;
-} */
 .scoreCircle,
 .scoreCircle div {
   height: 20px;
@@ -232,9 +207,6 @@ h2 {
   color: rgb(65, 83, 65);
   margin: auto;
   margin-top: 25px;
-  /*   display: flex;
- */ /* align-items: center;
-  text-align: center; */
   font-size: 16px;
 }
 
@@ -258,17 +230,11 @@ h2 {
 #registerMain {
   background-color: #b5c99a;
   padding: 50px;
-  /*   display: flex;
-  flex-direction: column; */
   border-radius: 5px;
 }
 .input-row {
-  /*   display: flex;
- */
   max-width: 300px;
   margin: 10px 0;
-  /*   align-items: center;
- */
 }
 .input {
   flex-grow: 1;
@@ -296,8 +262,6 @@ h2 {
   height: 200px;
   width: 800px;
   background-color: white;
-  /*   display: flex;
- */
   gap: 10px;
 }
 
@@ -381,8 +345,6 @@ h2 {
 }
 
 #profileManagement {
-  /*   display: flex;
- */
   gap: 20px;
 }
 
@@ -417,6 +379,5 @@ h2 {
 }
 
 #profile-stats {
-  /*   display: flex; */
   gap: 30px;
 }
