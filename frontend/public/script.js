@@ -87,6 +87,7 @@ function hidePages() {
   profilePicOverlay.style.display = "none";
   changeOverlay.style.display = "none";
   deleteOverlay.style.display = "none";
+  updateMainWhenLoggedIn();
 }
 hidePages();
 homepageMain.style.display = "block";
@@ -197,7 +198,17 @@ async function register() {
   }
 }
 
-// Home Page Quiz Images
+// Home Page
+function updateMainWhenLoggedIn(){
+    const homeH2 = document.querySelector("#homepageTitle");
+
+    if(loggedInUser){
+        homeH2.textContent = `Welcome to QuizSite ${loggedInUser.username}!`;
+    }
+    if (loggedInUser === null) {
+        homeH2.textContent = `Welcome to QuizSite!`;
+    }
+}
 const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
 
 const quizCategoriesArray = ["Knowledge", "Movies", "Music"];
@@ -589,7 +600,6 @@ async function showProfile() {
     });
 }
 
-//
 const neoPexelsAPIKey = `sQLMQfpcJkVFD8dbejB6VqtaMkmnv7rIyaHrR45W2tOG5UWyaAeR4wfe`;
 
 async function profilePicPicker() {
@@ -651,10 +661,10 @@ async function profilePicPicker() {
 }
 
 async function logOut() {
+  loggedInUser = null;
   hidePages();
   homepageMain.style.display = "block";
   loginButtonNav.style.display = "inline";
   registerButtonNav.style.display = "inline";
   document.querySelector("#profileButton").remove();
-  loggedInUser = null;
 }
