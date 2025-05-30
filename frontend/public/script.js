@@ -54,7 +54,6 @@ class User {
   async getUserStats() {
     let req = new Request(`http://localhost:8000/user/${this.id}`);
     let resp = await fetch(req);
-    console.log(resp);
     if (resp.ok) {
       let reso = await resp.json();
       return reso.score;
@@ -128,7 +127,6 @@ async function login() {
     }),
   };
   const response = await fetch("http://localhost:8000/login", options);
-  console.log(response);
   if (response.status === 200) {
     updateStatus.textContent = "Login was successfull";
     let resource = await response.json();
@@ -199,15 +197,15 @@ async function register() {
 }
 
 // Home Page
-function updateMainWhenLoggedIn(){
-    const homeH2 = document.querySelector("#homepageTitle");
+function updateMainWhenLoggedIn() {
+  const homeH2 = document.querySelector("#homepageTitle");
 
-    if(loggedInUser){
-        homeH2.textContent = `Welcome to QuizSite ${loggedInUser.username}!`;
-    }
-    if (loggedInUser === null) {
-        homeH2.textContent = `Welcome to QuizSite!`;
-    }
+  if (loggedInUser) {
+    homeH2.textContent = `Welcome to QuizSite ${loggedInUser.username}!`;
+  }
+  if (loggedInUser === null) {
+    homeH2.textContent = `Welcome to QuizSite!`;
+  }
 }
 const siggePexelsAPIKey = `cXn9wuBWnFORyTJfxStIcrw8IouzHJjzXmR6XhQZ8FJl0HNOlZJe0pzb`;
 
@@ -628,7 +626,6 @@ async function profilePicPicker() {
   let resp = await fetch(req);
   let reso = await resp.json();
   if (!resp.ok) {
-    console.log("ajdå");
     return;
   }
   let imageOptions = document.querySelector("#image-options");
@@ -650,7 +647,6 @@ async function profilePicPicker() {
       );
       let resp = await fetch(req);
       if (resp.status !== 200) {
-        console.log("something broke");
         return;
       }
       loggedInUser.profilePic = div.children[0].src;
