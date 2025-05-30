@@ -476,7 +476,7 @@ async function showProfile() {
       submit.classList.add("submit");
       let status = document.createElement("p");
       status.id = "change-status";
-      status.textContent = "...";
+      status.textContent = "";
       let back = document.createElement("button");
       back.id = "change-back";
       back.textContent = "Go Back";
@@ -489,7 +489,7 @@ async function showProfile() {
       back.addEventListener("click", () => {
         oldPwd.value = "";
         newPwd.value = "";
-        document.querySelector("#change-status").textContent = "...";
+        document.querySelector("#change-status").textContent = "";
         changeOverlay.style.display = "none";
       });
 
@@ -511,7 +511,7 @@ async function showProfile() {
           oldPwd.value = "";
           newPwd.value = "";
           setTimeout(() => {
-            document.querySelector("#change-status").textContent = "...";
+            document.querySelector("#change-status").textContent = "";
             changeOverlay.style.display = "none";
           }, 1500);
         } else {
@@ -533,7 +533,7 @@ async function showProfile() {
       submit.classList.add("submit");
       let status = document.createElement("p");
       status.id = "delete-status";
-      status.textContent = "...";
+      status.textContent = "";
       let back = document.createElement("button");
       back.id = "delete-back";
       back.textContent = "Go Back";
@@ -551,7 +551,7 @@ async function showProfile() {
         username.value = "";
         password.value = "";
         repeatPassword.value = "";
-        document.querySelector("#delete-status").textContent = "...";
+        document.querySelector("#delete-status").textContent = "";
         deleteOverlay.style.display = "none";
       });
 
