@@ -5,9 +5,9 @@
       "username": "test",
       "password": "test",
       "score": {
-        "easy": { "correct": 14, "answered": 20 },
-        "medium": { "correct": 9, "answered": 20 },
-        "hard": { "correct": 5, "answered": 10 }
+        "easy": { "correct": 0, "answered": 0 },
+        "medium": { "correct": 0, "answered": 0 },
+        "hard": { "correct": 0, "answered": 0 }
       },
       "profilePic": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?auto=compress&cs=tinysrgb&h=350"
     },
@@ -18,8 +18,8 @@
       "email": "neo@mail.com",
       "profilePic": "https://images.pexels.com/photos/97533/pexels-photo-97533.jpeg?auto=compress&cs=tinysrgb&h=350",
       "score": {
-        "easy": { "correct": 8, "answered": 20 },
-        "medium": { "correct": 5, "answered": 10 },
+        "easy": { "correct": 0, "answered": 0 },
+        "medium": { "correct": 0, "answered": 0 },
         "hard": { "correct": 0, "answered": 0 }
       }
     }
