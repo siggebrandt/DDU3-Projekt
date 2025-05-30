@@ -6,7 +6,6 @@ export async function handlePATCH(request, url, data, headersCORS) {
       headers: headersCORS,
     });
   }
-  // User Settings
   if (url.pathname === "/settings/changePassword") {
     if (!body.username || !body.password || !body.newPassword) {
       return new Response(JSON.stringify("Bad request, Attributes missing"), {

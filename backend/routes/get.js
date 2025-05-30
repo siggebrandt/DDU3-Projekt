@@ -1,7 +1,6 @@
 import { serveFile } from "jsr:@std/http";
 
 export async function handleGET(request, url, data, headersCORS) {
-  // Filer
   if (url.pathname === "/favicon.ico") {
     return await serveFile(request, "frontend/public/favicon.ico");
   }
@@ -15,7 +14,6 @@ export async function handleGET(request, url, data, headersCORS) {
     return await serveFile(request, "frontend/public/style.css");
   }
 
-  // User
   if (url.pathname === "/users") {
     return new Response(JSON.stringify(data.users), { headers: headersCORS }); // array av alla användare
   }
@@ -34,7 +32,6 @@ export async function handleGET(request, url, data, headersCORS) {
     }
   }
 
-  // Quiz
   if (url.pathname === "/quiz/all") {
     return new Response(JSON.stringify(data.quiz), { headers: headersCORS });
   }
